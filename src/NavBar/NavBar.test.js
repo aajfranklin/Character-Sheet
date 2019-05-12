@@ -8,20 +8,20 @@ const expect = chai.expect;
 
 describe('On rendering the nav bar', () => {
 
-    it('generates nav bar items from passed in prop', () => {
+    it('generates nav bar items from passed in pages prop', () => {
 
-        const navBarItems = [
-          'item1',
-          'item2',
-          'item3'
+        const testPages = [
+          'page1',
+          'page2',
+          'page3'
         ];
 
         Enzyme.configure({ adapter: new Adapter() });
-        const wrapper = mount(<NavBar items={navBarItems}/>);
-        expect(wrapper.find('li').length).equals(wrapper.prop('items').length);
+        const wrapper = mount(<NavBar pages={testPages}/>);
+        expect(wrapper.find('li').length).equals(wrapper.prop('pages').length);
 
-        for (let i = 0; i < navBarItems.length; i++) {
-            expect(wrapper.text().includes(wrapper.prop('items')[0])).equals(true);
+        for (let i = 0; i < testPages.length; i++) {
+            expect(wrapper.text().includes(wrapper.prop('pages')[0])).equals(true);
         }
     });
 

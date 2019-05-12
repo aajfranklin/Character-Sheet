@@ -4,7 +4,7 @@ import NavBar from './NavBar/NavBar';
 function App(initialState) {
     return (
         <div className="App">
-            <NavBar items={initialState.navBarItems}/>
+            <NavBar pages={initialState.pages}/>
         </div>
     );
 }

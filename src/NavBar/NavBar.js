@@ -1,20 +1,25 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Ki from '../Pages/Ki.js';
 
-function NavBar({items}) {
+function NavBar({pages}) {
     return(
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    {items.map((item) => {
-                        return (
-                            <li className="nav-item" key={item}>
-                                <a className="nav-link" href="#">{item}</a>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
-        </nav>
+        <Router>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                        {pages.map((page) => {
+                            return (
+                                <li className="nav-item" key={page}>
+                                    <Link className="nav-link" to={"/" + page}>{page}</Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </nav>
+            <Route path="/Ki" exact component={Ki} />
+        </Router>
     );
 }
 

@@ -4,7 +4,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const state = {
-    navBarItems: [
+    pages: [
         "Stats",
         "Rolls",
         "Abilities",

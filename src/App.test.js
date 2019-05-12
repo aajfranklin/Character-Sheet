@@ -10,7 +10,7 @@ const expect = chai.expect;
 describe('On loading the home page', () => {
 
     const testState = {
-        navBarItems: ["item1"]
+        pages: ["page1"]
     };
 
     it('renders without crashing', () => {
