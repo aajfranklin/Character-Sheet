@@ -8,10 +8,7 @@ function NavBar({pages}) {
         <Router>
             <nav>
                 {pages.map((page) => {
-                    return (
-                        <Link className="nav-item" key={page} to={"/" + page}>{page}</Link>
-
-                    );
+                    return (<Link className="nav-item" key={page} to={"/" + page}>{page}</Link>);
                 })}
             </nav>
             <Route path="/Ki" exact component={Ki} />
