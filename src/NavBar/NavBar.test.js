@@ -1,24 +1,28 @@
 import React from 'react';
 import NavBar from './NavBar';
-import * as chai from "chai";
-import Enzyme, { shallow } from 'enzyme';
+import * as chai from 'chai';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 const expect = chai.expect;
 
 describe('On rendering the nav bar', () => {
 
-    it('includes 6 navigation options', () => {
-        Enzyme.configure({ adapter: new Adapter() });
-        const wrapper = shallow(<NavBar />);
+    it('generates nav bar items from passed in prop', () => {
 
-        expect(wrapper.find('li').length).equals(6);
-        expect(wrapper.text().includes('Stats')).equals(true);
-        expect(wrapper.text().includes('Rolls')).equals(true);
-        expect(wrapper.text().includes('Abilities')).equals(true);
-        expect(wrapper.text().includes('Ki')).equals(true);
-        expect(wrapper.text().includes('Lore')).equals(true);
-        expect(wrapper.text().includes('Map')).equals(true);
+        const navBarItems = [
+          'item1',
+          'item2',
+          'item3'
+        ];
+
+        Enzyme.configure({ adapter: new Adapter() });
+        const wrapper = mount(<NavBar items={navBarItems}/>);
+        expect(wrapper.find('li').length).equals(wrapper.prop('items').length);
+
+        for (let i = 0; i < navBarItems.length; i++) {
+            expect(wrapper.text().includes(wrapper.prop('items')[0])).equals(true);
+        }
     });
 
 });
