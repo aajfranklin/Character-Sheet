@@ -18,7 +18,7 @@ describe('On rendering the nav bar', () => {
 
         Enzyme.configure({ adapter: new Adapter() });
         const wrapper = mount(<NavBar pages={testPages}/>);
-        expect(wrapper.find('li').length).equals(wrapper.prop('pages').length);
+        expect(wrapper.find('Link').length).equals(wrapper.prop('pages').length);
 
         for (let i = 0; i < testPages.length; i++) {
             expect(wrapper.text().includes(wrapper.prop('pages')[0])).equals(true);

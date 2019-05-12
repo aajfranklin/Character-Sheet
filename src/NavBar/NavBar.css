@@ -1,0 +1,22 @@
+nav {
+    background-color: black;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    overflow: auto;
+    height: 3em;
+}
+
+.nav-item {
+    padding: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    width: 5%;
+}
+
+.nav-item:hover {
+    background-color: cadetblue;
+}
