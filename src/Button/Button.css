@@ -1,0 +1,19 @@
+.button {
+    border-radius: 0.5em;
+    background: lightslategray;
+    color: white;
+    padding: 0.6em 1em 0.6em;
+    margin: 0 0.5em 0;
+    font-weight: bold;
+    box-shadow: 0 0.2em 0 darkslategray;
+    user-select: none;
+}
+
+.button:hover {
+    background: cadetblue;
+}
+
+.button:active {
+    transform: translate(0, 0.1em);
+    box-shadow: 0 0.1em 0 darkslategray;
+}

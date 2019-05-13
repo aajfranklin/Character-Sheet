@@ -3,7 +3,6 @@ import Ki from './Ki';
 import * as chai from 'chai';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import NavBar from "../NavBar/NavBar";
 
 const expect = chai.expect;
 
@@ -21,9 +20,18 @@ describe('On rendering the Ki page', () => {
         expect(wrapper.find('h1').text()).equals('Ki');
     });
 
-    it('displays dummy data', () => {
+    it('displays ability table labels once', () => {
         expect(wrapper.find('.labels').length).equals(1);
+    });
+
+    it('displays one row per ability in the dummy data', () => {
         expect(wrapper.find('.entries').length).equals(3);
-    })
+    });
+
+    it('contains 2 action buttons', () => {
+       expect(wrapper.find('Button').length).equals(2);
+       expect(wrapper.find('Button').at(0).text()).contains('ADD ABILITY');
+       expect(wrapper.find('Button').at(1).text()).contains('MEDITATE');
+    });
 
 });

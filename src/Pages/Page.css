@@ -3,18 +3,43 @@
 }
 
 h1 {
-    padding-left: 1em;
+    min-width: 5vw;
+    padding: 0 0.5em;
+    text-align: center;
+}
+
+.title-area {
+    width: 100%;
+}
+
+.title-area > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+[class*="title-half-"] {
+    width: 50%;
+    vertical-align: middle;
+}
+
+[class*="title-half-"] > * {
+    display: inline-block;
+}
+
+.title-half-right {
+    direction: rtl;
 }
 
 .row {
     width: 100%;
     display: table;
-    padding: 0.5em;
+    padding: 0.5em 0 0.5em;
 }
 
 .labels {
     background: darkslategray;
     color: white;
+    font-weight: bold;
 }
 
 .entries {
@@ -42,3 +67,7 @@ h1 {
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
+
+.effect {
+    text-align: left;
+}
