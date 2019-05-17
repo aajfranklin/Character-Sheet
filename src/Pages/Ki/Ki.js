@@ -13,6 +13,10 @@ function Ki() {
             setShowAbilityForm(true)
     };
 
+    const meditate = () => {
+
+    };
+
     return(
         <div>
             <div className='title-area'>
@@ -62,10 +66,6 @@ function Ki() {
         </div>
     );
 }
-
-export const meditate = () => {
-
-};
 
 export default Ki;
 
