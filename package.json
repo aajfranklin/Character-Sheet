@@ -30,9 +30,7 @@
     ]
   },
   "devDependencies": {
-    "chai": "^4.2.0",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.0",
-    "sinon": "^7.3.2"
+    "enzyme-adapter-react-16": "^1.13.0"
   }
 }

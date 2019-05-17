@@ -1,16 +1,12 @@
 import React from 'react';
 
-function Button({clickHandler, label, icon, isLeftToRight}) {
-
-    const iconElement = <i key='icon' className={icon}/>;
+function Button({clickHandler, label, icon, buttonStyle}) {
 
     return(
-        <div className='button' onClick={() => {clickHandler()}}>
-            {isLeftToRight ?
-                [iconElement, ' ', label] :
-                [label, ' ', iconElement]
-            }
-        </div>
+        <button className={'button ' + buttonStyle} onClick={() => {clickHandler()}}
+            onMouseDown={(e) => {e.preventDefault()}}>
+            <i key='icon' className={icon}/> {label}
+        </button>
     );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Ki from '../Pages/Ki.js';
+import Ki from '../Pages/Ki/Ki.js';
 import './NavBar.css';
 
 function NavBar({pages}) {

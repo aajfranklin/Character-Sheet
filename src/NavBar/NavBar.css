@@ -13,6 +13,7 @@ nav {
     text-decoration: none;
     text-align: center;
     width: 5vw;
+    min-width: fit-content;
 }
 
 .nav-item:hover {
