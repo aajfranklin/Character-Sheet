@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 describe('App', () => {
@@ -9,8 +9,15 @@ describe('App', () => {
     describe('On loading the home page', () => {
 
         const testState = {
-            pages: ['page1']
+            pages: ['page1', 'page2', 'page3']
         };
+
+        let wrapper;
+
+        beforeAll(() => {
+            Enzyme.configure({adapter: new Adapter()});
+            wrapper = shallow(<App {...testState}/>);
+        });
 
         it('renders without crashing', () => {
             const div = document.createElement('div');
@@ -19,11 +26,17 @@ describe('App', () => {
         });
 
         it('renders the nav bar', () => {
-            Enzyme.configure({adapter: new Adapter()});
-            const wrapper = shallow(<App {...testState}/>);
+            expect(wrapper.find('nav').length).toBe(1);
+        });
 
-            expect(wrapper.find('NavBar').length).toBe(1);
-        })
+        it('generates nav bar items from passed in pages prop', () => {
+
+            expect(wrapper.find('Link').length).toBe(testState.pages.length);
+
+            for (let i = 0; i < testState.pages.length; i++) {
+                expect(wrapper.find('Link').at(i).key()).toBe(testState.pages[i]);
+            }
+        });
 
     });
 

@@ -17,8 +17,7 @@ describe('Button', () => {
         });
 
         it('has the correct label', () => {
-            console.log(wrapper.find('.button').text());
-            expect(wrapper.find('.button').text()).toBe(' testButton');
+            expect(wrapper.find('button').text()).toBe(' testButton');
         });
 
         it('has the correct icon', () => {
@@ -28,7 +27,7 @@ describe('Button', () => {
         describe('when the button is clicked', () => {
 
             it('calls the passed in clickHandler function', () => {
-                wrapper.find('.button').at(0).simulate('click');
+                wrapper.find('button').at(0).simulate('click');
                 expect(mockFunction).toHaveBeenCalledTimes(1);
             });
 
