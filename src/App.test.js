@@ -9,7 +9,7 @@ describe('App', () => {
     describe('On loading the home page', () => {
 
         const testState = {
-            pages: ["page1"]
+            pages: ['page1']
         };
 
         it('renders without crashing', () => {

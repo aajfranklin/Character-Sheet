@@ -1,10 +1,17 @@
 import React from 'react';
-import NavBar from './NavBar/NavBar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import NavBar from './NavBar/NavBar.js'
+import Ki from './Pages/Ki/Ki.js';
 
 function App(initialState) {
     return (
-        <div className="App">
-            <NavBar pages={initialState.pages}/>
+        <div className='App'>
+            <Router>
+                <NavBar pages={initialState.pages}/>
+                <main>
+                    <Route path='/Ki' component={Ki} />
+                </main>
+            </Router>
         </div>
     );
 }

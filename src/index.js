@@ -5,12 +5,12 @@ import './index.css';
 
 const state = {
     pages: [
-        "Stats",
-        "Rolls",
-        "Abilities",
-        "Ki",
-        "Lore",
-        "Map"
+        'Stats',
+        'Weapons',
+        'Abilities',
+        'Ki',
+        'Lore',
+        'Map'
     ],
 };
 
