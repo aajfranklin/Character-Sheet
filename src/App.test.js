@@ -1,41 +1,66 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Enzyme, { shallow} from 'enzyme';
+import Enzyme, { mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as Redux from 'redux';
+import * as ReactRedux from 'react-redux';
+
+const testPages = ['page1', 'page2', 'page3']
+
+let store = Redux.createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+function reducer(state = { pages: testPages }) {
+    return state;
+}
 
 describe('App', () => {
 
     describe('On loading the home page', () => {
 
-        const testState = {
-            pages: ['page1', 'page2', 'page3']
-        };
+        describe('when testing ReactDom directly', () => {
 
-        let wrapper;
+            it('renders without crashing', () => {
+                const div = document.createElement('div');
+                ReactDOM.render(
+                    <ReactRedux.Provider store={store}>
+                        <App/>
+                    </ReactRedux.Provider>,
+                    div
+                );
+                ReactDOM.unmountComponentAtNode(div);
+            });
 
-        beforeAll(() => {
-            Enzyme.configure({adapter: new Adapter()});
-            wrapper = shallow(<App {...testState}/>);
         });
 
-        it('renders without crashing', () => {
-            const div = document.createElement('div');
-            ReactDOM.render(<App {...testState}/>, div);
-            ReactDOM.unmountComponentAtNode(div);
-        });
+        describe('when testing with Enzyme', () => {
 
-        it('renders the nav bar', () => {
-            expect(wrapper.find('nav').length).toBe(1);
-        });
+            let wrapper;
 
-        it('generates nav bar items from passed in pages prop', () => {
+            beforeAll(() => {
+                Enzyme.configure({adapter: new Adapter()});
+                wrapper = mount(
+                    <ReactRedux.Provider store={store}>
+                        <App/>
+                    </ReactRedux.Provider>);
+            });
 
-            expect(wrapper.find('Link').length).toBe(testState.pages.length);
+            it('renders the nav bar', () => {
+                expect(wrapper.find('nav').length).toBe(1);
+            });
 
-            for (let i = 0; i < testState.pages.length; i++) {
-                expect(wrapper.find('Link').at(i).key()).toBe(testState.pages[i]);
-            }
+            it('generates nav bar items from passed in pages prop', () => {
+
+                expect(wrapper.find('Link').length).toBe(testPages.length);
+
+                for (let i = 0; i < testPages.length; i++) {
+                    expect(wrapper.find('Link').at(i).key()).toBe(testPages[i]);
+                }
+            });
+
         });
 
     });
