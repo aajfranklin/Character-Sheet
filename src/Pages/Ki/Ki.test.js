@@ -1,7 +1,45 @@
 import React from 'react';
-import Ki from './Ki';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as Redux from 'redux';
+import * as ReactRedux from 'react-redux';
+import Ki from './Ki';
+
+const testAbilities = [
+    {
+        index: 0,
+        name: 'dummyName1',
+        cost: '1',
+        damage: '1',
+        saving: '1',
+        effect: 'effect',
+    },
+    {
+        index: 1,
+        name: 'dummyName2',
+        cost: '1',
+        damage: '1',
+        saving: '1',
+        effect: 'effect',
+    },
+    {
+        index: 2,
+        name: 'dummyName3',
+        cost: '1',
+        damage: '1',
+        saving: '1',
+        effect: 'effect',
+    }
+];
+
+let store = Redux.createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+function reducer(state = { kiAbilities: testAbilities}) {
+    return state;
+}
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -12,7 +50,11 @@ describe('Ki', () => {
         let wrapper;
 
         beforeAll(() => {
-            wrapper = mount(<Ki/>);
+            wrapper = mount(
+                <ReactRedux.Provider store={store}>
+                    <Ki/>
+                </ReactRedux.Provider>
+            );
         });
 
         it('displays the Ki heading', () => {
@@ -45,7 +87,11 @@ describe('Ki', () => {
         let wrapper;
 
         beforeAll(() => {
-            wrapper = mount(<Ki/>);
+            wrapper = mount(
+                <ReactRedux.Provider store={store}>
+                    <Ki/>
+                </ReactRedux.Provider>
+            );
             wrapper.find('Button').at(1).simulate('click');
         });
 
@@ -62,8 +108,11 @@ describe('Ki', () => {
         describe('when the user clicks submit', () => {
 
             beforeAll(() => {
-                wrapper = mount(<Ki/>);
-                wrapper.find('Button').at(1).simulate('click');
+                wrapper = mount(
+                    <ReactRedux.Provider store={store}>
+                        <Ki/>
+                    </ReactRedux.Provider>
+                );                wrapper.find('Button').at(1).simulate('click');
                 wrapper.find('Button').at(2).simulate('click');
             });
 
@@ -76,7 +125,11 @@ describe('Ki', () => {
         describe('when the user clicks cancel', () => {
 
             beforeAll(() => {
-                wrapper = mount(<Ki/>);
+                wrapper = mount(
+                    <ReactRedux.Provider store={store}>
+                        <Ki/>
+                    </ReactRedux.Provider>
+                );
                 wrapper.find('Button').at(1).simulate('click');
                 wrapper.find('Button').at(3).simulate('click');
             });

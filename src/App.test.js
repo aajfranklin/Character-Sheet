@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import Enzyme, { mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
+import App from './App';
 
-const testPages = ['page1', 'page2', 'page3']
+const testPages = ['page1', 'page2', 'page3'];
 
 let store = Redux.createStore(
     reducer,

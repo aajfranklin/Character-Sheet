@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from './Button';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import Button from './Button';
 
 describe('Button', () => {
 

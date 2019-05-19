@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Button from '../../Button/Button.js';
 import './Ki.css';
 import '../../Button/Button.css';
 
-function Ki() {
+function Ki({kiAbilities}) {
 
     const [showAbilityForm, setShowAbilityForm] = useState(false);
 
@@ -67,31 +68,10 @@ function Ki() {
     );
 }
 
-export default Ki;
-
-const kiAbilities = [
-    {
-        index: 0,
-        name: 'dummyName1',
-        cost: '1',
-        damage: '1d6',
-        saving: '1d6 + wis',
-        effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
-    },
-    {
-        index: 1,
-        name: 'dummyName2',
-        cost: '1',
-        damage: '1d6',
-        saving: '1d6 + wis',
-        effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
-    },
-    {
-        index: 2,
-        name: 'dummyName3',
-        cost: '1',
-        damage: '1d6',
-        saving: '1d6 + wis',
-        effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
+function mapStateToProps(state) {
+    return {
+        kiAbilities: state.kiAbilities
     }
-];
+}
+
+export default connect(mapStateToProps)(Ki);
