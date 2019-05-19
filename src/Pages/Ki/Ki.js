@@ -1,5 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
+import Ability from './Ability.js';
 import AbilityForm from './AbilityForm.js';
 import Button from '../../Button/Button.js';
 import './Ki.css';
@@ -36,16 +37,8 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                     <div className='col-5'>Effect</div>
                 </div>
                 {
-                    abilities.map((data) => {
-                        return(
-                            <div className='row entries' key={data.index}>
-                                <div className='col-2'>{data.name}</div>
-                                <div className='col-1'>{data.cost}</div>
-                                <div className='col-1'>{data.damage}</div>
-                                <div className='col-2'>{data.saving}</div>
-                                <div className='col-5 effect'>{data.effect}</div>
-                            </div>
-                        );
+                    abilities.map((attributes) => {
+                        return(<Ability attributes={attributes}/>);
                     })
                 }
             </div>
