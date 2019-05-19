@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
-import App from './App';
-import { initialState } from './model';
+import { initialState } from './model.js';
+import App from './App.js';
 import './index.css';
 
 let store = Redux.createStore(

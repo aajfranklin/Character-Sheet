@@ -1,8 +1,9 @@
 import React from 'react';
 import * as Redux from 'redux';
-import Ki from './Ki';
-import { testKiAbilities } from '../../utils/testState';
-import { mountInProvider } from "../../utils/testUtils";
+import { testKiAbilities } from '../../utils/testState.js';
+import { mountInProvider } from '../../utils/testUtils.js';
+import Ki from './Ki.js';
+
 
 let store = Redux.createStore(reducer);
 

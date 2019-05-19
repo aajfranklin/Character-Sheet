@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
-import App from './App';
 import { testPages } from './utils/testState';
-import { mountInProvider } from "./utils/testUtils";
+import { mountInProvider } from './utils/testUtils';
+import App from './App.js';
 
 let store = Redux.createStore(reducer);
 
