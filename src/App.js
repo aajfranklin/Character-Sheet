@@ -13,7 +13,7 @@ function App(initialState) {
                     })}
                 </nav>
                 <main>
-                    <Route path='/Ki' component={Ki} />
+                    <Route exact path='/Ki' component={Ki} />
                 </main>
             </Router>
         </div>
