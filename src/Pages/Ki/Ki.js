@@ -1,5 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
+import { TOGGLE_ABILITY_FORM } from "../../reducer/actionTypes";
 import Ability from './Ability.js';
 import AbilityForm from './AbilityForm.js';
 import Button from '../../Button/Button.js';
@@ -38,7 +39,7 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                 </div>
                 {
                     abilities.map((attributes) => {
-                        return(<Ability attributes={attributes}/>);
+                        return(<Ability key={attributes.name} attributes={attributes}/>);
                     })
                 }
             </div>
@@ -55,7 +56,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        toggleAbilityForm: () => dispatch({ type: 'TOGGLE_ABILITY_FORM' })
+        toggleAbilityForm: () => dispatch({ type: TOGGLE_ABILITY_FORM })
     }
 }
 

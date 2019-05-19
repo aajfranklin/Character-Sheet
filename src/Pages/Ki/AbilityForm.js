@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { TOGGLE_ABILITY_FORM } from "../../reducer/actionTypes";
 import Button from "../../Button/Button";
 
 function AbilityForm({toggleAbilityForm}) {
@@ -20,7 +21,7 @@ function AbilityForm({toggleAbilityForm}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        toggleAbilityForm: () => dispatch({ type: 'TOGGLE_ABILITY_FORM' })
+        toggleAbilityForm: () => dispatch({ type: TOGGLE_ABILITY_FORM })
     }
 }
 

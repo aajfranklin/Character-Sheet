@@ -2,7 +2,7 @@ import React from "react";
 
 function Ability({attributes}) {
     return(
-        <div className='row entries' key={attributes.index}>
+        <div className='row entries'>
             <div className='col-2'>{attributes.name}</div>
             <div className='col-1'>{attributes.cost}</div>
             <div className='col-1'>{attributes.damage}</div>
