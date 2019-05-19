@@ -20,4 +20,26 @@ describe('reducer', () => {
 
     });
 
+    it('should handle SUBMIT_NEW_ABILITY', () => {
+
+        const initialAbilityCount = initialState.ki.abilities.length;
+
+        const newAbility = {
+            name: 'name',
+            cost: 'cost',
+            damage: 'damage',
+            saving: 'saving',
+            effect: 'effect'
+        };
+
+        const newState = reducer({...initialState},
+            {type: types.SUBMIT_NEW_ABILITY,
+                ability: {...newAbility}
+            }
+        );
+        expect(newState.ki.abilities.length).toBe(initialAbilityCount + 1);
+        expect(newState.ki.abilities[initialAbilityCount]).toStrictEqual(newAbility);
+
+    });
+
 });
