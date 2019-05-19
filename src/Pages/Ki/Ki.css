@@ -58,11 +58,11 @@ input[type=text], select {
 }
 
 .entries {
-    background: lightsteelblue;
+    background: lightslategrey;
 }
 
 .entries:nth-child(even) {
-    background-color: lightslategray;
+    background-color: lightsteelblue;
 }
 
 [class*='col-'] {

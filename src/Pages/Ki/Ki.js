@@ -1,5 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
+import AbilityForm from './AbilityForm.js';
 import Button from '../../Button/Button.js';
 import './Ki.css';
 import '../../Button/Button.css';
@@ -23,39 +24,31 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                 </div>
             </div>
             {showAbilityForm ?
-                <form>
-                    <p>Name:<input type='text' name='name' /></p>
-                    <p>Cost:<input type='text' name='cost' /></p>
-                    <p>Damage:<input type='text' name='damage' /></p>
-                    <p>Saving Throw:<input type='text' name='saving' /></p>
-                    <p>Effect:<input className='tall' type='text' name='effect' /></p>
-                    <div className='button-group'>
-                        <Button clickHandler={toggleAbilityForm} label='SUBMIT' icon='fas fa-check-circle' buttonStyle='confirm'/>
-                        <Button clickHandler={toggleAbilityForm} label='CANCEL' icon='fas fa-times-circle' buttonStyle='cancel'/>
-                    </div>
-                </form>
+                <AbilityForm/>
                 : null
             }
-            <div className='row labels'>
-                <div className='col-2'>Name</div>
-                <div className='col-1'>Cost</div>
-                <div className='col-1'>Damage</div>
-                <div className='col-2'>Saving Throw</div>
-                <div className='col-5'>Effect</div>
+            <div>
+                <div className='row labels'>
+                    <div className='col-2'>Name</div>
+                    <div className='col-1'>Cost</div>
+                    <div className='col-1'>Damage</div>
+                    <div className='col-2'>Saving Throw</div>
+                    <div className='col-5'>Effect</div>
+                </div>
+                {
+                    abilities.map((data) => {
+                        return(
+                            <div className='row entries' key={data.index}>
+                                <div className='col-2'>{data.name}</div>
+                                <div className='col-1'>{data.cost}</div>
+                                <div className='col-1'>{data.damage}</div>
+                                <div className='col-2'>{data.saving}</div>
+                                <div className='col-5 effect'>{data.effect}</div>
+                            </div>
+                        );
+                    })
+                }
             </div>
-            {
-                abilities.map((data) => {
-                    return(
-                        <div className='row entries' key={data.index}>
-                            <div className='col-2'>{data.name}</div>
-                            <div className='col-1'>{data.cost}</div>
-                            <div className='col-1'>{data.damage}</div>
-                            <div className='col-2'>{data.saving}</div>
-                            <div className='col-5 effect'>{data.effect}</div>
-                        </div>
-                    );
-                })
-            }
         </div>
     );
 }
