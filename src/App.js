@@ -22,7 +22,6 @@ function App({pages}) {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         pages: state.pages
     }

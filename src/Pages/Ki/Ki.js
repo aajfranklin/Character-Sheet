@@ -4,7 +4,7 @@ import Button from '../../Button/Button.js';
 import './Ki.css';
 import '../../Button/Button.css';
 
-function Ki({kiAbilities}) {
+function Ki({abilities}) {
 
     const [showAbilityForm, setShowAbilityForm] = useState(false);
 
@@ -52,7 +52,7 @@ function Ki({kiAbilities}) {
                 <div className='col-5'>Effect</div>
             </div>
             {
-                kiAbilities.map((data) => {
+                abilities.map((data) => {
                     return(
                         <div className='row entries' key={data.index}>
                             <div className='col-2'>{data.name}</div>
@@ -70,7 +70,7 @@ function Ki({kiAbilities}) {
 
 function mapStateToProps(state) {
     return {
-        kiAbilities: state.kiAbilities
+        abilities: state.ki.abilities
     }
 }
 

@@ -6,7 +6,7 @@ import { mountInProvider } from "../../utils/testUtils";
 
 let store = Redux.createStore(reducer);
 
-function reducer(state = { kiAbilities: testKiAbilities}) {
+function reducer(state = { ki: { abilities: testKiAbilities } }) {
     return state;
 }
 
