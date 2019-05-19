@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import Button from '../../Button/Button.js';
 import './Ki.css';
 import '../../Button/Button.css';
 
-function Ki({abilities}) {
-
-    const [showAbilityForm, setShowAbilityForm] = useState(false);
-
-    const toggleAbilityForm = () => {
-        showAbilityForm ?
-            setShowAbilityForm(false) :
-            setShowAbilityForm(true)
-    };
+function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
 
     const meditate = () => {
 
@@ -70,8 +62,15 @@ function Ki({abilities}) {
 
 function mapStateToProps(state) {
     return {
-        abilities: state.ki.abilities
+        abilities: state.ki.abilities,
+        showAbilityForm: state.ki.showAbilityForm
     }
 }
 
-export default connect(mapStateToProps)(Ki);
+function mapDispatchToProps(dispatch) {
+    return {
+        toggleAbilityForm: () => dispatch({ type: 'TOGGLE_ABILITY_FORM' })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ki);

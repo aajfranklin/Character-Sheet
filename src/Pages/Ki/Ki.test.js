@@ -1,23 +1,21 @@
 import React from 'react';
-import * as Redux from 'redux';
-import { testKiAbilities } from '../../utils/testState.js';
-import { mountInProvider } from '../../utils/testUtils.js';
+import { createMockStore } from 'redux-test-utils';
+import { mountInProvider } from "../../utils/testUtils.js";
+import { testKiAbilities } from '../../utils/testConfig.js';
 import Ki from './Ki.js';
 
-
-let store = Redux.createStore(reducer);
-
-function reducer(state = { ki: { abilities: testKiAbilities } }) {
-    return state;
-}
+let state;
 
 describe('Ki', () => {
 
     describe('On rendering the Ki page', () => {
 
+        state = { ki: { abilities: testKiAbilities, showAbilityForm: false} };
         let wrapper;
+        let store;
 
         beforeAll(() => {
+            store = createMockStore(state);
             wrapper = mountInProvider(<Ki/>, store);
         });
 
@@ -46,13 +44,32 @@ describe('Ki', () => {
 
     });
 
-    describe('when the user clicks \'Add Ability\'', () => {
+    describe('when add ability button is clicked', () => {
 
         let wrapper;
+        let store;
 
         beforeAll(() => {
+            store = createMockStore(state);
             wrapper = mountInProvider(<Ki/>, store);
             wrapper.find('Button').at(1).simulate('click');
+        });
+
+        it('should dispatch the toggle ability action', () => {
+            expect(store.getActions()[0].type).toBe('TOGGLE_ABILITY_FORM');
+        });
+
+    });
+
+    describe('when showAbilityForm state is set to true', () => {
+
+        let state = { ki: { abilities: testKiAbilities, showAbilityForm: true} };
+        let wrapper;
+        let store;
+
+        beforeAll(() => {
+            store = createMockStore(state);
+            wrapper = mountInProvider(<Ki/>, store);
         });
 
         it('should render ability toolbar', () => {
@@ -68,13 +85,13 @@ describe('Ki', () => {
         describe('when the user clicks submit', () => {
 
             beforeAll(() => {
+                store = createMockStore(state);
                 wrapper = mountInProvider(<Ki/>, store);
-                wrapper.find('Button').at(1).simulate('click');
-                wrapper.find('Button').at(2).simulate('click');
             });
 
-            it('should hide the ability toolbar', () => {
-                expect(wrapper.find('form').length).toBe(0);
+            it('should dispatch the toggle ability action', () => {
+                wrapper.find('Button').at(2).simulate('click');
+                expect(store.getActions()[0].type).toBe('TOGGLE_ABILITY_FORM');
             });
 
         });
@@ -82,13 +99,13 @@ describe('Ki', () => {
         describe('when the user clicks cancel', () => {
 
             beforeAll(() => {
+                store = createMockStore(state);
                 wrapper = mountInProvider(<Ki/>, store);
-                wrapper.find('Button').at(1).simulate('click');
-                wrapper.find('Button').at(3).simulate('click');
             });
 
-            it('should hide the ability toolbar', () => {
-                expect(wrapper.find('form').length).toBe(0);
+            it('should dispatch the toggle ability action', () => {
+                wrapper.find('Button').at(3).simulate('click');
+                expect(store.getActions()[0].type).toBe('TOGGLE_ABILITY_FORM');
             });
 
         });

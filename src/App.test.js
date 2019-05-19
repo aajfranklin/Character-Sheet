@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
-import { testPages } from './utils/testState';
-import { mountInProvider } from './utils/testUtils';
+import { createMockStore } from 'redux-test-utils';
+import { mountInProvider} from "./utils/testUtils";
+import {testPages} from './utils/testConfig';
 import App from './App.js';
 
-let store = Redux.createStore(reducer);
-
-function reducer(state = { pages: testPages }) {
-    return state;
-}
+const state = { pages: testPages };
+const store = createMockStore(state);
 
 describe('App', () => {
 
@@ -20,6 +17,7 @@ describe('App', () => {
 
             it('renders without crashing', () => {
                 const div = document.createElement('div');
+
                 ReactDOM.render(
                     <ReactRedux.Provider store={store}>
                         <App/>

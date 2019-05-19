@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import update from 'react-addons-update';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import { initialState } from './model.js';
@@ -12,8 +13,16 @@ let store = Redux.createStore(
 );
 
 function reducer(state = { ...initialState }, action) {
-    console.log(state);
-    return state;
+    switch (action.type) {
+
+        case 'TOGGLE_ABILITY_FORM':
+            return update(state, {
+                ki: { showAbilityForm: { $set: !state.ki.showAbilityForm } }
+            });
+
+        default:
+            return state;
+    }
 }
 
 ReactDOM.render(
