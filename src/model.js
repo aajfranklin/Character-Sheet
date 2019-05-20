@@ -1,8 +1,8 @@
 const pages = [
     'Stats',
     'Weapons',
-    'Abilities',
     'Ki',
+    'Abilities',
     'Lore',
     'Map'
 ];
@@ -31,10 +31,19 @@ const kiAbilities = [
     }
 ];
 
+const newAbility = {
+    name: '',
+    cost: '',
+    damage: '',
+    saving: '',
+    effect: ''
+};
+
 export const initialState = {
     pages: pages,
     ki: {
         abilities: kiAbilities,
-        showAbilityForm: false
+        showAbilityForm: false,
+        newAbility: {...newAbility}
     }
 };

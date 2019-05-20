@@ -26,3 +26,11 @@ export const testKiAbilities = [
         effect: 'effect',
     }
 ];
+
+export const testNewAbility = {
+    name: '',
+    cost: '',
+    damage: '',
+    saving: '',
+    effect: '',
+};

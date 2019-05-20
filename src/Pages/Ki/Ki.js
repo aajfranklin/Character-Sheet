@@ -1,6 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { TOGGLE_ABILITY_FORM } from "../../reducer/actionTypes";
+import { TOGGLE_ABILITY_FORM } from '../../reducer/actionTypes';
 import Ability from './Ability.js';
 import AbilityForm from './AbilityForm.js';
 import Button from '../../Button/Button.js';

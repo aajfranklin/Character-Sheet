@@ -1,7 +1,8 @@
 import React from 'react';
+import {CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ABILITY_FORM} from '../../reducer/actionTypes';
 import { createMockStore } from 'redux-test-utils';
-import { mountInProvider } from "../../utils/testUtils.js";
-import { testKiAbilities } from '../../utils/testConfig.js';
+import { mountInProvider } from '../../utils/testUtils.js';
+import { testKiAbilities, testNewAbility } from '../../utils/testConfig.js';
 import Ki from './Ki.js';
 
 let state;
@@ -10,7 +11,7 @@ describe('Ki', () => {
 
     describe('On rendering the Ki page', () => {
 
-        state = { ki: { abilities: testKiAbilities, showAbilityForm: false} };
+        state = { ki: { abilities: testKiAbilities, showAbilityForm: false, newAbility: {...testNewAbility} } };
         let wrapper;
         let store;
 
@@ -82,6 +83,11 @@ describe('Ki', () => {
             expect(wrapper.find('Button').at(3).text()).toBe(' CANCEL');
         });
 
+        it('should dispatch the change form text action', () => {
+            wrapper.find('input').at(0).simulate('change');
+            expect(store.getActions()[0].type).toBe(CHANGE_FORM_TEXT);
+        });
+
         describe('when the user clicks submit', () => {
 
             beforeAll(() => {
@@ -89,9 +95,9 @@ describe('Ki', () => {
                 wrapper = mountInProvider(<Ki/>, store);
             });
 
-            it('should dispatch the toggle ability action', () => {
+            it('should dispatch the submit new ability action', () => {
                 wrapper.find('Button').at(2).simulate('click');
-                expect(store.getActions()[0].type).toBe('TOGGLE_ABILITY_FORM');
+                expect(store.getActions()[0].type).toBe(SUBMIT_NEW_ABILITY);
             });
 
         });
@@ -105,7 +111,7 @@ describe('Ki', () => {
 
             it('should dispatch the toggle ability action', () => {
                 wrapper.find('Button').at(3).simulate('click');
-                expect(store.getActions()[0].type).toBe('TOGGLE_ABILITY_FORM');
+                expect(store.getActions()[0].type).toBe(TOGGLE_ABILITY_FORM);
             });
 
         });
