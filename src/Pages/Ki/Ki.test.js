@@ -1,8 +1,8 @@
 import React from 'react';
 import {CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ABILITY_FORM} from '../../reducer/actionTypes';
 import { createMockStore } from 'redux-test-utils';
-import { mountInProvider } from '../../utils/testUtils.js';
-import { testKiAbilities, testNewAbility } from '../../utils/testConfig.js';
+import { mountInProvider } from '../../testUtils/testHelpers.js';
+import { testKiAbilities, testNewAbility } from '../../testUtils/testState.js';
 import Ki from './Ki.js';
 
 let state;
@@ -30,17 +30,26 @@ describe('Ki', () => {
         });
 
         it('displays one row per ability in the dummy data', () => {
-            expect(wrapper.find('.entries').length).toBe(3);
+            expect(wrapper.find('.entry').length).toBe(testKiAbilities.length);
         });
 
-        it('contains 2 action buttons', () => {
-           expect(wrapper.find('Button').length).toBe(2);
+        it('contains 1 delete button per ability and 2 header action buttons', () => {
+           expect(wrapper.find('Button').length).toBe(testKiAbilities.length + 2);
            expect(wrapper.find('Button').at(0).text()).toBe(' MEDITATE');
            expect(wrapper.find('Button').at(1).text()).toBe(' ADD ABILITY');
         });
 
         it('should not render ability toolbar', () => {
             expect(wrapper.find('form').length).toBe(0);
+        });
+
+        describe('when delete button is clicked', () => {
+
+            it('should dispatch the delete action', () => {
+                wrapper.find('Button').at(2).simulate('click');
+                expect(store.getActions()[0].type).toBe('DELETE');
+            });
+
         });
 
     });
@@ -78,7 +87,7 @@ describe('Ki', () => {
         });
 
         it('should show the submit and cancel buttons', () => {
-            expect(wrapper.find('Button').length).toBe(4);
+            expect(wrapper.find('Button').length).toBe(testKiAbilities.length + 4);
             expect(wrapper.find('Button').at(2).text()).toBe(' SUBMIT');
             expect(wrapper.find('Button').at(3).text()).toBe(' CANCEL');
         });

@@ -1,17 +1,17 @@
 import reducer from './reducer.js'
 import * as types from './actionTypes';
-import { initialState } from '../model.js';
+import { testState } from '../testUtils/testState.js';
 
 describe('reducer', () => {
 
     it('should return the initial state', () => {
 
-        expect(reducer({...initialState}, {})).toStrictEqual(initialState);
+        expect(reducer({...testState}, {})).toStrictEqual(testState);
 
     });
 
     it('should handle CHANGE_FORM_TEXT', () => {
-        const newState = reducer({...initialState},
+        const newState = reducer({...testState},
             {
                 type: types.CHANGE_FORM_TEXT,
                 event: {
@@ -23,8 +23,21 @@ describe('reducer', () => {
         expect(newState.ki.newAbility.name).toBe('testValue');
     });
 
+    it('should handle DELETE', () => {
+        const newState = reducer( {...testState},
+            {
+                type: types.DELETE,
+                page: 'ki',
+                category: 'abilities',
+                id: 0
+            }
+        );
+        expect(newState.ki.abilities.length).toBe(testState.ki.abilities.length - 1);
+        expect(newState.ki.abilities[0].name).toBe(testState.ki.abilities[1].name);
+    });
+
     it('should handle SUBMIT_NEW_ABILITY', () => {
-        const initialAbilityCount = initialState.ki.abilities.length;
+        const initialAbilityCount = testState.ki.abilities.length;
         const newAbility = {
             name: 'name',
             cost: 'cost',
@@ -33,9 +46,9 @@ describe('reducer', () => {
             effect: 'effect'
         };
 
-        initialState.ki.newAbility = newAbility;
+        testState.ki.newAbility = newAbility;
 
-        const newState = reducer({...initialState},
+        const newState = reducer({...testState},
             {type: types.SUBMIT_NEW_ABILITY,
                 ability: {...newAbility}
             }
@@ -46,7 +59,7 @@ describe('reducer', () => {
     });
 
     it('should handle TOGGLE_ABILITY_FORM', () => {
-        const newState = reducer({...initialState},
+        const newState = reducer({...testState},
             {type: types.TOGGLE_ABILITY_FORM
             }
         );

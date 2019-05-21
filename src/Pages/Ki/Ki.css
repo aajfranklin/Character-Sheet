@@ -57,11 +57,12 @@ input[type=text], select {
     font-weight: bold;
 }
 
-.entries {
+.entry {
+    display: flex;
     background: lightslategrey;
 }
 
-.entries:nth-child(even) {
+.entry:nth-child(even) {
     background-color: lightsteelblue;
 }
 

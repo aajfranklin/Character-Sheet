@@ -34,3 +34,12 @@ export const testNewAbility = {
     saving: '',
     effect: '',
 };
+
+export const testState = {
+    pages: testPages,
+    ki: {
+        abilities: testKiAbilities,
+        showAbilityForm: false,
+        newAbility: {...testNewAbility}
+    }
+};

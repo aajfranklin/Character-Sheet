@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as ReactRedux from 'react-redux';
 import { createMockStore } from 'redux-test-utils';
-import { mountInProvider} from './utils/testUtils';
-import {testPages} from './utils/testConfig';
+import { mountInProvider} from './testUtils/testHelpers';
+import {testPages} from './testUtils/testState';
 import App from './App.js';
 
 const state = { pages: testPages };

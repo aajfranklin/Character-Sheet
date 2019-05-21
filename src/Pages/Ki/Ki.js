@@ -38,8 +38,8 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                     <div className='col-5'>Effect</div>
                 </div>
                 {
-                    abilities.map((attributes) => {
-                        return(<Ability key={attributes.name} attributes={attributes}/>);
+                    abilities.map((attributes, index) => {
+                        return(<Ability key={index} id={index} attributes={attributes}/>);
                     })
                 }
             </div>

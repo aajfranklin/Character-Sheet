@@ -1,6 +1,6 @@
-import { initialState } from '../model';
-import * as types from './actionTypes.js';
 import update from 'react-addons-update';
+import { initialState } from '../model.js';
+import * as types from './actionTypes.js';
 
 function reducer(state = { ...initialState }, action) {
     switch (action.type) {
@@ -12,6 +12,18 @@ function reducer(state = { ...initialState }, action) {
 
             return update(state, {
                ki: { newAbility: { [target]: { $set: value } } }
+            });
+
+        case types.DELETE:
+            return update(state, {
+               [action.page]: {
+                   [action.category]: {
+                       $apply: (valueArray) => {
+                           valueArray.splice(action.id, 1);
+                           return valueArray;
+                       }
+                   }
+               }
             });
 
         case types.SUBMIT_NEW_ABILITY:
