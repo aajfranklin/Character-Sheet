@@ -59,11 +59,11 @@ input[type=text], select {
 
 .entry {
     display: flex;
-    background: lightslategrey;
+    background: white;
 }
 
 .entry:nth-child(even) {
-    background-color: lightsteelblue;
+    background-color: whitesmoke;
 }
 
 [class*='col-'] {

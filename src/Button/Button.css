@@ -1,13 +1,13 @@
 button {
     border-radius: 0.5em;
     border: none;
-    background: lightslategray;
+    background: lightslategrey;
     color: white;
     padding: 0.7em 1em 0.6em;
     margin: 0 0.5em 0;
     font-weight: bold;
     font-size: 14px;
-    box-shadow: 0 0.2em 0 darkslategray;
+    box-shadow: 0 0.2em 0 darkslategrey;
     user-select: none;
 }
 
@@ -17,7 +17,7 @@ button:hover {
 
 button:active {
     transform: translate(0, 0.1em);
-    box-shadow: 0 0.1em 0 darkslategray;
+    box-shadow: 0 0.1em 0 darkslategrey;
 }
 
 .button-group {
@@ -39,6 +39,11 @@ button:active {
     background: crimson;
 }
 
+.cancel:active {
+    background: crimson;
+    box-shadow: 0 0.1em 0 maroon;
+}
+
 .confirm {
     background: darkseagreen;
     box-shadow: 0 0.2em 0 darkgreen;
@@ -46,4 +51,34 @@ button:active {
 
 .confirm:hover {
     background: seagreen;
+}
+
+.confirm:active {
+    background: seagreen;
+    box-shadow: 0 0.1em 0 darkgreen;
+}
+
+.clear {
+    font-size: 18px;
+    color: lightslategrey;
+    padding: 0.4em;
+    background: none;
+    box-shadow: none;
+}
+
+.clear:hover {
+    color: black;
+    background: none;
+    box-shadow: none;
+}
+
+.clear:active {
+    color: black;
+    transform: none;
+    background: none;
+    box-shadow: none;
+}
+
+.flat {
+    box-shadow: none;
 }
