@@ -12,7 +12,7 @@ function Ability({attributes, deleteAbility, id}) {
             <div className='col-2'>{attributes.saving}</div>
             <div className='col-5 effect'>{attributes.effect}</div>
             <div className='col-1 button-group'>
-                <Button id='attributes.name' icon='fas fa-trash' buttonStyle='cancel' clickHandler={deleteAbility}/>
+                <Button icon='fas fa-trash' buttonStyle='cancel' clickHandler={deleteAbility}/>
             </div>
         </div>
     );
@@ -20,7 +20,7 @@ function Ability({attributes, deleteAbility, id}) {
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        deleteAbility: () => dispatch({ type: DELETE_ABILITY })
+        deleteAbility: () => dispatch({ type: DELETE_ABILITY, id: ownProps.id })
     }
 }
 

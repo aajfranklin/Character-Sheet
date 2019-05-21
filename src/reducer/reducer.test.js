@@ -25,10 +25,10 @@ describe('reducer', () => {
 
     it('should handle DELETE_ABILITY', () => {
         const newState = reducer( {...testState},
-            {type: types.DELETE_ABILITY}
+            {type: types.DELETE_ABILITY, id: 1}
         );
         expect(newState.ki.abilities.length).toBe(testState.ki.abilities.length - 1);
-        expect(newState.ki.abilities[0].name).toBe(testState.ki.abilities[1].name);
+        expect(newState.ki.abilities[1].name).toBe(testState.ki.abilities[2].name);
     });
 
     it('should handle SUBMIT_NEW_ABILITY', () => {
