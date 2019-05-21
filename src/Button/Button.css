@@ -17,6 +17,7 @@ button:hover {
 
 button:active {
     transform: translate(0, 0.1em);
+    background: cadetblue;
     box-shadow: 0 0.1em 0 darkslategrey;
 }
 
@@ -67,16 +68,24 @@ button:active {
 }
 
 .clear:hover {
-    color: black;
+    color: cadetblue;
     background: none;
     box-shadow: none;
 }
 
+.clear.delete:hover {
+    color: indianred;
+}
+
 .clear:active {
-    color: black;
+    color: darkslategrey;
     transform: none;
     background: none;
     box-shadow: none;
+}
+
+.clear.delete:active {
+    color: crimson;
 }
 
 .flat {

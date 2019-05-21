@@ -12,8 +12,8 @@ function Ability({attributes, deleteAbility, id}) {
             <div className='col-2'>{attributes.saving}</div>
             <div className='col-5 effect'>{attributes.effect}</div>
             <div className='col-1 button-group'>
-                <Button icon='fas fa-edit' buttonStyle='clear flat round' clickHandler={() => {}}/>
-                <Button icon='fas fa-trash' buttonStyle='clear flat round' clickHandler={deleteAbility}/>
+                <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={() => {}}/>
+                <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
             </div>
         </div>
     );
