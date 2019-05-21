@@ -45,9 +45,9 @@ describe('Ki', () => {
 
         describe('when delete button is clicked', () => {
 
-            it('should dispatch the delete action', () => {
+            it('should dispatch the delete ability action', () => {
                 wrapper.find('Button').at(2).simulate('click');
-                expect(store.getActions()[0].type).toBe('DELETE');
+                expect(store.getActions()[0].type).toBe('DELETE_ABILITY');
             });
 
         });
@@ -104,9 +104,10 @@ describe('Ki', () => {
                 wrapper = mountInProvider(<Ki/>, store);
             });
 
-            it('should dispatch the submit new ability action', () => {
+            it('should dispatch the submit new ability and toggle ability form actions', () => {
                 wrapper.find('Button').at(2).simulate('click');
                 expect(store.getActions()[0].type).toBe(SUBMIT_NEW_ABILITY);
+                expect(store.getActions()[1].type).toBe(TOGGLE_ABILITY_FORM);
             });
 
         });

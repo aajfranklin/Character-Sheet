@@ -28,7 +28,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         handleFormChange: (e) => dispatch({ type: CHANGE_FORM_TEXT, event: e }),
-        submitNewAbility: () => dispatch({ type: SUBMIT_NEW_ABILITY }),
+        submitNewAbility: () => {
+            dispatch({ type: SUBMIT_NEW_ABILITY });
+            dispatch({ type: TOGGLE_ABILITY_FORM });
+        },
         toggleAbilityForm: () => dispatch({ type: TOGGLE_ABILITY_FORM })
     }
 }

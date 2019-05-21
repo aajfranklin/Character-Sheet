@@ -23,14 +23,9 @@ describe('reducer', () => {
         expect(newState.ki.newAbility.name).toBe('testValue');
     });
 
-    it('should handle DELETE', () => {
+    it('should handle DELETE_ABILITY', () => {
         const newState = reducer( {...testState},
-            {
-                type: types.DELETE,
-                page: 'ki',
-                category: 'abilities',
-                id: 0
-            }
+            {type: types.DELETE_ABILITY}
         );
         expect(newState.ki.abilities.length).toBe(testState.ki.abilities.length - 1);
         expect(newState.ki.abilities[0].name).toBe(testState.ki.abilities[1].name);
@@ -49,9 +44,7 @@ describe('reducer', () => {
         testState.ki.newAbility = newAbility;
 
         const newState = reducer({...testState},
-            {type: types.SUBMIT_NEW_ABILITY,
-                ability: {...newAbility}
-            }
+            {type: types.SUBMIT_NEW_ABILITY,}
         );
         expect(newState.ki.abilities.length).toBe(initialAbilityCount + 1);
         expect(newState.ki.abilities[initialAbilityCount]).toStrictEqual(newAbility);
@@ -60,8 +53,7 @@ describe('reducer', () => {
 
     it('should handle TOGGLE_ABILITY_FORM', () => {
         const newState = reducer({...testState},
-            {type: types.TOGGLE_ABILITY_FORM
-            }
+            {type: types.TOGGLE_ABILITY_FORM}
         );
         expect(newState.ki.showAbilityForm).toBe(true);
         expect(newState.ki.newAbility).toStrictEqual({name: '', cost: '', damage: '', saving: '', effect: '' });

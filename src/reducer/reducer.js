@@ -14,13 +14,13 @@ function reducer(state = { ...initialState }, action) {
                ki: { newAbility: { [target]: { $set: value } } }
             });
 
-        case types.DELETE:
+        case types.DELETE_ABILITY:
             return update(state, {
-               [action.page]: {
-                   [action.category]: {
-                       $apply: (valueArray) => {
-                           valueArray.splice(action.id, 1);
-                           return valueArray;
+               ki: {
+                   abilities: {
+                       $apply: (abilities) => {
+                           abilities.splice(action.id, 1);
+                           return abilities;
                        }
                    }
                }
@@ -30,8 +30,6 @@ function reducer(state = { ...initialState }, action) {
             return update(state, {
                 ki: {
                     abilities: { $set: state.ki.abilities.concat({ ...state.ki.newAbility }) },
-                    showAbilityForm: { $set: !state.ki.showAbilityForm },
-                    newAbility: { $set: { name: '', cost: '', damage: '', saving: '', effect: '' } }
                 }
             });
 

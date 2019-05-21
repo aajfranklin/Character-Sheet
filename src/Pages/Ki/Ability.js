@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DELETE } from '../../reducer/actionTypes';
+import { DELETE_ABILITY } from '../../reducer/actionTypes';
 import Button from '../../Button/Button.js';
 
 function Ability({attributes, deleteAbility, id}) {
@@ -20,14 +20,7 @@ function Ability({attributes, deleteAbility, id}) {
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        deleteAbility: () => {
-            dispatch({
-                type: DELETE,
-                page: 'ki',
-                category: 'abilities',
-                id: ownProps.id
-            });
-        }
+        deleteAbility: () => dispatch({ type: DELETE_ABILITY })
     }
 }
 
