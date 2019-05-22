@@ -39,6 +39,7 @@ export const testState = {
     pages: testPages,
     ki: {
         abilities: testKiAbilities,
+        abilityEditCache: [],
         showAbilityForm: false,
         newAbility: {...testNewAbility}
     }

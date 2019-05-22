@@ -14,6 +14,7 @@ const kiAbilities = [
         damage: '1d6',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
+        editing: false
     },
     {
         name: 'dummyName2',
@@ -21,6 +22,7 @@ const kiAbilities = [
         damage: '1d6',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
+        editing: false
     },
     {
         name: 'dummyName3',
@@ -28,6 +30,7 @@ const kiAbilities = [
         damage: '1d6',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
+        editing: false
     }
 ];
 
@@ -43,7 +46,8 @@ export const initialState = {
     pages: pages,
     ki: {
         abilities: kiAbilities,
+        abilityEditCache: [],
+        newAbility: {...newAbility},
         showAbilityForm: false,
-        newAbility: {...newAbility}
     }
 };

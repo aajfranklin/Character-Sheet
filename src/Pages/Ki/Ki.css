@@ -29,8 +29,11 @@ form {
     margin: 0.5em auto 2em;
 }
 
-input[type=text], select {
+form input {
     width: 100%;
+}
+
+input[type=text] {
     display: inline-block;
     padding: 0.5em;
     margin: 0.2em 0;
@@ -84,6 +87,24 @@ input[type=text], select {
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
-.effect {
+.entry textarea {
+    display: inline-block;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Helvetica;
+    font-size: 16px;
+    resize: none;
+    width: 90%;
+    height: 2em;
+    text-align: center;
+}
+
+textarea.effect {
+    text-align: left;
+}
+
+.effect{
     text-align: left;
 }
