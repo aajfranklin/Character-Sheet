@@ -27,6 +27,10 @@ button:disabled {
     box-shadow: 0 0.2em 0 lightslategrey;
 }
 
+button:disabled:active {
+    transform: none
+}
+
 .button-group {
     display: flex;
     margin: auto;
