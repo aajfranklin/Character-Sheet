@@ -136,6 +136,10 @@ describe('Ki', () => {
             expect(wrapper.find('form').length).toBe(1);
         });
 
+        it('should disable the add ability button', () => {
+            expect(wrapper.find({label: 'ADD ABILITY'}).prop('disabled')).toBe(true);
+        });
+
         it('should show the submit and cancel buttons', () => {
             expect(wrapper.find('Button').length).toBe(testKiAbilities.length * 2 + 4);
             expect(wrapper.find('Button').at(2).text()).toBe(' SUBMIT');

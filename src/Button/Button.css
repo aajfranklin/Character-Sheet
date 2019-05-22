@@ -21,6 +21,12 @@ button:active {
     box-shadow: 0 0.1em 0 darkslategrey;
 }
 
+button:disabled {
+    background: lightgrey;
+    color: darkgrey;
+    box-shadow: 0 0.2em 0 lightslategrey;
+}
+
 .button-group {
     display: flex;
     margin: auto;

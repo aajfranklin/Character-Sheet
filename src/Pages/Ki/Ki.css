@@ -55,7 +55,7 @@ input[type=text] {
 }
 
 .labels {
-    background: darkslategray;
+    background: darkslategrey;
     color: white;
     font-weight: bold;
 }

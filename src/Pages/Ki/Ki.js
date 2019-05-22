@@ -22,7 +22,7 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                 </div>
                 <div className='title-half-right'>
                     <Button clickHandler={meditate} label='MEDITATE' icon='fas fa-praying-hands'/>
-                    <Button clickHandler={toggleAbilityForm} label='ADD ABILITY' icon='fas fa-plus-circle'/>
+                    <Button clickHandler={toggleAbilityForm} label='ADD ABILITY' icon='fas fa-plus-circle' disabled={showAbilityForm}/>
                 </div>
             </div>
             {showAbilityForm ?
