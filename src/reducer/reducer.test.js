@@ -17,7 +17,7 @@ describe('reducer', () => {
                id: 0
            }
        );
-       expect(newState.ki.abilityEditCache[0]).toStrictEqual(newState.ki.abilities[0]);
+       expect(newState.ki.abilityEditCache[0]).toStrictEqual({...newState.ki.abilities[0], id: 0});
     });
 
     it('should handle CHANGE_FORM_TEXT', () => {
@@ -50,6 +50,17 @@ describe('reducer', () => {
         );
         expect(newState.ki.abilities.length).toBe(testState.ki.abilities.length - 1);
         expect(newState.ki.abilities[1].name).toBe(testState.ki.abilities[2].name);
+    });
+
+    it('should decrement ability cache id if an ability with a lower index is deleted', () => {
+        testState.ki.abilityEditCache[1] = {name: 'testDecrement', id: 1};
+        const newState = reducer({...testState},
+            {
+                type: types.DELETE_ABILITY,
+                id: 0
+            }
+        );
+        expect(newState.ki.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
     });
 
     it('should handle REVERT_ABILITY', () => {
