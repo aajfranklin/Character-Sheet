@@ -12,6 +12,7 @@ const kiAbilities = [
         name: 'dummyName1',
         cost: '1',
         damage: '1d6',
+        boost: '-',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
         editing: false
@@ -20,6 +21,7 @@ const kiAbilities = [
         name: 'dummyName2',
         cost: '1',
         damage: '1d6',
+        boost: '-',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
         editing: false
@@ -28,6 +30,7 @@ const kiAbilities = [
         name: 'dummyName3',
         cost: '1',
         damage: '1d6',
+        boost: '-',
         saving: '1d6 + wis',
         effect: 'This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool This does something cool',
         editing: false
@@ -38,6 +41,7 @@ const newAbility = {
     name: '',
     cost: '',
     damage: '',
+    boost: '',
     saving: '',
     effect: ''
 };

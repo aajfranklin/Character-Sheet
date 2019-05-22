@@ -33,9 +33,10 @@ function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
                 <div className='row labels'>
                     <div className='col-2'>Name</div>
                     <div className='col-1'>Cost</div>
-                    <div className='col-1'>Damage</div>
+                    <div className='col-2'>Damage</div>
+                    <div className='col-1'>Boost</div>
                     <div className='col-2'>Saving Throw</div>
-                    <div className='col-5'>Effect</div>
+                    <div className='col-6'>Effect</div>
                 </div>
                 {
                     abilities.map((attributes, index) => {

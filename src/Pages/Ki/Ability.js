@@ -15,9 +15,10 @@ function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbi
                 <React.Fragment>
                     <div className='col-2'><TextareaAutosize name='name' value={attributes.name} onChange={updateAbility}/></div>
                     <div className='col-1'><TextareaAutosize name='cost' value={attributes.cost} onChange={updateAbility}/></div>
-                    <div className='col-1'><TextareaAutosize name='damage' value={attributes.damage} onChange={updateAbility}/></div>
+                    <div className='col-2'><TextareaAutosize name='damage' value={attributes.damage} onChange={updateAbility}/></div>
+                    <div className='col-1'><TextareaAutosize name='boost' value={attributes.boost} onChange={updateAbility}/></div>
                     <div className='col-2'><TextareaAutosize name='saving' value={attributes.saving} onChange={updateAbility}/></div>
-                    <div className='col-5'><TextareaAutosize name='effect' value={attributes.effect} className='effect' onChange={updateAbility}/></div>
+                    <div className='col-6'><TextareaAutosize name='effect' value={attributes.effect} className='effect' onChange={updateAbility}/></div>
                     <div className='col-1 button-group'>
                         <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={saveAbility}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={cancelEdit}/>
@@ -28,9 +29,10 @@ function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbi
                 <React.Fragment>
                     <div className='col-2'>{attributes.name}</div>
                     <div className='col-1'>{attributes.cost}</div>
-                    <div className='col-1'>{attributes.damage}</div>
+                    <div className='col-2'>{attributes.damage}</div>
+                    <div className='col-1'>{attributes.boost}</div>
                     <div className='col-2'>{attributes.saving}</div>
-                    <div className='col-5 effect'>{attributes.effect}</div>
+                    <div className='col-6 effect'>{attributes.effect}</div>
                     <div className='col-1 button-group'>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
