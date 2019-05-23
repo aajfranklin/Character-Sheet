@@ -1,4 +1,4 @@
-import update from 'react-addons-update';
+import update from 'immutability-helper';
 import { initialState } from '../../../model.js';
 import * as types from './actions/actionTypes.js';
 

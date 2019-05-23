@@ -48,11 +48,13 @@ describe('Ki reducer', () => {
     });
 
     it('should handle DELETE_ABILITY', () => {
+        const abilityCount = state.abilities.length;
+        const lastAbilityName = state.abilities[2].name;
         const newState = reducer( state,
             {type: types.DELETE_ABILITY, id: 1}
         );
-        expect(newState.abilities.length).toBe(state.abilities.length - 1);
-        expect(newState.abilities[1].name).toBe(state.abilities[2].name);
+        expect(newState.abilities.length).toBe(abilityCount - 1);
+        expect(newState.abilities[1].name).toBe(lastAbilityName);
     });
 
     it('should decrement ability cache id if an ability with a lower index is deleted', () => {
