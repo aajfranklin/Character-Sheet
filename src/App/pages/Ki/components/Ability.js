@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
 import {CACHE_ABILITY, CLEAR_ABILITY_CACHE, DELETE_ABILITY,
     REVERT_ABILITY, TOGGLE_EDIT_ABILITY, UPDATE_ABILITY}
-    from '../../reducer/actionTypes';
-import Button from '../../Button/Button.js';
+    from '../actions/actionTypes';
+import Button from '../../../components/Button/Button.js';
 
 function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
     const attributes = abilities[id];

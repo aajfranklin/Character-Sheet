@@ -14,3 +14,7 @@ export const mountInProvider = (component, store) => {
         )
     )
 };
+
+export function deepCopy(object) {
+    return JSON.parse(JSON.stringify(object));
+}

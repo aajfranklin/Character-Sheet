@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM } from '../../reducer/actionTypes';
-import Button from '../../Button/Button';
+import { CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM } from '../actions/actionTypes';
+import Button from '../../../components/Button/Button';
 
 function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, ...newAbility}) {
     return(

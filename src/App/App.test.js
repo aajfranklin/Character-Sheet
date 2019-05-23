@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as ReactRedux from 'react-redux';
 import { createMockStore } from 'redux-test-utils';
-import { mountInProvider} from './testUtils/testHelpers';
-import {testPages} from './testUtils/testState';
+import { deepCopy, mountInProvider } from '../testUtils/testHelpers';
+import testState from '../testUtils/testState';
 import App from './App.js';
 
-const state = { pages: testPages };
+const state = deepCopy(testState);
 const store = createMockStore(state);
 
 describe('App', () => {
@@ -43,10 +43,10 @@ describe('App', () => {
 
             it('generates nav bar items from passed in pages prop', () => {
 
-                expect(wrapper.find('Link').length).toBe(testPages.length);
+                expect(wrapper.find('Link').length).toBe(state.app.pages.length);
 
-                for (let i = 0; i < testPages.length; i++) {
-                    expect(wrapper.find('Link').at(i).key()).toBe(testPages[i]);
+                for (let i = 0; i < state.app.pages.length; i++) {
+                    expect(wrapper.find('Link').at(i).key()).toBe(state.app.pages[i]);
                 }
             });
 

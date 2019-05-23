@@ -1,11 +1,11 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { TOGGLE_ADD_ABILITY_FORM } from '../../reducer/actionTypes';
-import Ability from './Ability.js';
-import AbilityForm from './AbilityForm.js';
-import Button from '../../Button/Button.js';
+import { TOGGLE_ADD_ABILITY_FORM } from './actions/actionTypes';
+import Ability from './components/Ability.js';
+import AbilityForm from './components/AbilityForm.js';
+import Button from '../../components/Button/Button.js';
 import './Ki.css';
-import '../../Button/Button.css';
+import '../../components/Button/Button.css';
 
 function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
 

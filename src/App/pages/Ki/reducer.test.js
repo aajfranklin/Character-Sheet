@@ -1,27 +1,30 @@
 import reducer from './reducer.js'
-import * as types from './actionTypes';
-import { testState } from '../testUtils/testState.js';
+import * as types from './actions/actionTypes';
+import testState from '../../../testUtils/testState.js';
+import { deepCopy } from "../../../testUtils/testHelpers";
 
-describe('reducer', () => {
+const state = deepCopy(testState.ki);
+
+describe('Ki reducer', () => {
 
     it('should return the initial state', () => {
 
-        expect(reducer({...testState}, {})).toStrictEqual(testState);
+        expect(reducer(state, {})).toStrictEqual(state);
 
     });
 
     it('should handle CACHE_ABILITY', () => {
-       const newState = reducer({...testState},
+       const newState = reducer(state,
            {
                type: types.CACHE_ABILITY,
                id: 0
            }
        );
-       expect(newState.ki.abilityEditCache[0]).toStrictEqual({...newState.ki.abilities[0], id: 0});
+       expect(newState.abilityEditCache[0]).toStrictEqual({...newState.abilities[0], id: 0});
     });
 
     it('should handle CHANGE_FORM_TEXT', () => {
-        const newState = reducer({...testState},
+        const newState = reducer(state,
             {
                 type: types.CHANGE_FORM_TEXT,
                 event: {
@@ -30,52 +33,52 @@ describe('reducer', () => {
                 },
             }
         );
-        expect(newState.ki.newAbility.name).toBe('testValue');
+        expect(newState.newAbility.name).toBe('testValue');
     });
 
     it('should handle CLEAR_ABILITY_CACHE', () => {
-        testState.ki.abilityEditCache[0] = {name: 'testCachedAbility'};
-        const newState = reducer({...testState},
+        state.abilityEditCache[0] = {name: 'testCachedAbility'};
+        const newState = reducer(state,
             {
                 type: types.CLEAR_ABILITY_CACHE,
                 id: 0
             }
         );
-        expect(newState.ki.abilityEditCache.length).toBe(0);
+        expect(newState.abilityEditCache.length).toBe(0);
     });
 
     it('should handle DELETE_ABILITY', () => {
-        const newState = reducer( {...testState},
+        const newState = reducer( state,
             {type: types.DELETE_ABILITY, id: 1}
         );
-        expect(newState.ki.abilities.length).toBe(testState.ki.abilities.length - 1);
-        expect(newState.ki.abilities[1].name).toBe(testState.ki.abilities[2].name);
+        expect(newState.abilities.length).toBe(state.abilities.length - 1);
+        expect(newState.abilities[1].name).toBe(state.abilities[2].name);
     });
 
     it('should decrement ability cache id if an ability with a lower index is deleted', () => {
-        testState.ki.abilityEditCache[1] = {name: 'testDecrement', id: 1};
-        const newState = reducer({...testState},
+        state.abilityEditCache[1] = {name: 'testDecrement', id: 1};
+        const newState = reducer(state,
             {
                 type: types.DELETE_ABILITY,
                 id: 0
             }
         );
-        expect(newState.ki.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
+        expect(newState.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
     });
 
     it('should handle REVERT_ABILITY', () => {
-        testState.ki.abilityEditCache[0] = {name: 'testCachedAbility', id: 0};
-        const newState = reducer({...testState},
+        state.abilityEditCache[0] = {name: 'testCachedAbility', id: 0};
+        const newState = reducer(state,
             {
                 type: types.REVERT_ABILITY,
                 id: 0
             }
         );
-        expect(newState.ki.abilities[0]).toStrictEqual({name: 'testCachedAbility', editing: false});
+        expect(newState.abilities[0]).toStrictEqual({name: 'testCachedAbility', editing: false});
     });
 
     it('should handle SUBMIT_NEW_ABILITY', () => {
-        const initialAbilityCount = testState.ki.abilities.length;
+        const initialAbilityCount = state.abilities.length;
         const newAbility = {
             name: 'name',
             cost: 'cost',
@@ -84,27 +87,27 @@ describe('reducer', () => {
             effect: 'effect'
         };
 
-        testState.ki.newAbility = newAbility;
+        state.newAbility = newAbility;
 
-        const newState = reducer({...testState},
+        const newState = reducer(state,
             {type: types.SUBMIT_NEW_ABILITY,}
         );
-        expect(newState.ki.abilities.length).toBe(initialAbilityCount + 1);
-        expect(newState.ki.abilities[initialAbilityCount]).toStrictEqual(newAbility);
+        expect(newState.abilities.length).toBe(initialAbilityCount + 1);
+        expect(newState.abilities[initialAbilityCount]).toStrictEqual(newAbility);
 
     });
 
     it('should handle TOGGLE_ADD_ABILITY_FORM', () => {
-        const newState = reducer({...testState},
+        const newState = reducer(state,
             {type: types.TOGGLE_ADD_ABILITY_FORM}
         );
-        expect(newState.ki.showAbilityForm).toBe(true);
-        expect(newState.ki.newAbility).toStrictEqual({name: '', cost: '', damage: '', saving: '', effect: '' });
+        expect(newState.showAbilityForm).toBe(true);
+        expect(newState.newAbility).toStrictEqual({name: '', cost: '', damage: '', saving: '', effect: '' });
 
     });
 
     it('should handle UPDATE_ABILITY', () => {
-        const newState = reducer({...testState},
+        const newState = reducer(state,
             {
                 type: types.UPDATE_ABILITY,
                 id: 0,
@@ -117,7 +120,7 @@ describe('reducer', () => {
                 }
             }
         );
-        expect(newState.ki.abilities[0].effect).toBe('editedText');
+        expect(newState.abilities[0].effect).toBe('editedText');
     });
 
 });

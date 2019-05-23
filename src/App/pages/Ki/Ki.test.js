@@ -1,23 +1,26 @@
 import React from 'react';
-import {CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM} from '../../reducer/actionTypes';
+import {CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM} from './actions/actionTypes';
 import { createMockStore } from 'redux-test-utils';
-import { mountInProvider } from '../../testUtils/testHelpers.js';
-import { testKiAbilities, testNewAbility } from '../../testUtils/testState.js';
+import { deepCopy, mountInProvider } from '../../../testUtils/testHelpers.js';
+import testState from '../../../testUtils/testState.js';
 import Ki from './Ki.js';
 
+let wrapper;
+let store;
 let state;
+
+function setUp(customState) {
+    state = customState ? deepCopy(customState) : deepCopy(testState);
+    store = createMockStore(state);
+    wrapper = mountInProvider(<Ki/>, store);
+}
 
 describe('Ki', () => {
 
     describe('On rendering the Ki page', () => {
 
-        state = { ki: { abilities: testKiAbilities, showAbilityForm: false, newAbility: {...testNewAbility} } };
-        let wrapper;
-        let store;
-
         beforeAll(() => {
-            store = createMockStore(state);
-            wrapper = mountInProvider(<Ki/>, store);
+            setUp();
         });
 
         it('displays the Ki heading', () => {
@@ -30,11 +33,11 @@ describe('Ki', () => {
         });
 
         it('displays one row per ability in the dummy data', () => {
-            expect(wrapper.find('.entry').length).toBe(testKiAbilities.length);
+            expect(wrapper.find('.entry').length).toBe(state.ki.abilities.length);
         });
 
         it('contains 1 delete and edit button per ability and 2 header action buttons', () => {
-           expect(wrapper.find('Button').length).toBe(testKiAbilities.length * 2 + 2);
+           expect(wrapper.find('Button').length).toBe(state.ki.abilities.length * 2 + 2);
            expect(wrapper.find('Button').at(0).text()).toBe(' MEDITATE');
            expect(wrapper.find('Button').at(1).text()).toBe(' ADD ABILITY');
         });
@@ -55,8 +58,7 @@ describe('Ki', () => {
         describe('when the edit button is clicked', () => {
 
             beforeAll(() => {
-                store = createMockStore(state);
-                wrapper = mountInProvider(<Ki/>, store);
+                setUp();
             });
 
             it('should dispatch the cache and toggle edit ability actions', () => {
@@ -68,9 +70,9 @@ describe('Ki', () => {
             describe('when an ability is being edited', () => {
 
                 beforeAll(() => {
-                    state.ki.abilities[0].editing = true;
-                    store = createMockStore(state);
-                    wrapper = mountInProvider(<Ki/>, store);
+                    const customState = deepCopy(testState);
+                    customState.ki.abilities[0].editing = true;
+                    setUp(customState);
                 });
 
                 it('should display the save and cancel buttons', () => {
@@ -106,12 +108,8 @@ describe('Ki', () => {
 
     describe('when add ability button is clicked', () => {
 
-        let wrapper;
-        let store;
-
         beforeAll(() => {
-            store = createMockStore(state);
-            wrapper = mountInProvider(<Ki/>, store);
+            setUp();
             wrapper.find({ label: 'ADD ABILITY'}).simulate('click');
         });
 
@@ -123,13 +121,11 @@ describe('Ki', () => {
 
     describe('when showAbilityForm state is set to true', () => {
 
-        let state = { ki: { abilities: testKiAbilities, showAbilityForm: true} };
-        let wrapper;
-        let store;
+        const customState = deepCopy(testState);
+        customState.ki.showAbilityForm = true;
 
         beforeAll(() => {
-            store = createMockStore(state);
-            wrapper = mountInProvider(<Ki/>, store);
+            setUp(customState);
         });
 
         it('should render ability toolbar', () => {
@@ -141,7 +137,7 @@ describe('Ki', () => {
         });
 
         it('should show the submit and cancel buttons', () => {
-            expect(wrapper.find('Button').length).toBe(testKiAbilities.length * 2 + 4);
+            expect(wrapper.find('Button').length).toBe(state.ki.abilities.length * 2 + 4);
             expect(wrapper.find('Button').at(2).text()).toBe(' SUBMIT');
             expect(wrapper.find('Button').at(3).text()).toBe(' CANCEL');
         });
@@ -154,8 +150,7 @@ describe('Ki', () => {
         describe('when the user clicks submit', () => {
 
             beforeAll(() => {
-                store = createMockStore(state);
-                wrapper = mountInProvider(<Ki/>, store);
+                setUp(customState);
             });
 
             it('should dispatch the submit new ability and toggle ability form actions', () => {
@@ -169,8 +164,7 @@ describe('Ki', () => {
         describe('when the user clicks cancel', () => {
 
             beforeAll(() => {
-                store = createMockStore(state);
-                wrapper = mountInProvider(<Ki/>, store);
+                setUp(customState);
             });
 
             it('should dispatch the toggle ability action', () => {

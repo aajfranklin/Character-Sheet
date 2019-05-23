@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Ki from './Pages/Ki/Ki.js';
+import Ki from './pages/Ki/Ki.js';
 import './App.css';
 
 function App({pages}) {
@@ -23,7 +23,7 @@ function App({pages}) {
 
 function mapStateToProps(state) {
     return {
-        pages: state.pages
+        pages: state.app.pages
     }
 }
 

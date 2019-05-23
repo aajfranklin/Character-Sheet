@@ -47,7 +47,9 @@ const newAbility = {
 };
 
 export const initialState = {
-    pages: pages,
+    app: {
+        pages: pages,
+    },
     ki: {
         abilities: kiAbilities,
         abilityEditCache: [],
