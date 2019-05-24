@@ -27,10 +27,8 @@ describe('Ki reducer', () => {
         const newState = reducer(state,
             {
                 type: types.CHANGE_FORM_TEXT,
-                event: {
-                    target: { name: 'name', value: 'testValue' },
-                    persist: () => {}
-                },
+                target: 'name',
+                value: 'testValue'
             }
         );
         expect(newState.newAbility.name).toBe('testValue');
@@ -113,13 +111,8 @@ describe('Ki reducer', () => {
             {
                 type: types.UPDATE_ABILITY,
                 id: 0,
-                event: {
-                    target: {
-                        name: 'effect',
-                        value: 'editedText'
-                    },
-                    persist: () => {}
-                }
+                target: 'effect',
+                value: 'editedText'
             }
         );
         expect(newState.abilities[0].effect).toBe('editedText');

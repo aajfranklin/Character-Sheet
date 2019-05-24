@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
-import {CACHE_ABILITY, CLEAR_ABILITY_CACHE, DELETE_ABILITY,
-    REVERT_ABILITY, TOGGLE_EDIT_ABILITY, UPDATE_ABILITY}
-    from '../actions/actionTypes';
+import {
+    cacheAbility,
+    clearAbilityCache,
+    deleteAbility,
+    revertAbility,
+    toggleEditAbility,
+    updateAbility
+} from '../actions/actionCreators.js';
 import Button from '../../../components/Button/Button.js';
 
 function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
@@ -52,22 +57,22 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
     return {
         cancelEdit: () => {
-          dispatch({ type: REVERT_ABILITY, id: ownProps.id });
-          dispatch({ type: CLEAR_ABILITY_CACHE, id: ownProps.id });
+          dispatch(revertAbility(ownProps.id));
+          dispatch(clearAbilityCache(ownProps.id));
         },
         deleteAbility: () => {
-            dispatch({type: DELETE_ABILITY, id: ownProps.id})
+            dispatch(deleteAbility(ownProps.id));
         },
         editAbility: () => {
-            dispatch({ type: CACHE_ABILITY, id: ownProps.id });
-            dispatch({ type: TOGGLE_EDIT_ABILITY, id: ownProps.id })
+            dispatch(cacheAbility(ownProps.id));
+            dispatch(toggleEditAbility(ownProps.id));
         },
         saveAbility: () => {
-            dispatch({ type: CLEAR_ABILITY_CACHE, id: ownProps.id });
-            dispatch({ type: TOGGLE_EDIT_ABILITY, id: ownProps.id });
+            dispatch(clearAbilityCache(ownProps.id));
+            dispatch(toggleEditAbility(ownProps.id));
         },
         updateAbility: (e) => {
-            dispatch({ type: UPDATE_ABILITY, event: e, id: ownProps.id });
+            dispatch(updateAbility(e, ownProps.id));
         }
     }
 }

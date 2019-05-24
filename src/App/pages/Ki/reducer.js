@@ -6,9 +6,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
     switch (action.type) {
 
         case types.CACHE_ABILITY: {
-            const ability = {...state.abilities[action.id]};
-            ability.id = action.id;
-
+            const ability = {...state.abilities[action.id], id: action.id};
             return update(state, {
                 abilityEditCache: {
                     $set: state.abilityEditCache.concat(ability)
@@ -17,23 +15,17 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.CHANGE_FORM_TEXT: {
-            action.event.persist();
-            const target = action.event.target.name;
-            const value = action.event.target.value;
-
             return update(state, {
-                newAbility: {[target]: {$set: value}}
+                newAbility: {[action.target]: {$set: action.value}}
             });
         }
 
         case types.CLEAR_ABILITY_CACHE: {
+            const index = state.abilities.findIndex((ability) => ability.id === action.id);
+
             return update(state, {
                 abilityEditCache: {
-                    $apply: (abilities) => {
-                        const index = abilities.findIndex((ability) => ability.id === action.id);
-                        abilities.splice(index, 1);
-                        return abilities;
-                    }
+                    $splice: [[index, 1]]
                 }
             });
         }
@@ -41,10 +33,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         case types.DELETE_ABILITY: {
             return update(state, {
                 abilities: {
-                    $apply: (abilities) => {
-                        abilities.splice(action.id, 1);
-                        return abilities;
-                    }
+                    $splice: [[action.id, 1]]
                 },
                 abilityEditCache: {
                     $apply: (abilities) => {
@@ -76,6 +65,13 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
+        case types.TOGGLE_ADD_ABILITY_FORM: {
+            return update(state, {
+                showAbilityForm: {$set: !state.showAbilityForm},
+                newAbility: {$set: {name: '', cost: '', damage: '', saving: '', effect: ''}}
+            });
+        }
+
         case types.TOGGLE_EDIT_ABILITY: {
             return update(state, {
                 abilities: {
@@ -86,20 +82,9 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
-        case types.TOGGLE_ADD_ABILITY_FORM: {
-            return update(state, {
-                showAbilityForm: {$set: !state.showAbilityForm},
-                newAbility: {$set: {name: '', cost: '', damage: '', saving: '', effect: ''}}
-            });
-        }
-
         case types.UPDATE_ABILITY: {
-            action.event.persist();
-            const target = action.event.target.name;
-            const value = action.event.target.value;
-
             return update(state, {
-                abilities: { [action.id]: { [target]: { $set: value } } }
+                abilities: { [action.id]: { [action.target]: { $set: action.value } } }
             });
         }
 

@@ -1,6 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { TOGGLE_ADD_ABILITY_FORM } from './actions/actionTypes';
+import { toggleAddAbilityForm } from './actions/actionCreators'
 import Ability from './components/Ability.js';
 import AbilityForm from './components/AbilityForm.js';
 import Button from '../../components/Button/Button.js';
@@ -57,7 +57,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        toggleAbilityForm: () => dispatch({ type: TOGGLE_ADD_ABILITY_FORM })
+        toggleAbilityForm: () => dispatch(toggleAddAbilityForm())
     }
 }
 

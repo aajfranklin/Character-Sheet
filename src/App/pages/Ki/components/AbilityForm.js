@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM } from '../actions/actionTypes';
+import { changeFormText, submitNewAbility, toggleAddAbilityForm } from "../actions/actionCreators";
 import Button from '../../../components/Button/Button';
 
 function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, ...newAbility}) {
@@ -28,12 +28,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleFormChange: (e) => dispatch({ type: CHANGE_FORM_TEXT, event: e }),
+        handleFormChange: (e) => dispatch(changeFormText(e)),
         submitNewAbility: () => {
-            dispatch({ type: SUBMIT_NEW_ABILITY });
-            dispatch({ type: TOGGLE_ADD_ABILITY_FORM });
+            dispatch(submitNewAbility());
+            dispatch(toggleAddAbilityForm());
         },
-        toggleAbilityForm: () => dispatch({ type: TOGGLE_ADD_ABILITY_FORM })
+        toggleAbilityForm: () => dispatch(toggleAddAbilityForm())
     }
 }
 
