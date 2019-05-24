@@ -1,6 +1,6 @@
-import reducer from './reducer.js'
-import testState from '../testUtils/testState.js';
-import { deepCopy } from '../testUtils/testHelpers.js';
+import reducer from './reducer'
+import testState from '../testUtils/testState';
+import { deepCopy } from '../testUtils/testHelpers';
 
 const state = deepCopy(testState.app);
 

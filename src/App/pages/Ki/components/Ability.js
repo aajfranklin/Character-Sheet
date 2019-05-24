@@ -8,8 +8,8 @@ import {
     revertAbility,
     toggleEditAbility,
     updateAbility
-} from '../actions/actionCreators.js';
-import Button from '../../../components/Button/Button.js';
+} from '../actions/actionCreators';
+import Button from '../../../components/Button/Button';
 
 function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
     const attributes = abilities[id];

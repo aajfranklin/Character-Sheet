@@ -1,4 +1,4 @@
-import { initialState } from '../model.js';
+import { initialState } from '../model';
 
 export default function appReducer(state = { ...initialState.app }, action) {
     switch (action.type) {

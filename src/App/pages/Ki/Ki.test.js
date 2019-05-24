@@ -1,9 +1,9 @@
 import React from 'react';
 import {CHANGE_FORM_TEXT, SUBMIT_NEW_ABILITY, TOGGLE_ADD_ABILITY_FORM} from './actions/actionTypes';
 import { createMockStore } from 'redux-test-utils';
-import { deepCopy, mountInProvider } from '../../../testUtils/testHelpers.js';
-import testState from '../../../testUtils/testState.js';
-import Ki from './Ki.js';
+import { deepCopy, mountInProvider } from '../../../testUtils/testHelpers';
+import testState from '../../../testUtils/testState';
+import Ki from './Ki';
 
 let wrapper;
 let store;

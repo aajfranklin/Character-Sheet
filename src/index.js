@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
-import combineReducers from './reducer.js';
-import App from './App/App.js';
+import combineReducers from './reducer';
+import App from './App/App';
 import './index.css';
 
 let store = Redux.createStore(

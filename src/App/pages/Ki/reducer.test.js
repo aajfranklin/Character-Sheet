@@ -1,7 +1,7 @@
-import reducer from './reducer.js'
-import * as types from './actions/actionTypes.js';
-import testState from '../../../testUtils/testState.js';
-import { deepCopy } from "../../../testUtils/testHelpers.js";
+import reducer from './reducer'
+import * as types from './actions/actionTypes';
+import testState from '../../../testUtils/testState';
+import { deepCopy } from "../../../testUtils/testHelpers";
 
 const state = deepCopy(testState.ki);
 

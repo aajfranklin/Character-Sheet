@@ -1,9 +1,9 @@
 import React  from 'react';
 import { connect } from 'react-redux';
 import { toggleAddAbilityForm } from './actions/actionCreators'
-import Ability from './components/Ability.js';
-import AbilityForm from './components/AbilityForm.js';
-import Button from '../../components/Button/Button.js';
+import Ability from './components/Ability';
+import AbilityForm from './components/AbilityForm';
+import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 

@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
-import { initialState } from '../../../model.js';
-import * as types from './actions/actionTypes.js';
+import { initialState } from '../../../model';
+import * as types from './actions/actionTypes';
 
 export default function kiReducer(state = { ...initialState.ki }, action) {
     switch (action.type) {

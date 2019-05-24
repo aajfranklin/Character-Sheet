@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Ki from './pages/Ki/Ki.js';
+import Ki from './pages/Ki/Ki';
 import './App.css';
 
 function App({pages}) {

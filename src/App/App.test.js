@@ -4,7 +4,7 @@ import * as ReactRedux from 'react-redux';
 import { createMockStore } from 'redux-test-utils';
 import { deepCopy, mountInProvider } from '../testUtils/testHelpers';
 import testState from '../testUtils/testState';
-import App from './App.js';
+import App from './App';
 
 const state = deepCopy(testState);
 const store = createMockStore(state);
