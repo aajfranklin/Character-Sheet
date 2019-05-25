@@ -30,6 +30,23 @@ export const deleteAbility = (id) => {
     });
 };
 
+export const fetchAbilities = () => {
+    return({
+        type: types.FETCH_ABILITIES,
+        abilities: [
+            {
+                name: 'name',
+                cost: 'cost',
+                damage: 'damage',
+                boost: 'boost',
+                saving: 'saving',
+                effect: 'effect',
+                editing: false
+            }
+        ]
+    });
+};
+
 export const revertAbility = (id) => {
   return({
       type: types.REVERT_ABILITY,

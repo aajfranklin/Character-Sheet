@@ -1,13 +1,19 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { toggleAddAbilityForm } from './actions/actionCreators'
+import { fetchAbilities, toggleAddAbilityForm } from './actions/actionCreators'
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
-function Ki({abilities, showAbilityForm, toggleAbilityForm}) {
+function Ki({abilities, fetchAbilities, showAbilityForm, toggleAbilityForm}) {
+
+    if (!abilities) {
+        console.log('hello');
+        fetchAbilities();
+        return null;
+    }
 
     const meditate = () => {
 
@@ -57,6 +63,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        fetchAbilities: () => {dispatch(fetchAbilities())},
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm())
     }
 }

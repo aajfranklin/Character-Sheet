@@ -66,6 +66,18 @@ describe('Ki reducer', () => {
         expect(newState.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
     });
 
+    it('should handle FETCH_ABILITIES', () => {
+        const abilities = [{name: 'testAbility'}];
+        const newState = reducer(state,
+            {
+                type: types.FETCH_ABILITIES,
+                abilities: abilities
+            }
+        );
+        expect(newState.abilities.length).toBe(1);
+        expect(newState.abilities[0].name).toBe('testAbility');
+    });
+
     it('should handle REVERT_ABILITY', () => {
         state.abilityEditCache[0] = {name: 'testCachedAbility', id: 0};
         const newState = reducer(state,

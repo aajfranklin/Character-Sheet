@@ -49,6 +49,12 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
+        case types.FETCH_ABILITIES: {
+            return update(state, {
+                abilities: {$set: action.abilities}
+            });
+        }
+
         case types.REVERT_ABILITY: {
             const ability = {...state.abilityEditCache.find((ability) => ability.id === action.id)};
             ability.editing = false;
