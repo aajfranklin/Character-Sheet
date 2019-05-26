@@ -1,5 +1,9 @@
 import testState from '../../../../../testUtils/testState'
 
+export const apiGatewayDeleteAbility = (id) => {
+    return Promise.resolve();
+};
+
 export const apiGatewayGetAbilities = () => {
     const getAbilitiesResult = {
         data: {

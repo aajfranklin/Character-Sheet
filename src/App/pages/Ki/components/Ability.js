@@ -12,18 +12,23 @@ import {
 import Button from '../../../components/Button/Button';
 
 export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
-    const attributes = abilities[id];
+
+    function handleDelete(){
+        const ability = abilities[id];
+        ability.id = id;
+        deleteAbility(ability);
+    }
 
     return(
         <div className='row entry'>
-            { attributes.editing ?
+            { abilities[id].editing ?
                 <React.Fragment>
-                    <div className='col-2'><TextareaAutosize name='name' value={attributes.name} onChange={updateAbility}/></div>
-                    <div className='col-1'><TextareaAutosize name='cost' value={attributes.cost} onChange={updateAbility}/></div>
-                    <div className='col-2'><TextareaAutosize name='damage' value={attributes.damage} onChange={updateAbility}/></div>
-                    <div className='col-1'><TextareaAutosize name='boost' value={attributes.boost} onChange={updateAbility}/></div>
-                    <div className='col-2'><TextareaAutosize name='saving' value={attributes.saving} onChange={updateAbility}/></div>
-                    <div className='col-6'><TextareaAutosize name='effect' value={attributes.effect} className='effect' onChange={updateAbility}/></div>
+                    <div className='col-2'><TextareaAutosize name='name' value={abilities[id].name} onChange={updateAbility}/></div>
+                    <div className='col-1'><TextareaAutosize name='cost' value={abilities[id].cost} onChange={updateAbility}/></div>
+                    <div className='col-2'><TextareaAutosize name='damage' value={abilities[id].damage} onChange={updateAbility}/></div>
+                    <div className='col-1'><TextareaAutosize name='boost' value={abilities[id].boost} onChange={updateAbility}/></div>
+                    <div className='col-2'><TextareaAutosize name='saving' value={abilities[id].saving} onChange={updateAbility}/></div>
+                    <div className='col-6'><TextareaAutosize name='effect' value={abilities[id].effect} className='effect' onChange={updateAbility}/></div>
                     <div className='col-1 button-group'>
                         <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={saveAbility}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={cancelEdit}/>
@@ -32,15 +37,15 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, 
                 </React.Fragment>
                 :
                 <React.Fragment>
-                    <div className='col-2'>{attributes.name}</div>
-                    <div className='col-1'>{attributes.cost}</div>
-                    <div className='col-2'>{attributes.damage}</div>
-                    <div className='col-1'>{attributes.boost}</div>
-                    <div className='col-2'>{attributes.saving}</div>
-                    <div className='col-6 effect'>{attributes.effect}</div>
+                    <div className='col-2'>{abilities[id].name}</div>
+                    <div className='col-1'>{abilities[id].cost}</div>
+                    <div className='col-2'>{abilities[id].damage}</div>
+                    <div className='col-1'>{abilities[id].boost}</div>
+                    <div className='col-2'>{abilities[id].saving}</div>
+                    <div className='col-6 effect'>{abilities[id].effect}</div>
                     <div className='col-1 button-group'>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
-                        <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
+                        <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={handleDelete}/>
                     </div>
                 </React.Fragment>
             }
@@ -60,8 +65,8 @@ function mapDispatchToProps(dispatch, ownProps) {
           dispatch(revertAbility(ownProps.id));
           dispatch(clearAbilityCache(ownProps.id));
         },
-        deleteAbility: () => {
-            dispatch(deleteAbility(ownProps.id));
+        deleteAbility: (ability) => {
+            dispatch(deleteAbility(ability));
         },
         editAbility: () => {
             dispatch(cacheAbility(ownProps.id));

@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import { apiGatewayGetAbilities, apiGatewayGetAbility, apiGatewayPostAbility } from './apiGatewayPromises';
+import { apiGatewayDeleteAbility, apiGatewayGetAbilities, apiGatewayGetAbility, apiGatewayPostAbility } from './apiGatewayPromises';
 
 export const cacheAbility = (id) => {
     return({
@@ -24,10 +24,24 @@ export const clearAbilityCache = (id) => {
     });
 };
 
-export const deleteAbility = (id) => {
+export const deleteAbility = (ability) => {
+    return dispatch => {
+        return(
+            apiGatewayDeleteAbility(ability.uuid)
+                .then(() => {
+                    dispatch(deleteAbilitySuccess(ability));
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        )
+    }
+};
+
+export const deleteAbilitySuccess = (ability) => {
     return({
         type: types.DELETE_ABILITY,
-        id: id
+        id: ability.id
     });
 };
 

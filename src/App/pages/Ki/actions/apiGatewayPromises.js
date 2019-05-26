@@ -3,6 +3,11 @@ import config from "../../../../config";
 
 const apiGatewayClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities);
 
+export const apiGatewayDeleteAbility = (uuid) => {
+    const deleteAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + uuid);
+    return deleteAbilityClient.invokeApi({}, '', 'DELETE');
+};
+
 export const apiGatewayGetAbilities = () => {
     return apiGatewayClient.invokeApi({}, '', 'GET');
 };
