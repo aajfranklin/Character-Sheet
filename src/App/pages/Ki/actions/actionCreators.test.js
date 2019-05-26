@@ -191,7 +191,6 @@ describe('Ki action creator', () => {
                     const expectedActions = [
                         {type: types.REVERT_ABILITY, id: '1'},
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
-                        {type: types.TOGGLE_EDIT_ABILITY, id: '1'}
                     ];
 
                     return store.dispatch(actionCreators.saveAbility(ability)).then(() => {

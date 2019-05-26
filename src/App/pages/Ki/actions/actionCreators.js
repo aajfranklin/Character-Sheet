@@ -87,13 +87,12 @@ export const saveAbility = (ability) => {
         return(
             apiGatewayPutAbility(ability)
                 .then(response => {
-                    if (isEmpty(response)) {
+                    if (isEmpty(response.data)) {
                         dispatch(clearAbilityCache(ability.id));
                         dispatch(toggleEditAbility(ability.id));
                     } else {
                         dispatch(revertAbility(ability.id));
                         dispatch(clearAbilityCache(ability.id));
-                        dispatch(toggleEditAbility(ability.id));
                     }
                 })
         )

@@ -30,5 +30,5 @@ export const apiGatewayPostAbility = (ability) => {
 };
 
 export const apiGatewayPutAbility = (ability) => {
-    return ability.uuid ? Promise.resolve({}) : Promise.resolve({error: 'someError'});
+    return ability.uuid ? Promise.resolve({data: {}}) : Promise.resolve({data: {error: 'someError'}});
 };
