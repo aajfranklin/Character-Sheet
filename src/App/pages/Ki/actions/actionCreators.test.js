@@ -46,15 +46,6 @@ describe('Ki action creator', () => {
             expect(actionCreators.clearAbilityCache(1)).toStrictEqual(expectedAction);
         });
 
-        it('should create an action to delete an ability', () => {
-            const expectedAction = {
-                type: types.DELETE_ABILITY,
-                id: 1
-            };
-
-            expect(actionCreators.deleteAbility(1)).toStrictEqual(expectedAction);
-        });
-
         it('should create an action to revert an ability', () => {
             const expectedAction = {
                 type: types.REVERT_ABILITY,
@@ -107,22 +98,20 @@ describe('Ki action creator', () => {
         const middleware = [thunk];
         const mockStore = configureMockStore(middleware);
 
-        describe('when submitting a new ability', () => {
+        describe('when deleting an abilit', () => {
 
-            describe('when the post and get succeed', () => {
+            describe('when the delete succeeds', () => {
 
-                it('should create actions to return the submitted ability and toggle the add ability form', () => {
+                it('should create an action to delete an ability', () => {
                     const store = mockStore();
-                    const ability = {uuid: '1'};
-                    const expectedActions = [
-                        {type: 'SUBMIT_NEW_ABILITY_SUCCESS', ability: {editing: false, uuid: '1'}},
-                        {type: "TOGGLE_ADD_ABILITY_FORM"}
-                    ];
+                    const expectedActions = [{
+                        type: types.DELETE_ABILITY,
+                        id: 1
+                    }];
 
-                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.deleteAbility(1)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
-
                 });
 
             });
@@ -143,6 +132,28 @@ describe('Ki action creator', () => {
                     return store.dispatch(actionCreators.loadAbilities()).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
+                });
+
+            });
+
+        });
+
+        describe('when submitting a new ability', () => {
+
+            describe('when the post and get succeed', () => {
+
+                it('should create actions to return the submitted ability and toggle the add ability form', () => {
+                    const store = mockStore();
+                    const ability = {uuid: '1'};
+                    const expectedActions = [
+                        {type: 'SUBMIT_NEW_ABILITY_SUCCESS', ability: {editing: false, uuid: '1'}},
+                        {type: "TOGGLE_ADD_ABILITY_FORM"}
+                    ];
+
+                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+
                 });
 
             });

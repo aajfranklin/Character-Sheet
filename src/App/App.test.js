@@ -1,9 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import ReactDOM from 'react-dom';
-import * as ReactRedux from 'react-redux';
-import configureMockStore from 'redux-mock-store';
 import { deepCopy } from '../testUtils/testHelpers';
 import testState from '../testUtils/testState';
 import { App } from './App';
