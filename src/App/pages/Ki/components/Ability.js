@@ -11,7 +11,7 @@ import {
 } from '../actions/actionCreators';
 import Button from '../../../components/Button/Button';
 
-function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
+export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
     const attributes = abilities[id];
 
     return(

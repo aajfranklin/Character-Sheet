@@ -68,7 +68,6 @@ export const submitNewAbility = (ability) => {
     const getAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + ability.uuid);
 
     return dispatch => {
-        console.log('dispatch');
         apiGatewayClient.invokeApi({}, '', 'POST', {}, ability)
             .then(() => getAbilityClient.invokeApi({}, '', 'GET'))
             .then((result) => {

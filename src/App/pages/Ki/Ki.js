@@ -7,7 +7,7 @@ import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
-function Ki({abilities, fetchAbilities, showAbilityForm, toggleAbilityForm}) {
+export function Ki({abilities, fetchAbilities, showAbilityForm, toggleAbilityForm}) {
 
     if (!abilities) {
         fetchAbilities();

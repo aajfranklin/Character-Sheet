@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { changeFormText, submitNewAbility, toggleAddAbilityForm } from "../actions/actionCreators";
 import Button from '../../../components/Button/Button';
 
-function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, newAbility}) {
+export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, newAbility}) {
 
     function handleSubmit() {
         submitNewAbility({...newAbility});
