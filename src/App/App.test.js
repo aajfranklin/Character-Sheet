@@ -1,55 +1,37 @@
 import React from 'react';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ReactDOM from 'react-dom';
 import * as ReactRedux from 'react-redux';
-import { createMockStore } from 'redux-test-utils';
-import { deepCopy, mountInProvider } from '../testUtils/testHelpers';
+import configureMockStore from 'redux-mock-store';
+import { deepCopy } from '../testUtils/testHelpers';
 import testState from '../testUtils/testState';
-import App from './App';
+import { App } from './App';
+
+Enzyme.configure({adapter: new Adapter()});
+let wrapper;
 
 const state = deepCopy(testState);
-const store = createMockStore(state);
 
 describe('App', () => {
 
     describe('On loading the home page', () => {
 
-        describe('when testing ReactDom directly', () => {
-
-            it('renders without crashing', () => {
-                const div = document.createElement('div');
-
-                ReactDOM.render(
-                    <ReactRedux.Provider store={store}>
-                        <App/>
-                    </ReactRedux.Provider>,
-                    div
-                );
-                ReactDOM.unmountComponentAtNode(div);
-            });
-
+        beforeAll(() => {
+            wrapper = shallow(<App pages={testState.app.pages}/>);
         });
 
-        describe('when testing with Enzyme', () => {
+        it('renders the nav bar', () => {
+            expect(wrapper.find('nav').length).toBe(1);
+        });
 
-            let wrapper;
+        it('generates nav bar items from passed in pages prop', () => {
 
-            beforeAll(() => {
-                wrapper = mountInProvider(<App/>, store);
-            });
+            expect(wrapper.find('Link').length).toBe(state.app.pages.length);
 
-            it('renders the nav bar', () => {
-                expect(wrapper.find('nav').length).toBe(1);
-            });
-
-            it('generates nav bar items from passed in pages prop', () => {
-
-                expect(wrapper.find('Link').length).toBe(state.app.pages.length);
-
-                for (let i = 0; i < state.app.pages.length; i++) {
-                    expect(wrapper.find('Link').at(i).key()).toBe(state.app.pages[i]);
-                }
-            });
-
+            for (let i = 0; i < state.app.pages.length; i++) {
+                expect(wrapper.find('Link').at(i).key()).toBe(state.app.pages[i]);
+            }
         });
 
     });

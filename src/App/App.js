@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Ki from './pages/Ki/Ki';
 import './App.css';
 
-function App({pages}) {
+export function App({pages}) {
     return (
         <div className='App'>
             <Router>
