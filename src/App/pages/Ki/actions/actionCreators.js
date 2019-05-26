@@ -47,11 +47,11 @@ export const fetchAbilities = () => {
     };
 };
 
-const fetchAbilitiesSuccess = (abilities) => {
+export const fetchAbilitiesSuccess = (abilities) => {
     abilities.map(ability => ability.editing = false);
 
     return({
-       type: types.FETCH_ABILITIES,
+       type: types.FETCH_ABILITIES_SUCCESS,
        abilities
     });
 };
@@ -82,9 +82,9 @@ export const submitNewAbility = (ability) => {
     };
 };
 
-const submitNewAbilitySuccess = (ability) => {
+export const submitNewAbilitySuccess = (ability) => {
     return({
-        type: types.SUBMIT_NEW_ABILITY,
+        type: types.SUBMIT_NEW_ABILITY_SUCCESS,
         ability
     })
 };

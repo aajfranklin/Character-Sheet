@@ -66,11 +66,11 @@ describe('Ki reducer', () => {
         expect(newState.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
     });
 
-    it('should handle FETCH_ABILITIES', () => {
+    it('should handle FETCH_ABILITIES_SUCCESS', () => {
         const abilities = [{name: 'testAbility'}];
         const newState = reducer(state,
             {
-                type: types.FETCH_ABILITIES,
+                type: types.FETCH_ABILITIES_SUCCESS,
                 abilities: abilities
             }
         );
@@ -89,7 +89,7 @@ describe('Ki reducer', () => {
         expect(newState.abilities[0]).toStrictEqual({name: 'testCachedAbility', editing: false});
     });
 
-    it('should handle SUBMIT_NEW_ABILITY', () => {
+    it('should handle SUBMIT_NEW_ABILITY_SUCCESS', () => {
         const initialAbilityCount = state.abilities.length;
         const ability = {
             name: 'name',
@@ -101,7 +101,7 @@ describe('Ki reducer', () => {
         };
 
         const newState = reducer(state,
-            {type: types.SUBMIT_NEW_ABILITY, ability: ability}
+            {type: types.SUBMIT_NEW_ABILITY_SUCCESS, ability: ability}
         );
         expect(newState.abilities.length).toBe(initialAbilityCount + 1);
         expect(newState.abilities[initialAbilityCount]).toStrictEqual(ability);
