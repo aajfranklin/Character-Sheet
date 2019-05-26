@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import { changeFormText, submitNewAbility, toggleAddAbilityForm } from "../actions/actionCreators";
 import Button from '../../../components/Button/Button';
 
 export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, newAbility}) {
 
     function handleSubmit() {
-        submitNewAbility({...newAbility});
+        const ability = {...newAbility};
+        ability.uuid = uuid();
+        submitNewAbility(ability);
     }
 
     return(

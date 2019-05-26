@@ -66,11 +66,11 @@ describe('Ki reducer', () => {
         expect(newState.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
     });
 
-    it('should handle FETCH_ABILITIES_SUCCESS', () => {
+    it('should handle LOAD_ABILITIES_SUCCESS', () => {
         const abilities = [{name: 'testAbility'}];
         const newState = reducer(state,
             {
-                type: types.FETCH_ABILITIES_SUCCESS,
+                type: types.LOAD_ABILITIES_SUCCESS,
                 abilities: abilities
             }
         );

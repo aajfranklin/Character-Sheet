@@ -1,16 +1,16 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { fetchAbilities, toggleAddAbilityForm } from './actions/actionCreators'
+import { loadAbilities, toggleAddAbilityForm } from './actions/actionCreators'
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
-export function Ki({abilities, fetchAbilities, showAbilityForm, toggleAbilityForm}) {
+export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm}) {
 
     if (!abilities) {
-        fetchAbilities();
+        loadAbilities();
         return null;
     }
 
@@ -62,7 +62,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchAbilities: () => {dispatch(fetchAbilities())},
+        loadAbilities: () => {dispatch(loadAbilities())},
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm())
     }
 }

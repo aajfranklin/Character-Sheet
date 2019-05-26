@@ -12,11 +12,11 @@ const state = deepCopy(testState);
 
 jest.mock('./components/Ability');
 jest.mock('./components/AbilityForm');
-const mockFetchAbilities = jest.fn();
+const mockLoadAbilities = jest.fn();
 const mockToggleAbilityForm = jest.fn();
 
 function setUp(abilities, showAbilityForm) {
-    wrapper = shallow(<Ki fetchAbilities={mockFetchAbilities}
+    wrapper = shallow(<Ki loadAbilities={mockLoadAbilities}
                         toggleAbilityForm={mockToggleAbilityForm}
                         showAbilityForm={showAbilityForm}
                         abilities={abilities}
@@ -31,8 +31,8 @@ describe('Ki', () => {
             setUp(null);
         });
 
-        it('should call fetchAbilities', () => {
-            expect(mockFetchAbilities.mock.calls.length).toBe(1);
+        it('should call loadAbilities', () => {
+            expect(mockLoadAbilities.mock.calls.length).toBe(1);
         });
 
         it('should return null', () => {
@@ -74,7 +74,7 @@ describe('Ki', () => {
 
             it('should call toggle ability', () => {
                 wrapper.find('Button').at(1).simulate('click');
-                expect(mockFetchAbilities.mock.calls.length).toBe(1);
+                expect(mockLoadAbilities.mock.calls.length).toBe(1);
             });
 
         });

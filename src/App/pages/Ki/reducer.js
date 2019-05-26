@@ -49,7 +49,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
-        case types.FETCH_ABILITIES_SUCCESS: {
+        case types.LOAD_ABILITIES_SUCCESS: {
             return update(state, {
                 abilities: {$set: action.abilities}
             });
