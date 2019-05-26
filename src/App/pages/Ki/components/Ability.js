@@ -6,6 +6,7 @@ import {
     clearAbilityCache,
     deleteAbility,
     revertAbility,
+    saveAbility,
     toggleEditAbility,
     updateAbility
 } from '../actions/actionCreators';
@@ -19,6 +20,12 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, 
         deleteAbility(ability);
     }
 
+    function handleSave() {
+        const ability = abilities[id];
+        ability.id = id;
+        saveAbility(ability);
+    }
+
     return(
         <div className='row entry'>
             { abilities[id].editing ?
@@ -30,7 +37,7 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, 
                     <div className='col-2'><TextareaAutosize name='saving' value={abilities[id].saving} onChange={updateAbility}/></div>
                     <div className='col-6'><TextareaAutosize name='effect' value={abilities[id].effect} className='effect' onChange={updateAbility}/></div>
                     <div className='col-1 button-group'>
-                        <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={saveAbility}/>
+                        <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={cancelEdit}/>
                     </div>
 
@@ -72,9 +79,8 @@ function mapDispatchToProps(dispatch, ownProps) {
             dispatch(cacheAbility(ownProps.id));
             dispatch(toggleEditAbility(ownProps.id));
         },
-        saveAbility: () => {
-            dispatch(clearAbilityCache(ownProps.id));
-            dispatch(toggleEditAbility(ownProps.id));
+        saveAbility: (ability) => {
+            dispatch(saveAbility(ability));
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.id));

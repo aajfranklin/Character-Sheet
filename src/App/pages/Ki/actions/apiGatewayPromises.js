@@ -20,3 +20,8 @@ export const apiGatewayGetAbility = (uuid) => {
 export const apiGatewayPostAbility = (ability) => {
     return apiGatewayClient.invokeApi({}, '', 'POST', {}, ability);
 };
+
+export const apiGatewayPutAbility = (ability) => {
+    const putAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + ability.uuid);
+    return putAbilityClient.invokeApi({}, '', 'PUT', {}, ability);
+};

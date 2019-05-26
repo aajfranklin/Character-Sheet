@@ -1,5 +1,11 @@
 import * as types from './actionTypes';
-import { apiGatewayDeleteAbility, apiGatewayGetAbilities, apiGatewayGetAbility, apiGatewayPostAbility } from './apiGatewayPromises';
+import {
+    apiGatewayDeleteAbility,
+    apiGatewayGetAbilities,
+    apiGatewayGetAbility,
+    apiGatewayPostAbility,
+    apiGatewayPutAbility
+} from './apiGatewayPromises';
 
 export const cacheAbility = (id) => {
     return({
@@ -73,6 +79,18 @@ export const revertAbility = (id) => {
       type: types.REVERT_ABILITY,
       id: id
   });
+};
+
+export const saveAbility = (ability) => {
+    return dispatch => {
+        return(
+            apiGatewayPutAbility(ability)
+                .then(() => {
+                    dispatch(clearAbilityCache(ability.id));
+                    dispatch(toggleEditAbility(ability.id));
+                })
+        )
+    }
 };
 
 export const submitNewAbility = (ability) => {

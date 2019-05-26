@@ -16,7 +16,7 @@ describe('Ki action creator', () => {
                 id: '1'
             };
 
-            expect(actionCreators.cacheAbility(1)).toStrictEqual(expectedAction);
+            expect(actionCreators.cacheAbility('1')).toStrictEqual(expectedAction);
         });
 
         it('should create an action to change form text', () => {
@@ -43,7 +43,7 @@ describe('Ki action creator', () => {
                 id: '1'
             };
 
-            expect(actionCreators.clearAbilityCache(1)).toStrictEqual(expectedAction);
+            expect(actionCreators.clearAbilityCache('1')).toStrictEqual(expectedAction);
         });
 
         it('should create an action to revert an ability', () => {
@@ -52,7 +52,7 @@ describe('Ki action creator', () => {
                 id: '1'
             };
 
-            expect(actionCreators.revertAbility(1)).toStrictEqual(expectedAction);
+            expect(actionCreators.revertAbility('1')).toStrictEqual(expectedAction);
         });
 
         it('should create an action to toggle the add ability form', () => {
@@ -69,7 +69,7 @@ describe('Ki action creator', () => {
                 id: '1'
             };
 
-            expect(actionCreators.toggleEditAbility(1)).toStrictEqual(expectedAction);
+            expect(actionCreators.toggleEditAbility('1')).toStrictEqual(expectedAction);
         });
 
         it('should create an action to update an ability', () => {
@@ -88,7 +88,7 @@ describe('Ki action creator', () => {
                 id: '1'
             };
 
-            expect(actionCreators.updateAbility(event, 1)).toStrictEqual(expectedAction);
+            expect(actionCreators.updateAbility(event, '1')).toStrictEqual(expectedAction);
         });
 
     });
@@ -176,7 +176,7 @@ describe('Ki action creator', () => {
                         {type: types.TOGGLE_EDIT_ABILITY, id: '1'}
                     ];
 
-                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
