@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import { isEmpty } from 'lodash';
 import {
     apiGatewayDeleteAbility,
     apiGatewayGetAbilities,
@@ -85,9 +86,15 @@ export const saveAbility = (ability) => {
     return dispatch => {
         return(
             apiGatewayPutAbility(ability)
-                .then(() => {
-                    dispatch(clearAbilityCache(ability.id));
-                    dispatch(toggleEditAbility(ability.id));
+                .then(response => {
+                    if (isEmpty(response)) {
+                        dispatch(clearAbilityCache(ability.id));
+                        dispatch(toggleEditAbility(ability.id));
+                    } else {
+                        dispatch(revertAbility(ability.id));
+                        dispatch(clearAbilityCache(ability.id));
+                        dispatch(toggleEditAbility(ability.id));
+                    }
                 })
         )
     }

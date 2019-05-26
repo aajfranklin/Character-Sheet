@@ -165,11 +165,11 @@ describe('Ki action creator', () => {
         });
 
         describe('when an updated ability is saved', () => {
-            const store = mockStore();
 
             describe('when the post succeeds', () => {
 
-                it('should create actions to clear the ability cache and toggle ability editing', () => {
+                it('should create actions to clear ability cache and toggle ability editing', () => {
+                    const store = mockStore();
                     const ability = {uuid: '1', name: 'preSave', id: '1'};
                     const expectedActions = [
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
@@ -185,11 +185,13 @@ describe('Ki action creator', () => {
 
             describe('when the post fails', () => {
 
-                it('should create actions to revert ability and clear ability cache', () => {
+                it('should create actions to revert ability, clear ability cache, and toggle ability editing', () => {
+                    const store = mockStore();
                     const ability = {name: 'preSave', id: '1'};
                     const expectedActions = [
                         {type: types.REVERT_ABILITY, id: '1'},
-                        {type: types.CLEAR_ABILITY_CACHE, id: '1'}
+                        {type: types.CLEAR_ABILITY_CACHE, id: '1'},
+                        {type: types.TOGGLE_EDIT_ABILITY, id: '1'}
                     ];
 
                     return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
