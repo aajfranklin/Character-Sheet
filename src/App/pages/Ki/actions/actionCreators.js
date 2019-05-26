@@ -1,4 +1,9 @@
+import { v4 as uuid } from 'uuid';
 import * as types from './actionTypes';
+import config from '../../../../config';
+import getApiGatewayClient from '../../../../apiGatewayClient';
+
+const apiGatewayClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities);
 
 export const cacheAbility = (id) => {
     return({
@@ -31,19 +36,23 @@ export const deleteAbility = (id) => {
 };
 
 export const fetchAbilities = () => {
+    return dispatch => {
+        apiGatewayClient.invokeApi({}, '', 'GET')
+            .then(result => {
+                dispatch(fetchAbilitiesSuccess(result.data.abilities));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    };
+};
+
+const fetchAbilitiesSuccess = (abilities) => {
+    abilities.map(ability => ability.editing = false);
+
     return({
-        type: types.FETCH_ABILITIES,
-        abilities: [
-            {
-                name: 'name',
-                cost: 'cost',
-                damage: 'damage',
-                boost: 'boost',
-                saving: 'saving',
-                effect: 'effect',
-                editing: false
-            }
-        ]
+       type: types.FETCH_ABILITIES,
+       abilities
     });
 };
 
@@ -54,10 +63,31 @@ export const revertAbility = (id) => {
   });
 };
 
-export const submitNewAbility = () => {
+export const submitNewAbility = (ability) => {
+    ability.uuid = uuid();
+    const getAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + ability.uuid);
+
+    return dispatch => {
+        console.log('dispatch');
+        apiGatewayClient.invokeApi({}, '', 'POST', {}, ability)
+            .then(() => getAbilityClient.invokeApi({}, '', 'GET'))
+            .then((result) => {
+                const submittedAbility = result.data.ability;
+                submittedAbility.editing = false;
+                dispatch(submitNewAbilitySuccess(submittedAbility));
+                dispatch(toggleAddAbilityForm());
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    };
+};
+
+const submitNewAbilitySuccess = (ability) => {
     return({
-        type: types.SUBMIT_NEW_ABILITY
-    });
+        type: types.SUBMIT_NEW_ABILITY,
+        ability
+    })
 };
 
 export const toggleAddAbilityForm = () => {

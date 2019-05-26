@@ -2,13 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
+import thunk from 'redux-thunk';
 import combineReducers from './reducer';
 import App from './App/App';
 import './index.css';
 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+
+
 let store = Redux.createStore(
     combineReducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeEnhancer(Redux.applyMiddleware(thunk)),
 );
 
 ReactDOM.render(

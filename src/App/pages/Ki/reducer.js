@@ -67,14 +67,14 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
 
         case types.SUBMIT_NEW_ABILITY: {
             return update(state, {
-                abilities: {$set: state.abilities.concat({...state.newAbility})},
+                abilities: {$push: [action.ability]},
             });
         }
 
         case types.TOGGLE_ADD_ABILITY_FORM: {
             return update(state, {
                 showAbilityForm: {$set: !state.showAbilityForm},
-                newAbility: {$set: {name: '', cost: '', damage: '', saving: '', effect: ''}}
+                newAbility: {$set: {name: '', cost: '', damage: '', boost: '', saving: '', effect: ''}}
             });
         }
 

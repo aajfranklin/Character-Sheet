@@ -10,7 +10,6 @@ import '../../components/Button/Button.css';
 function Ki({abilities, fetchAbilities, showAbilityForm, toggleAbilityForm}) {
 
     if (!abilities) {
-        console.log('hello');
         fetchAbilities();
         return null;
     }

@@ -91,21 +91,20 @@ describe('Ki reducer', () => {
 
     it('should handle SUBMIT_NEW_ABILITY', () => {
         const initialAbilityCount = state.abilities.length;
-        const newAbility = {
+        const ability = {
             name: 'name',
             cost: 'cost',
             damage: 'damage',
+            boost: 'boost',
             saving: 'saving',
             effect: 'effect'
         };
 
-        state.newAbility = newAbility;
-
         const newState = reducer(state,
-            {type: types.SUBMIT_NEW_ABILITY,}
+            {type: types.SUBMIT_NEW_ABILITY, ability: ability}
         );
         expect(newState.abilities.length).toBe(initialAbilityCount + 1);
-        expect(newState.abilities[initialAbilityCount]).toStrictEqual(newAbility);
+        expect(newState.abilities[initialAbilityCount]).toStrictEqual(ability);
 
     });
 
@@ -114,7 +113,7 @@ describe('Ki reducer', () => {
             {type: types.TOGGLE_ADD_ABILITY_FORM}
         );
         expect(newState.showAbilityForm).toBe(true);
-        expect(newState.newAbility).toStrictEqual({name: '', cost: '', damage: '', saving: '', effect: '' });
+        expect(newState.newAbility).toStrictEqual({name: '', cost: '', boost: '', damage: '', saving: '', effect: '' });
 
     });
 

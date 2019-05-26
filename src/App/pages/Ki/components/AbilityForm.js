@@ -3,17 +3,22 @@ import { connect } from 'react-redux';
 import { changeFormText, submitNewAbility, toggleAddAbilityForm } from "../actions/actionCreators";
 import Button from '../../../components/Button/Button';
 
-function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, ...newAbility}) {
+function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, newAbility}) {
+
+    function handleSubmit() {
+        submitNewAbility({...newAbility});
+    }
+
     return(
         <form>
             <p>Name:<input type='text' name='name' value={newAbility.name} onChange={handleFormChange}/></p>
             <p>Cost:<input type='text' name='cost' value={newAbility.cost} onChange={handleFormChange}/></p>
             <p>Damage:<input type='text' name='damage' value={newAbility.damage} onChange={handleFormChange}/></p>
-            <p>Boost:<input type='text' name='damage' value={newAbility.boost} onChange={handleFormChange}/></p>
+            <p>Boost:<input type='text' name='boost' value={newAbility.boost} onChange={handleFormChange}/></p>
             <p>Saving Throw:<input type='text' name='saving' value={newAbility.saving} onChange={handleFormChange}/></p>
             <p>Effect:<input className='tall' type='text' name='effect' value={newAbility.effect} onChange={handleFormChange}/></p>
             <div className='button-group'>
-                <Button clickHandler={submitNewAbility} label='SUBMIT' icon='fas fa-check-circle' buttonStyle='confirm'/>
+                <Button clickHandler={handleSubmit} label='SUBMIT' icon='fas fa-check-circle' buttonStyle='confirm'/>
                 <Button clickHandler={toggleAbilityForm} label='CANCEL' icon='fas fa-times-circle' buttonStyle='cancel'/>
             </div>
         </form>
@@ -29,10 +34,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         handleFormChange: (e) => dispatch(changeFormText(e)),
-        submitNewAbility: () => {
-            dispatch(submitNewAbility());
-            dispatch(toggleAddAbilityForm());
-        },
+        submitNewAbility: (ability) => dispatch(submitNewAbility(ability)),
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm())
     }
 }
