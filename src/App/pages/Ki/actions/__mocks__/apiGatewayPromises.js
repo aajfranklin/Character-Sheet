@@ -25,10 +25,6 @@ export const apiGatewayGetAbility = (uuid) => {
     return Promise.resolve(getAbilityResult);
 };
 
-export const apiGatewayPostAbility = (ability) => {
-    return Promise.resolve();
-};
-
 export const apiGatewayPutAbility = (ability) => {
     return ability.uuid ? Promise.resolve({data: {}}) : Promise.resolve({data: {error: 'someError'}});
 };

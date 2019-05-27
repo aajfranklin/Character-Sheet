@@ -4,7 +4,6 @@ import {
     apiGatewayDeleteAbility,
     apiGatewayGetAbilities,
     apiGatewayGetAbility,
-    apiGatewayPostAbility,
     apiGatewayPutAbility
 } from './apiGatewayPromises';
 
@@ -102,7 +101,7 @@ export const saveAbility = (ability) => {
 export const submitNewAbility = (ability) => {
     return dispatch => {
         return (
-            apiGatewayPostAbility(ability)
+            apiGatewayPutAbility(ability)
                 .then(() => apiGatewayGetAbility(ability.uuid))
                 .then((result) => {
                     const submittedAbility = result.data.ability;
