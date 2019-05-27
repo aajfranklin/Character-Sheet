@@ -324,13 +324,13 @@ describe('Ki action creator', () => {
 
                 it('should create actions to clear ability cache and toggle ability editing', () => {
                     const store = mockStore();
-                    const ability = {uuid: '1', name: 'preSave', id: '1'};
+                    const ability = {uuid: '1', name: 'preSave'};
                     const expectedActions = [
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
                         {type: types.TOGGLE_EDIT_ABILITY, id: '1'}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
@@ -341,14 +341,14 @@ describe('Ki action creator', () => {
 
                 it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
                     const store = mockStore();
-                    const ability = {name: 'preSave', id: '1', uuid: 'putNetworkFailure'};
+                    const ability = {name: 'preSave', uuid: 'putNetworkFailure'};
                     const expectedActions = [
                         {type: types.REVERT_ABILITY, id: '1'},
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
@@ -359,14 +359,14 @@ describe('Ki action creator', () => {
 
                 it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
                     const store = mockStore();
-                    const ability = {name: 'preSave', id: '1'};
+                    const ability = {name: 'preSave'};
                     const expectedActions = [
                         {type: types.REVERT_ABILITY, id: '1'},
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });

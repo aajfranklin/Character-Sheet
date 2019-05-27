@@ -108,30 +108,30 @@ export const revertAbility = (id) => {
   });
 };
 
-export const saveAbility = (ability) => {
+export const saveAbility = (ability, id) => {
     return dispatch => {
         return(
             apiGatewayPutAbility(ability)
                 .then(response => {
                     if (isEmpty(response.data)) {
-                        dispatch(clearAbilityCache(ability.id));
-                        dispatch(toggleEditAbility(ability.id));
+                        dispatch(clearAbilityCache(id));
+                        dispatch(toggleEditAbility(id));
                     } else {
-                        dispatch(saveAbilityFailed(ability));
+                        dispatch(saveAbilityFailed(id));
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    dispatch(saveAbilityFailed(ability));
+                    dispatch(saveAbilityFailed(id));
                 })
         )
     }
 };
 
-const saveAbilityFailed = (ability) => {
+const saveAbilityFailed = (id) => {
     return dispatch => {
-        dispatch(revertAbility(ability.id));
-        dispatch(clearAbilityCache(ability.id));
+        dispatch(revertAbility(id));
+        dispatch(clearAbilityCache(id));
         dispatch(toggleShowError(errors.UPDATE_ABILITY_FAILED));
     }
 };

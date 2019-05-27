@@ -20,7 +20,7 @@ export const initialState = {
     app: {
         pages: pages,
         showError: false,
-        errorMessage: 'TEST ERROR TEST ERROR',
+        errorMessage: '',
     },
     ki: {
         abilities: null,

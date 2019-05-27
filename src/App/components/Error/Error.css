@@ -15,7 +15,7 @@
     display: inline-block;
 }
 
-Button {
+.error > Button {
     display: inline-block;
     margin-bottom: 1em;
 }

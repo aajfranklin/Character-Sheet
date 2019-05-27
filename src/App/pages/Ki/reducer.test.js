@@ -36,13 +36,14 @@ describe('Ki reducer', () => {
 
     it('should handle CLEAR_ABILITY_CACHE', () => {
         state.abilityEditCache[0] = {name: 'testCachedAbility'};
+        state.abilityEditCache[1] = {name: 'testCachedAbility'};
         const newState = reducer(state,
             {
                 type: types.CLEAR_ABILITY_CACHE,
-                id: 0
+                id: '1'
             }
         );
-        expect(newState.abilityEditCache.length).toBe(0);
+        expect(newState.abilityEditCache.length).toBe(1);
     });
 
     it('should handle DELETE_ABILITY', () => {

@@ -21,11 +21,11 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.CLEAR_ABILITY_CACHE: {
-            const index = state.abilities.findIndex((ability) => ability.id === action.id);
+            const abilityCacheIndex = state.abilityEditCache.findIndex((ability) => ability.id === action.id);
 
             return update(state, {
                 abilityEditCache: {
-                    $splice: [[index, 1]]
+                    $splice: [[abilityCacheIndex, 1]]
                 }
             });
         }

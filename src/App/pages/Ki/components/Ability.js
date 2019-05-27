@@ -21,9 +21,9 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, 
     }
 
     function handleSave() {
-        const ability = abilities[id];
-        ability.id = id;
-        saveAbility(ability);
+        // const ability = abilities[id];
+        // ability.id = id;
+        saveAbility(abilities[id], id);
     }
 
     return(
@@ -79,8 +79,8 @@ function mapDispatchToProps(dispatch, ownProps) {
             dispatch(cacheAbility(ownProps.id));
             dispatch(toggleEditAbility(ownProps.id));
         },
-        saveAbility: (ability) => {
-            dispatch(saveAbility(ability));
+        saveAbility: (ability, id) => {
+            dispatch(saveAbility(ability, id));
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.id));
