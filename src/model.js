@@ -19,6 +19,8 @@ const newAbility = {
 export const initialState = {
     app: {
         pages: pages,
+        showError: false,
+        errorMessage: 'TEST ERROR TEST ERROR',
     },
     ki: {
         abilities: null,

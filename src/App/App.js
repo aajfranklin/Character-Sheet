@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Ki from './pages/Ki/Ki';
+import Error from './components/Error/Error';
 import './App.css';
 
-export function App({pages}) {
+export function App({pages, showError}) {
     return (
         <div className='App'>
             <Router>
@@ -14,6 +15,7 @@ export function App({pages}) {
                     })}
                 </nav>
                 <main>
+                    {showError ? <Error/> : null}
                     <Route exact path='/Ki' component={Ki} />
                 </main>
             </Router>
@@ -23,7 +25,8 @@ export function App({pages}) {
 
 function mapStateToProps(state) {
     return {
-        pages: state.app.pages
+        pages: state.app.pages,
+        showError: state.app.showError
     }
 }
 

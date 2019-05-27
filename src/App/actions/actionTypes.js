@@ -1,0 +1,1 @@
+export const TOGGLE_SHOW_ERROR = 'TOGGLE_SHOW_ERROR';

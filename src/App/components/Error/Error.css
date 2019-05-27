@@ -1,0 +1,21 @@
+.error {
+    position: absolute;
+    background: white;
+    width: 30vw;
+    left: 35vw;
+    top: 20vw;
+    z-index: 10;
+    text-align: center;
+    border-radius: 1em;
+    border-color: lightslategrey;
+    border-style: solid;
+}
+
+.error > p {
+    display: inline-block;
+}
+
+Button {
+    display: inline-block;
+    margin-bottom: 1em;
+}

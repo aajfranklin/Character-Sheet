@@ -22,9 +22,19 @@ export const apiGatewayGetAbility = (uuid) => {
         }
     };
 
-    return Promise.resolve(getAbilityResult);
+    if (uuid === 'getNetworkFailure') {
+        return Promise.reject('testGetReject');
+    } else if (uuid === 'getDynamoFailure') {
+        return Promise.resolve({data: {ability: {uuid: ''}}});
+    } else {
+        return Promise.resolve(getAbilityResult);
+    }
 };
 
 export const apiGatewayPutAbility = (ability) => {
-    return ability.uuid ? Promise.resolve({data: {}}) : Promise.resolve({data: {error: 'someError'}});
+    if (ability.uuid) {
+        return ability.uuid === 'putNetworkFailure' ? Promise.reject('testPutReject') : Promise.resolve({data: {}});
+    } else {
+        return Promise.resolve({data: {error: 'someError'}})
+    }
 };

@@ -42,6 +42,8 @@ export const testNewAbility = {
 export const testState = {
     app: {
         pages: testPages,
+        showError: false,
+        errorMessage: '',
     },
     ki: {
         abilities: testKiAbilities,

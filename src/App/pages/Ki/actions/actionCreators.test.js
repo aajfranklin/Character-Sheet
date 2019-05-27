@@ -2,6 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actionCreators from './actionCreators';
 import * as types from './actionTypes';
+import { TOGGLE_SHOW_ERROR } from "../../../actions/actionTypes";
+import * as errors from '../../../components/Error/ErrorTypes';
 import testState from '../../../../testUtils/testState';
 
 jest.mock('./apiGatewayPromises');
@@ -93,12 +95,17 @@ describe('Ki action creator', () => {
 
     });
 
+    /*
+    * Delete - result.data.ability.uuid === '' implies not found
+    * Get all - result.data.abilities[0].uuid === '' implies not found
+    * */
+
     describe('asynchronous actions', () => {
 
         const middleware = [thunk];
         const mockStore = configureMockStore(middleware);
 
-        describe('when deleting an abilit', () => {
+        describe('when deleting an ability', () => {
 
             describe('when the delete succeeds', () => {
 
@@ -144,7 +151,7 @@ describe('Ki action creator', () => {
 
         describe('when submitting a new ability', () => {
 
-            describe('when the post and get succeed', () => {
+            describe('when the put and get succeed', () => {
 
                 it('should create actions to return the submitted ability and toggle the add ability form', () => {
                     const store = mockStore();
@@ -162,11 +169,79 @@ describe('Ki action creator', () => {
 
             });
 
+            describe('when the put call to API gateway fails', () => {
+
+                it('should create actions to toggle add ability form and show an error', () => {
+                    const store = mockStore();
+                    const ability = {uuid: 'putNetworkFailure'};
+                    const expectedActions = [
+                        {type: types.TOGGLE_ADD_ABILITY_FORM},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.SUBMIT_ABILITY_FAILED_PUT}
+                    ];
+
+                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the put call to DynamoDB fails', () => {
+
+                it('should create actions to toggle add ability form and show an error', () => {
+                    const store = mockStore();
+                    const ability = {};
+                    const expectedActions = [
+                        {type: types.TOGGLE_ADD_ABILITY_FORM},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.SUBMIT_ABILITY_FAILED_PUT}
+                    ];
+
+                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the get call to API gateway fails', () => {
+
+                it('should create actions to toggle add ability form and show an error', () => {
+                    const store = mockStore();
+                    const ability = {uuid: 'getNetworkFailure'};
+                    const expectedActions = [
+                        {type: types.TOGGLE_ADD_ABILITY_FORM},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.SUBMIT_ABILITY_FAILED_GET}
+                    ];
+
+                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the get call to DynamoDB fails', () => {
+
+                it('should create actions to toggle add ability form and show an error', () => {
+                    const store = mockStore();
+                    const ability = {uuid: 'getDynamoFailure'};
+                    const expectedActions = [
+                        {type: types.TOGGLE_ADD_ABILITY_FORM},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.SUBMIT_ABILITY_FAILED_GET}
+                    ];
+
+                    return store.dispatch(actionCreators.submitNewAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
         });
 
         describe('when an updated ability is saved', () => {
 
-            describe('when the post succeeds', () => {
+            describe('when the put succeeds', () => {
 
                 it('should create actions to clear ability cache and toggle ability editing', () => {
                     const store = mockStore();
@@ -183,14 +258,33 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the post fails', () => {
+            describe('when the call to API gateway fails', () => {
 
-                it('should create actions to revert ability, clear ability cache, and toggle ability editing', () => {
+                it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
+                    const store = mockStore();
+                    const ability = {name: 'preSave', id: '1', uuid: 'putNetworkFailure'};
+                    const expectedActions = [
+                        {type: types.REVERT_ABILITY, id: '1'},
+                        {type: types.CLEAR_ABILITY_CACHE, id: '1'},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
+                    ];
+
+                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the call to DynamoDB fails', () => {
+
+                it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
                     const store = mockStore();
                     const ability = {name: 'preSave', id: '1'};
                     const expectedActions = [
                         {type: types.REVERT_ABILITY, id: '1'},
                         {type: types.CLEAR_ABILITY_CACHE, id: '1'},
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
                     ];
 
                     return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
