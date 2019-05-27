@@ -9,10 +9,10 @@ import {
 import { toggleShowError } from "../../../actions/actionCreators";
 import * as errors  from "../../../components/Error/ErrorTypes";
 
-export const cacheAbility = (id) => {
+export const cacheAbility = (uuid) => {
     return({
         type: types.CACHE_ABILITY,
-        id: id
+        uuid
     });
 };
 
@@ -25,14 +25,14 @@ export const changeFormText = (event) => {
     });
 };
 
-export const clearAbilityCache = (id) => {
+export const clearAbilityCache = (uuid) => {
     return({
         type: types.CLEAR_ABILITY_CACHE,
-        id: id
+        uuid
     });
 };
 
-export const deleteAbility = (ability, id) => {
+export const deleteAbility = (ability, index) => {
     return dispatch => {
         return(
             apiGatewayDeleteAbility(ability.uuid)
@@ -40,7 +40,8 @@ export const deleteAbility = (ability, id) => {
                     if (response.data.ability.uuid === '') {
                         dispatch(deleteAbilityFailed());
                     } else {
-                        return dispatch(deleteAbilitySuccess(id));
+                        dispatch(deleteAbilitySuccess(index));
+                        return dispatch(sortAbilities());
                     }
                 })
                 .catch(err => {
@@ -57,10 +58,10 @@ const deleteAbilityFailed = () => {
     }
 };
 
-export const deleteAbilitySuccess = (id) => {
+export const deleteAbilitySuccess = (index) => {
     return({
         type: types.DELETE_ABILITY,
-        id
+        index
     });
 };
 
@@ -76,6 +77,7 @@ export const loadAbilities = () => {
                         dispatch(toggleShowError(errors.NO_ABILITIES_FOUND));
                     } else {
                         dispatch(loadAbilitiesSuccess(response.data.abilities));
+                        dispatch(sortAbilities());
                     }
                 })
                 .catch(err => {
@@ -101,39 +103,46 @@ const loadAbilitiesFailed = () => {
     }
 };
 
-export const revertAbility = (id) => {
+export const revertAbility = (uuid) => {
   return({
       type: types.REVERT_ABILITY,
-      id: id
+      uuid
   });
 };
 
-export const saveAbility = (ability, id) => {
+export const saveAbility = (ability) => {
     return dispatch => {
         return(
             apiGatewayPutAbility(ability)
                 .then(response => {
                     if (isEmpty(response.data)) {
-                        dispatch(clearAbilityCache(id));
-                        dispatch(toggleEditAbility(id));
+                        dispatch(clearAbilityCache(ability.uuid));
+                        dispatch(toggleEditAbility(ability.uuid));
+                        dispatch(sortAbilities());
                     } else {
-                        dispatch(saveAbilityFailed(id));
+                        dispatch(saveAbilityFailed(ability.uuid));
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    dispatch(saveAbilityFailed(id));
+                    dispatch(saveAbilityFailed(ability.uuid));
                 })
         )
     }
 };
 
-const saveAbilityFailed = (id) => {
+const saveAbilityFailed = (uuid) => {
     return dispatch => {
-        dispatch(revertAbility(id));
-        dispatch(clearAbilityCache(id));
+        dispatch(revertAbility(uuid));
+        dispatch(clearAbilityCache(uuid));
         dispatch(toggleShowError(errors.UPDATE_ABILITY_FAILED));
     }
+};
+
+export const sortAbilities = () => {
+  return {
+      type: types.SORT_ABILITIES
+  }
 };
 
 export const submitNewAbility = (ability) => {
@@ -157,6 +166,7 @@ export const submitNewAbility = (ability) => {
                         const submittedAbility = response.data.ability;
                         submittedAbility.editing = false;
                         dispatch(submitNewAbilitySuccess(submittedAbility));
+                        dispatch(sortAbilities());
                         dispatch(toggleAddAbilityForm());
                     }
                 })
@@ -199,19 +209,19 @@ export const toggleAddAbilityForm = () => {
   });
 };
 
-export const toggleEditAbility = (id) => {
+export const toggleEditAbility = (uuid) => {
     return({
         type: types.TOGGLE_EDIT_ABILITY,
-        id: id
+        uuid
     })
 };
 
-export const updateAbility = (event, id) => {
+export const updateAbility = (event, index) => {
     event.persist();
     return({
         type: types.UPDATE_ABILITY,
         target: event.target.name,
         value: event.target.value,
-        id: id
+        index
     });
 };

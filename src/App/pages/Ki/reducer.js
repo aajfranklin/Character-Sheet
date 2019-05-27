@@ -1,12 +1,13 @@
 import update from 'immutability-helper';
 import { initialState } from '../../../model';
 import * as types from './actions/actionTypes';
+import { deepCopy } from '../../../testUtils/testHelpers';
 
 export default function kiReducer(state = { ...initialState.ki }, action) {
     switch (action.type) {
 
         case types.CACHE_ABILITY: {
-            const ability = {...state.abilities[action.id], id: action.id};
+            const ability = {...state.abilities.find(ability => ability.uuid === action.uuid)};
             return update(state, {
                 abilityEditCache: {
                     $set: state.abilityEditCache.concat(ability)
@@ -21,7 +22,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.CLEAR_ABILITY_CACHE: {
-            const abilityCacheIndex = state.abilityEditCache.findIndex((ability) => ability.id === action.id);
+            const abilityCacheIndex = state.abilityEditCache.findIndex(ability => ability.uuid === action.uuid);
 
             return update(state, {
                 abilityEditCache: {
@@ -33,19 +34,8 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         case types.DELETE_ABILITY: {
             return update(state, {
                 abilities: {
-                    $splice: [[action.id, 1]]
+                    $splice: [[action.index, 1]]
                 },
-                abilityEditCache: {
-                    $apply: (abilities) => {
-                        abilities.map((ability) => {
-                            if (ability.id > action.id) {
-                                ability.id -= 1;
-                            }
-                            return ability;
-                        });
-                        return abilities;
-                    }
-                }
             });
         }
 
@@ -56,13 +46,25 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.REVERT_ABILITY: {
-            const ability = {...state.abilityEditCache.find((ability) => ability.id === action.id)};
+            const ability = {...state.abilityEditCache.find(ability => ability.uuid === action.uuid)};
+            const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
             ability.editing = false;
-            delete ability.id;
 
             return update(state, {
-                abilities: {[action.id]: {$set: ability}}
+                abilities: {[abilityIndex]: {$set: ability}}
             });
+        }
+
+        case types.SORT_ABILITIES: {
+            for (let i = 0; i < state.abilities.length; i++) {
+                if (state.abilities[i].editing) return state;
+            }
+
+            const sortedAbilities = deepCopy(state.abilities).sort((a, b) => parseInt(a.cost) - parseInt(b.cost));
+
+            return update(state, {
+                abilities: {$set: sortedAbilities}
+            })
         }
 
         case types.SUBMIT_NEW_ABILITY_SUCCESS: {
@@ -79,10 +81,12 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.TOGGLE_EDIT_ABILITY: {
+            const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
+
             return update(state, {
                 abilities: {
-                    [action.id]: {
-                        editing: {$set: !state.abilities[action.id].editing}
+                    [abilityIndex]: {
+                        editing: {$set: !state.abilities[abilityIndex].editing}
                     }
                 }
             });
@@ -90,7 +94,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
 
         case types.UPDATE_ABILITY: {
             return update(state, {
-                abilities: { [action.id]: { [action.target]: { $set: action.value } } }
+                abilities: { [action.index]: { [action.target]: { $set: action.value } } }
             });
         }
 

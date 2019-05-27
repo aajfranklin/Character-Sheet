@@ -8,25 +8,28 @@ export const testKiAbilities = [
         boost: '-',
         saving: '1',
         effect: 'effect',
-        editing: false
+        editing: false,
+        uuid: '0'
     },
     {
         name: 'dummyName2',
-        cost: '1',
+        cost: '2',
         damage: '1',
         boost: '-',
         saving: '1',
         effect: 'effect',
-        editing: false
+        editing: false,
+        uuid: '1'
     },
     {
         name: 'dummyName3',
-        cost: '1',
+        cost: '3',
         damage: '1',
         boost: '-',
         saving: '1',
         effect: 'effect',
-        editing: false
+        editing: false,
+        uuid: '2'
     }
 ];
 

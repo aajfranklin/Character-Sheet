@@ -15,7 +15,7 @@ describe('Ki action creator', () => {
         it('should create an action to cache an ability', () => {
             const expectedAction = {
                 type: types.CACHE_ABILITY,
-                id: '1'
+                uuid: '1'
             };
 
             expect(actionCreators.cacheAbility('1')).toStrictEqual(expectedAction);
@@ -42,7 +42,7 @@ describe('Ki action creator', () => {
         it('should create an action to clear a cached ability', () => {
             const expectedAction = {
                 type: types.CLEAR_ABILITY_CACHE,
-                id: '1'
+                uuid: '1'
             };
 
             expect(actionCreators.clearAbilityCache('1')).toStrictEqual(expectedAction);
@@ -51,10 +51,18 @@ describe('Ki action creator', () => {
         it('should create an action to revert an ability', () => {
             const expectedAction = {
                 type: types.REVERT_ABILITY,
-                id: '1'
+                uuid: '1'
             };
 
             expect(actionCreators.revertAbility('1')).toStrictEqual(expectedAction);
+        });
+
+        it('should create an action to sort abilities', () => {
+            const expectedAction = {
+                type: types.SORT_ABILITIES
+            };
+
+            expect(actionCreators.sortAbilities()).toStrictEqual(expectedAction);
         });
 
         it('should create an action to toggle the add ability form', () => {
@@ -68,7 +76,7 @@ describe('Ki action creator', () => {
         it('should create an action to toggle editing an ability', () => {
             const expectedAction = {
                 type: types.TOGGLE_EDIT_ABILITY,
-                id: '1'
+                uuid: '1'
             };
 
             expect(actionCreators.toggleEditAbility('1')).toStrictEqual(expectedAction);
@@ -87,7 +95,7 @@ describe('Ki action creator', () => {
                 type: types.UPDATE_ABILITY,
                 target: 'testName',
                 value: 'testValue',
-                id: '1'
+                index: '1'
             };
 
             expect(actionCreators.updateAbility(event, '1')).toStrictEqual(expectedAction);
@@ -109,10 +117,10 @@ describe('Ki action creator', () => {
                     const ability = {
                         uuid: '1',
                     };
-                    const expectedActions = [{
-                        type: types.DELETE_ABILITY,
-                        id: '1'
-                    }];
+                    const expectedActions = [
+                        {type: types.DELETE_ABILITY, index: '1'},
+                        {type: types.SORT_ABILITIES}
+                    ];
 
                     return store.dispatch(actionCreators.deleteAbility(ability, '1')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
@@ -163,9 +171,10 @@ describe('Ki action creator', () => {
 
                     it('should create an action to return fetched abilities', () => {
                         const store = mockStore();
-                        const expectedActions = [{
-                            type: types.LOAD_ABILITIES_SUCCESS, abilities: testState.ki.abilities
-                        }];
+                        const expectedActions = [
+                            {type: types.LOAD_ABILITIES_SUCCESS, abilities: testState.ki.abilities},
+                            {type: types.SORT_ABILITIES}
+                        ];
 
                         return store.dispatch(actionCreators.loadAbilities()).then(() => {
                             expect(store.getActions()).toEqual(expectedActions);
@@ -236,6 +245,7 @@ describe('Ki action creator', () => {
                     const ability = {uuid: '1'};
                     const expectedActions = [
                         {type: types.SUBMIT_NEW_ABILITY_SUCCESS, ability: {editing: false, uuid: '1'}},
+                        {type: types.SORT_ABILITIES},
                         {type: types.TOGGLE_ADD_ABILITY_FORM}
                     ];
 
@@ -325,11 +335,12 @@ describe('Ki action creator', () => {
                     const store = mockStore();
                     const ability = {uuid: '1', name: 'preSave'};
                     const expectedActions = [
-                        {type: types.CLEAR_ABILITY_CACHE, id: '1'},
-                        {type: types.TOGGLE_EDIT_ABILITY, id: '1'}
+                        {type: types.CLEAR_ABILITY_CACHE, uuid: '1'},
+                        {type: types.TOGGLE_EDIT_ABILITY, uuid: '1'},
+                        {type: types.SORT_ABILITIES}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
@@ -342,12 +353,12 @@ describe('Ki action creator', () => {
                     const store = mockStore();
                     const ability = {name: 'preSave', uuid: 'putNetworkFailure'};
                     const expectedActions = [
-                        {type: types.REVERT_ABILITY, id: '1'},
-                        {type: types.CLEAR_ABILITY_CACHE, id: '1'},
+                        {type: types.REVERT_ABILITY, uuid: 'putNetworkFailure'},
+                        {type: types.CLEAR_ABILITY_CACHE, uuid: 'putNetworkFailure'},
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
@@ -360,12 +371,12 @@ describe('Ki action creator', () => {
                     const store = mockStore();
                     const ability = {name: 'preSave'};
                     const expectedActions = [
-                        {type: types.REVERT_ABILITY, id: '1'},
-                        {type: types.CLEAR_ABILITY_CACHE, id: '1'},
+                        {type: types.REVERT_ABILITY, uuid: undefined},
+                        {type: types.CLEAR_ABILITY_CACHE, uuid: undefined},
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.saveAbility(ability, '1')).then(() => {
+                    return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });

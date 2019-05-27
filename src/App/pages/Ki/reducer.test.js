@@ -17,10 +17,10 @@ describe('Ki reducer', () => {
        const newState = reducer(state,
            {
                type: types.CACHE_ABILITY,
-               id: 0
+               uuid: '2'
            }
        );
-       expect(newState.abilityEditCache[0]).toStrictEqual({...newState.abilities[0], id: 0});
+       expect(newState.abilityEditCache[0]).toStrictEqual({...newState.abilities[2]});
     });
 
     it('should handle CHANGE_FORM_TEXT', () => {
@@ -56,17 +56,6 @@ describe('Ki reducer', () => {
         expect(newState.abilities[1].name).toBe(lastAbilityName);
     });
 
-    it('should decrement ability cache id if an ability with a lower index is deleted', () => {
-        state.abilityEditCache[1] = {name: 'testDecrement', id: 1};
-        const newState = reducer(state,
-            {
-                type: types.DELETE_ABILITY,
-                id: 0
-            }
-        );
-        expect(newState.abilityEditCache[1]).toStrictEqual({name: 'testDecrement', id: 0});
-    });
-
     it('should handle LOAD_ABILITIES_SUCCESS', () => {
         const abilities = [{name: 'testAbility'}];
         const newState = reducer(state,
@@ -80,14 +69,36 @@ describe('Ki reducer', () => {
     });
 
     it('should handle REVERT_ABILITY', () => {
-        state.abilityEditCache[0] = {name: 'testCachedAbility', id: 0};
+        state.abilityEditCache[0] = {name: 'testCachedAbility', uuid: '2'};
         const newState = reducer(state,
             {
                 type: types.REVERT_ABILITY,
-                id: 0
+                uuid: '2'
             }
         );
-        expect(newState.abilities[0]).toStrictEqual({name: 'testCachedAbility', editing: false});
+        expect(newState.abilities[2]).toStrictEqual({name: 'testCachedAbility', uuid: '2', editing: false});
+    });
+
+    it('should handle SORT_ABILITIES', () => {
+        state.abilities[0].cost = '100';
+        const newState = reducer(state,
+            {
+                type: types.SORT_ABILITIES
+            }
+        );
+        expect(newState.abilities[0].cost).toBe('2');
+        expect(newState.abilities[1].cost).toBe('3');
+        expect(newState.abilities[2].cost).toBe('100');
+    });
+
+    it('should not sort abilities if one or more abilities are still being edited', () => {
+        state.abilities[0].cost = '200';
+        state.abilities[1].editing = true;
+        const newState = reducer(state,
+            {
+                type: types.SORT_ABILITIES
+            });
+        expect(newState.abilities).toStrictEqual(state.abilities);
     });
 
     it('should handle SUBMIT_NEW_ABILITY_SUCCESS', () => {
@@ -122,7 +133,7 @@ describe('Ki reducer', () => {
         const newState = reducer(state,
             {
                 type: types.UPDATE_ABILITY,
-                id: 0,
+                index: 0,
                 target: 'effect',
                 value: 'editedText'
             }

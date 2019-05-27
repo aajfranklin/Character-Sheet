@@ -17,7 +17,7 @@ const mockSaveAbility = jest.fn();
 const mockUpdateAbility = jest.fn();
 
 function setUp() {
-    wrapper = shallow(<Ability abilities={state.ki.abilities} id={0}
+    wrapper = shallow(<Ability abilities={state.ki.abilities} index={0}
                                cancelEdit={mockCancelEdit}
                                deleteAbility={mockDeleteAbility}
                                editAbility={mockEditAbility}
