@@ -44,7 +44,7 @@ export const deleteAbility = (ability) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                     dispatch(deleteAbilityFailed());
                 })
         )
@@ -69,22 +69,36 @@ export const loadAbilities = () => {
         return(
             apiGatewayGetAbilities()
                 .then(response => {
-                    dispatch(loadAbilitiesSuccess(response.data.abilities));
+                    if (response.data.count === '') {
+                        dispatch(loadAbilitiesFailed());
+                    } else if (response.data.count === '0') {
+                        dispatch(loadAbilitiesSuccess(response.data.abilities));
+                        dispatch(toggleShowError(errors.NO_ABILITIES_FOUND));
+                    } else {
+                        dispatch(loadAbilitiesSuccess(response.data.abilities));
+                    }
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
+                    dispatch(loadAbilitiesFailed());
                 })
         )
     };
 };
 
-export const loadAbilitiesSuccess = (abilities) => {
+const loadAbilitiesSuccess = (abilities) => {
     abilities.map(ability => ability.editing = false);
 
     return({
        type: types.LOAD_ABILITIES_SUCCESS,
        abilities
     });
+};
+
+const loadAbilitiesFailed = () => {
+    return dispatch => {
+        dispatch(toggleShowError(errors.LOAD_ABILITIES_FAILED))
+    }
 };
 
 export const revertAbility = (id) => {
@@ -107,7 +121,7 @@ export const saveAbility = (ability) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                     dispatch(saveAbilityFailed(ability));
                 })
         )
@@ -152,7 +166,7 @@ export const submitNewAbility = (ability) => {
                     } else {
                         dispatch(submitNewAbilityFailedPut());
                     }
-                    console.log(err);
+                    console.error(err);
                 })
         )
     }

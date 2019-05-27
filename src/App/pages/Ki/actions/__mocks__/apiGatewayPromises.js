@@ -1,22 +1,35 @@
-import testState from '../../../../../testUtils/testState'
+import testState from '../../../../../testUtils/testState';
+import { deepCopy } from '../../../../../testUtils/testHelpers';
 
 export const apiGatewayDeleteAbility = (uuid) => {
     if (uuid) {
         return uuid === 'deleteNetworkFailure' ? Promise.reject('testDeleteReject')
             : Promise.resolve({data: {ability: {uuid: 'uuid'}}});
     } else {
-        return Promise.resolve({data: {error: 'someDynamoDbError'}})
+        return Promise.resolve({data: {ability: {uuid: ''}}})
     }
 };
 
 export const apiGatewayGetAbilities = () => {
     const getAbilitiesResult = {
         data: {
-            abilities: testState.ki.abilities
+            abilities: testState.ki.abilities,
+            count: testState.ki.abilities.length
         }
     };
 
-    return Promise.resolve(getAbilitiesResult);
+    const result = deepCopy(testState.ki.mockGetAbilitiesNetworkResult);
+    testState.ki.mockGetAbilitiesNetworkResult = '';
+
+    if (result === 'getAllNetworkFailure') {
+        return Promise.reject('testGetAllReject');
+    } else if (result === 'getAllDynamoFailure') {
+        return Promise.resolve({data: {abilities: getAbilitiesResult.data.abilities, count: ''}});
+    } else if (result === 'noAbilitiesFound') {
+        return Promise.resolve({data: {abilities: [], count: '0'}});
+    } else {
+        return Promise.resolve(getAbilitiesResult);
+    }
 };
 
 export const apiGatewayGetAbility = (uuid) => {

@@ -49,7 +49,8 @@ export const testState = {
         abilities: testKiAbilities,
         abilityEditCache: [],
         newAbility: {...testNewAbility},
-        showAbilityForm: false
+        showAbilityForm: false,
+        mockGetAbilitiesNetworkResult : null
     }
 };
 

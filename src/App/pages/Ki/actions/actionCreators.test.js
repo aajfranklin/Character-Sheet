@@ -95,10 +95,6 @@ describe('Ki action creator', () => {
 
     });
 
-    /*
-    * Get all - result.data.abilities[0].uuid === '' implies not found
-    * */
-
     describe('asynchronous actions', () => {
 
         const middleware = [thunk];
@@ -162,13 +158,65 @@ describe('Ki action creator', () => {
 
         describe('when loading abilities', () => {
 
-            describe('when the get succeeds', () => {
+            describe('when the GET and Scan succeed', () => {
 
-                it('should create an action to return fetched abilities', () => {
+                describe('when there abilities in the DB', () => {
+
+                    it('should create an action to return fetched abilities', () => {
+                        const store = mockStore();
+                        const expectedActions = [{
+                            type: types.LOAD_ABILITIES_SUCCESS, abilities: testState.ki.abilities
+                        }];
+
+                        return store.dispatch(actionCreators.loadAbilities()).then(() => {
+                            expect(store.getActions()).toEqual(expectedActions);
+                        });
+                    });
+
+                });
+
+                describe('when no abilities are returned', () => {
+
+                    it('should create an actions to return empty fetched abilities and show an error', () => {
+                        testState.ki.mockGetAbilitiesNetworkResult = 'noAbilitiesFound';
+                        const store = mockStore();
+                        const expectedActions = [
+                            {type: types.LOAD_ABILITIES_SUCCESS, abilities: []},
+                            {type: TOGGLE_SHOW_ERROR, errorMessage: errors.NO_ABILITIES_FOUND}
+                        ];
+
+                        return store.dispatch(actionCreators.loadAbilities()).then(() => {
+                            expect(store.getActions()).toEqual(expectedActions);
+                        });
+                    })
+
+                })
+
+            });
+
+            describe('when the GET call to API gateway fails', () => {
+
+                it('should create an action to show an error', () => {
+                    testState.ki.mockGetAbilitiesNetworkResult = 'getAllNetworkFailure';
                     const store = mockStore();
                     const expectedActions = [{
-                        type: types.LOAD_ABILITIES_SUCCESS,
-                        abilities: testState.ki.abilities
+                        type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED
+                    }];
+
+                    return store.dispatch(actionCreators.loadAbilities()).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the Scan call to DynamoDB fails', () => {
+
+                it('should create an action to show an error', () => {
+                    testState.ki.mockGetAbilitiesNetworkResult = 'getAllDynamoFailure';
+                    const store = mockStore();
+                    const expectedActions = [{
+                        type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED
                     }];
 
                     return store.dispatch(actionCreators.loadAbilities()).then(() => {
