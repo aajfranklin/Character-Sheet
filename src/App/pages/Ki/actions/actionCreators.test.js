@@ -96,7 +96,6 @@ describe('Ki action creator', () => {
     });
 
     /*
-    * Delete - result.data.ability.uuid === '' implies not found
     * Get all - result.data.abilities[0].uuid === '' implies not found
     * */
 
@@ -119,6 +118,38 @@ describe('Ki action creator', () => {
                         type: types.DELETE_ABILITY,
                         id: '1'
                     }];
+
+                    return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the DELETE call to API gateway fails', () => {
+
+                it('should create action to show an error', () => {
+                    const store = mockStore();
+                    const ability = {uuid: 'deleteNetworkFailure'};
+                    const expectedActions = [
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED}
+                    ];
+
+                    return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the DeleteItem call to DynamoDB fails', () => {
+
+                it('should create action to show an error', () => {
+                    const store = mockStore();
+                    const ability = {};
+                    const expectedActions = [
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED}
+                    ];
 
                     return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
@@ -151,7 +182,7 @@ describe('Ki action creator', () => {
 
         describe('when submitting a new ability', () => {
 
-            describe('when the put and get succeed', () => {
+            describe('when all calls succeed', () => {
 
                 it('should create actions to return the submitted ability and toggle the add ability form', () => {
                     const store = mockStore();
@@ -169,7 +200,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the put call to API gateway fails', () => {
+            describe('when the PUT call to API gateway fails', () => {
 
                 it('should create actions to toggle add ability form and show an error', () => {
                     const store = mockStore();
@@ -186,7 +217,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the put call to DynamoDB fails', () => {
+            describe('when the PutItem call to DynamoDB fails', () => {
 
                 it('should create actions to toggle add ability form and show an error', () => {
                     const store = mockStore();
@@ -203,7 +234,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the get call to API gateway fails', () => {
+            describe('when the GET call to API gateway fails', () => {
 
                 it('should create actions to toggle add ability form and show an error', () => {
                     const store = mockStore();
@@ -220,7 +251,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the get call to DynamoDB fails', () => {
+            describe('when the GetItem call to DynamoDB fails', () => {
 
                 it('should create actions to toggle add ability form and show an error', () => {
                     const store = mockStore();
@@ -241,7 +272,7 @@ describe('Ki action creator', () => {
 
         describe('when an updated ability is saved', () => {
 
-            describe('when the put succeeds', () => {
+            describe('when the PUT and PutItem calls succeed', () => {
 
                 it('should create actions to clear ability cache and toggle ability editing', () => {
                     const store = mockStore();
@@ -258,7 +289,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the call to API gateway fails', () => {
+            describe('when the PUT call to API gateway fails', () => {
 
                 it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
                     const store = mockStore();
@@ -276,7 +307,7 @@ describe('Ki action creator', () => {
 
             });
 
-            describe('when the call to DynamoDB fails', () => {
+            describe('when the PutItem call to DynamoDB fails', () => {
 
                 it('should create actions to revert ability, clear ability cache, toggle ability editing, and show an error', () => {
                     const store = mockStore();

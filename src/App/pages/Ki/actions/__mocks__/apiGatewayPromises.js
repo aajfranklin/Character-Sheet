@@ -1,7 +1,12 @@
 import testState from '../../../../../testUtils/testState'
 
-export const apiGatewayDeleteAbility = (id) => {
-    return Promise.resolve();
+export const apiGatewayDeleteAbility = (uuid) => {
+    if (uuid) {
+        return uuid === 'deleteNetworkFailure' ? Promise.reject('testDeleteReject')
+            : Promise.resolve({data: {ability: {uuid: 'uuid'}}});
+    } else {
+        return Promise.resolve({data: {error: 'someDynamoDbError'}})
+    }
 };
 
 export const apiGatewayGetAbilities = () => {
@@ -35,6 +40,6 @@ export const apiGatewayPutAbility = (ability) => {
     if (ability.uuid) {
         return ability.uuid === 'putNetworkFailure' ? Promise.reject('testPutReject') : Promise.resolve({data: {}});
     } else {
-        return Promise.resolve({data: {error: 'someError'}})
+        return Promise.resolve({data: {error: 'someDynamoDbError'}})
     }
 };

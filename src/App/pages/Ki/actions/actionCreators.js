@@ -36,13 +36,24 @@ export const deleteAbility = (ability) => {
     return dispatch => {
         return(
             apiGatewayDeleteAbility(ability.uuid)
-                .then(() => {
-                    dispatch(deleteAbilitySuccess(ability));
+                .then(response => {
+                    if (response.data.ability.uuid === '') {
+                        dispatch(deleteAbilityFailed());
+                    } else {
+                        return dispatch(deleteAbilitySuccess(ability));
+                    }
                 })
                 .catch(err => {
                     console.log(err);
+                    dispatch(deleteAbilityFailed());
                 })
         )
+    }
+};
+
+const deleteAbilityFailed = () => {
+    return dispatch => {
+        dispatch(toggleShowError(errors.DELETE_ABILITY_FAILED));
     }
 };
 
@@ -57,8 +68,8 @@ export const loadAbilities = () => {
     return dispatch => {
         return(
             apiGatewayGetAbilities()
-                .then(result => {
-                    dispatch(loadAbilitiesSuccess(result.data.abilities));
+                .then(response => {
+                    dispatch(loadAbilitiesSuccess(response.data.abilities));
                 })
                 .catch(err => {
                     console.log(err);
@@ -125,11 +136,11 @@ export const submitNewAbility = (ability) => {
                         throw response;
                     }
                 })
-                .then((result) => {
-                    if(result.data.ability.uuid === '') {
+                .then((response) => {
+                    if(response.data.ability.uuid === '') {
                         dispatch(submitNewAbilityFailedGet());
                     } else {
-                        const submittedAbility = result.data.ability;
+                        const submittedAbility = response.data.ability;
                         submittedAbility.editing = false;
                         dispatch(submitNewAbilitySuccess(submittedAbility));
                         dispatch(toggleAddAbilityForm());
