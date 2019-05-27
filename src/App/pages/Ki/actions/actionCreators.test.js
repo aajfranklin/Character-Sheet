@@ -102,20 +102,19 @@ describe('Ki action creator', () => {
 
         describe('when deleting an ability', () => {
 
-            describe('when the delete succeeds', () => {
+            describe('when the DELETE and DeleteItem calls succeed', () => {
 
                 it('should create an action to delete an ability', () => {
                     const store = mockStore();
                     const ability = {
                         uuid: '1',
-                        id: '1',
                     };
                     const expectedActions = [{
                         type: types.DELETE_ABILITY,
                         id: '1'
                     }];
 
-                    return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.deleteAbility(ability, '1')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });

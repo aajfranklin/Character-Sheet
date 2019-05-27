@@ -15,14 +15,10 @@ import Button from '../../../components/Button/Button';
 export function Ability({abilities, cancelEdit, deleteAbility, editAbility, id, saveAbility, updateAbility}) {
 
     function handleDelete(){
-        const ability = abilities[id];
-        ability.id = id;
-        deleteAbility(ability);
+        deleteAbility(abilities[id], id);
     }
 
     function handleSave() {
-        // const ability = abilities[id];
-        // ability.id = id;
         saveAbility(abilities[id], id);
     }
 
@@ -72,8 +68,8 @@ function mapDispatchToProps(dispatch, ownProps) {
           dispatch(revertAbility(ownProps.id));
           dispatch(clearAbilityCache(ownProps.id));
         },
-        deleteAbility: (ability) => {
-            dispatch(deleteAbility(ability));
+        deleteAbility: (ability, id) => {
+            dispatch(deleteAbility(ability, id));
         },
         editAbility: () => {
             dispatch(cacheAbility(ownProps.id));

@@ -32,7 +32,7 @@ export const clearAbilityCache = (id) => {
     });
 };
 
-export const deleteAbility = (ability) => {
+export const deleteAbility = (ability, id) => {
     return dispatch => {
         return(
             apiGatewayDeleteAbility(ability.uuid)
@@ -40,7 +40,7 @@ export const deleteAbility = (ability) => {
                     if (response.data.ability.uuid === '') {
                         dispatch(deleteAbilityFailed());
                     } else {
-                        return dispatch(deleteAbilitySuccess(ability));
+                        return dispatch(deleteAbilitySuccess(id));
                     }
                 })
                 .catch(err => {
@@ -57,10 +57,10 @@ const deleteAbilityFailed = () => {
     }
 };
 
-export const deleteAbilitySuccess = (ability) => {
+export const deleteAbilitySuccess = (id) => {
     return({
         type: types.DELETE_ABILITY,
-        id: ability.id
+        id
     });
 };
 
