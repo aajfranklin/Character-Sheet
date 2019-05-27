@@ -32,6 +32,10 @@ form {
 form input {
     width: 100%;
 }
+form textarea {
+    width: 100%;
+    text-align: left;
+}
 
 input[type=text] {
     display: inline-block;
@@ -90,7 +94,7 @@ input[type=text] {
 .col-14 {width: 93.33%;}
 .col-15 {width: 100%;}
 
-.entry textarea {
+textarea {
     display: inline-block;
     padding: 0.5em;
     border: 1px solid #ccc;
@@ -102,10 +106,6 @@ input[type=text] {
     height: 2em;
     text-align: center;
     font-family: Helvetica;
-}
-
-textarea.effect {
-    text-align: left;
 }
 
 .effect{

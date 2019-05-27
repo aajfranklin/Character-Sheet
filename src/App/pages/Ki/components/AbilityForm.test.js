@@ -31,13 +31,13 @@ describe('AbilityForm', () => {
         });
 
         it('should contain one input field for each ability', ()=> {
-            expect(wrapper.find('input').length).toBe(6);
+            expect(wrapper.find('TextareaAutosize').length).toBe(6);
         });
 
         describe('when input text changes', () => {
 
             it('should call handle form change ability', () => {
-                wrapper.find('input').at(0).simulate('change');
+                wrapper.find('TextareaAutosize').at(0).simulate('change');
                 expect(mockHandleFormChange.mock.calls.length).toBe(1);
             });
 
