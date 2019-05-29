@@ -32,36 +32,35 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, inde
     }
 
     return(
-        <div className='row entry'>
+        <tr className='entry'>
             { abilities[index].editing ?
                 <React.Fragment>
-                    <div className='col-2'><TextareaAutosize name='name' value={abilities[index].name} onChange={updateAbility}/></div>
-                    <div className='col-1'><TextareaAutosize name='cost' value={abilities[index].cost} onChange={updateAbility}/></div>
-                    <div className='col-2'><TextareaAutosize name='damage' value={abilities[index].damage} onChange={updateAbility}/></div>
-                    <div className='col-1'><TextareaAutosize name='boost' value={abilities[index].boost} onChange={updateAbility}/></div>
-                    <div className='col-2'><TextareaAutosize name='saving' value={abilities[index].saving} onChange={updateAbility}/></div>
-                    <div className='col-6'><TextareaAutosize name='effect' value={abilities[index].effect} className='effect' onChange={updateAbility}/></div>
-                    <div className='col-1 button-group'>
+                    <td className='col-2'><TextareaAutosize name='name' value={abilities[index].name} onChange={updateAbility}/></td>
+                    <td className='col-1'><TextareaAutosize name='cost' value={abilities[index].cost} onChange={updateAbility}/></td>
+                    <td className='col-2'><TextareaAutosize name='damage' value={abilities[index].damage} onChange={updateAbility}/></td>
+                    <td className='col-1'><TextareaAutosize name='boost' value={abilities[index].boost} onChange={updateAbility}/></td>
+                    <td className='col-2'><TextareaAutosize name='saving' value={abilities[index].saving} onChange={updateAbility}/></td>
+                    <td className='col-6'><TextareaAutosize name='effect' value={abilities[index].effect} className='effect' onChange={updateAbility}/></td>
+                    <td className='col-1 button-group'>
                         <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={handleCancel}/>
-                    </div>
-
+                    </td>
                 </React.Fragment>
                 :
                 <React.Fragment>
-                    <div className='col-2'>{abilities[index].name}</div>
-                    <div className='col-1'>{abilities[index].cost}</div>
-                    <div className='col-2'>{abilities[index].damage}</div>
-                    <div className='col-1'>{abilities[index].boost}</div>
-                    <div className='col-2'>{abilities[index].saving}</div>
-                    <div className='col-6 effect'>{abilities[index].effect}</div>
-                    <div className='col-1 button-group'>
+                    <td className='col-2'>{abilities[index].name}</td>
+                    <td className='col-1'>{abilities[index].cost}</td>
+                    <td className='col-2'>{abilities[index].damage}</td>
+                    <td className='col-1'>{abilities[index].boost}</td>
+                    <td className='col-2'>{abilities[index].saving}</td>
+                    <td className='col-6 effect'>{abilities[index].effect}</td>
+                    <td className='col-1 button-group'>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={handleEdit}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={handleDelete}/>
-                    </div>
+                    </td>
                 </React.Fragment>
             }
-        </div>
+        </tr>
     );
 }
 

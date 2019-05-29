@@ -1,21 +1,21 @@
 .error {
-    position: absolute;
     background: white;
-    width: 30vw;
-    left: 35vw;
-    top: 20vw;
-    z-index: 10;
-    text-align: center;
-    border-radius: 1em;
     border-color: lightslategrey;
+    border-radius: 1em;
     border-style: solid;
+    left: 35vw;
+    position: absolute;
+    top: 20vw;
+    text-align: center;
+    width: 30vw;
+    z-index: 10;
 }
 
 .error > p {
     display: inline-block;
 }
 
-.error > Button {
+.error > div {
     display: inline-block;
-    margin-bottom: 1em;
+    padding-bottom: 1em;
 }

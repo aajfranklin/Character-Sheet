@@ -23,32 +23,31 @@ export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm
             <div className='title-area'>
                 <div className='title-half-left'>
                     <h1>Ki</h1>
-                    <div>3 of 3 points available</div>
+                    <span>3 of 3 points available</span>
                 </div>
                 <div className='title-half-right'>
                     <Button clickHandler={meditate} label='MEDITATE' icon='fas fa-praying-hands'/>
                     <Button clickHandler={toggleAbilityForm} label='ADD ABILITY' icon='fas fa-plus-circle' disabled={showAbilityForm}/>
                 </div>
             </div>
-            {showAbilityForm ?
-                <AbilityForm/>
-                : null
-            }
-            <div>
-                <div className='row labels'>
-                    <div className='col-2'>Name</div>
-                    <div className='col-1'>Cost</div>
-                    <div className='col-2'>Damage</div>
-                    <div className='col-1'>Boost</div>
-                    <div className='col-2'>Saving Throw</div>
-                    <div className='col-6'>Effect</div>
-                </div>
-                {
-                    abilities.map((attributes, index) => {
-                        return(<Ability key={index} index={index}/>);
-                    })
-                }
-            </div>
+            {showAbilityForm ? <AbilityForm/> : null}
+            <table rules='none'>
+                <tbody>
+                    <tr className='labels'>
+                        <th className='col-2'>Name</th>
+                        <th className='col-1'>Cost</th>
+                        <th className='col-2'>Damage</th>
+                        <th className='col-1'>Boost</th>
+                        <th className='col-2'>Saving Throw</th>
+                        <th className='col-6'>Effect</th>
+                    </tr>
+                    {
+                        abilities.map((attributes, index) => {
+                            return(<Ability key={index} index={index}/>);
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     );
 }

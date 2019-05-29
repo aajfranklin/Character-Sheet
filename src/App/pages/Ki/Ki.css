@@ -1,6 +1,4 @@
-{
-    box-sizing: border-box;
-}
+/* Title area properties */
 
 h1 {
     min-width: 5vw;
@@ -9,9 +7,9 @@ h1 {
 }
 
 .title-area {
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    width: 100%;
 }
 
 [class*='title-half-'] {
@@ -24,53 +22,56 @@ h1 {
     justify-content: end;
 }
 
+/* Add Ability form properties */
+
 form {
-    width: 50vw;
     margin: 0.5em auto 2em;
+    width: 50vw;
 }
 
-form input {
-    width: 100%;
-}
 form textarea {
-    width: 100%;
     text-align: left;
+    width: 100%;
 }
 
-input[type=text] {
+textarea {
     display: inline-block;
-    padding: 0.5em;
-    margin: 0.2em 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-family: Helvetica;
     font-size: 16px;
+    height: 2em;
+    padding: 0.5em;
+    resize: none;
+    text-align: center;
+    width: 90%;
 }
 
-.tall {
-    height: 8em;
-}
+/* Ability table properties */
 
-.row {
+table {
     width: 100%;
-    display: table;
+}
+
+th {
+    padding: 0.6em 0 0.6em;
+}
+
+tr {
+    background: white;
+    display: flex;
     padding: 0.5em 0 0.5em;
+}
+
+tr:nth-child(even) {
+    background-color: whitesmoke;
 }
 
 .labels {
     background: darkslategrey;
     color: white;
     font-weight: bold;
-}
-
-.entry {
-    display: flex;
-    background: white;
-}
-
-.entry:nth-child(even) {
-    background-color: whitesmoke;
 }
 
 [class*='col-'] {
@@ -94,20 +95,6 @@ input[type=text] {
 .col-14 {width: 93.33%;}
 .col-15 {width: 100%;}
 
-textarea {
-    display: inline-block;
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    resize: none;
-    width: 90%;
-    height: 2em;
-    text-align: center;
-    font-family: Helvetica;
-}
-
-.effect{
+.effect {
     text-align: left;
 }

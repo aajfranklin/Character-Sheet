@@ -1,19 +1,19 @@
 nav {
     background-color: black;
-    width: 100%;
-    overflow: auto;
     height: 3em;
+    overflow: auto;
+    width: 100%;
 }
 
 .nav-item {
-    padding: 1em;
-    display: inline-block;
-    vertical-align: middle;
     color: white;
+    display: inline-block;
+    min-width: fit-content;
+    padding: 1em;
     text-decoration: none;
     text-align: center;
+    vertical-align: middle;
     width: 5vw;
-    min-width: fit-content;
 }
 
 .nav-item:hover {
