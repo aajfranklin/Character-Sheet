@@ -88,7 +88,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleFormChange: (e) => dispatch(changeFormText(e)),
+        handleFormChange: (e) => {
+            dispatch(changeFormText(e));
+            dispatch(validateNewAbility(e.target.name, e.target.value));
+        },
         submitNewAbility: (ability) => dispatch(submitNewAbility(ability)),
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm()),
         validate: (e) => dispatch(validateNewAbility(e.target.name, e.target.value))

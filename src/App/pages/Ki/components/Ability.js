@@ -112,6 +112,7 @@ function mapDispatchToProps(dispatch, ownProps) {
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.index));
+            dispatch(validateEdit(e.target.name, e.target.value, ownProps.uuid));
         },
         validate: (e) => {
             dispatch(validateEdit(e.target.name, e.target.value, ownProps.uuid));
