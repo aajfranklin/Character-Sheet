@@ -172,7 +172,11 @@ describe('Ki action creator', () => {
 
             it('should reject an empty name field', () => {
                 expect(actionCreators.validateField('name', '')).toBe(false);
-            })
+            });
+
+            it('should accept a saving throw field with proficiency and a base stat', () => {
+               expect(actionCreators.validateField('saving', '1D6+PROF+CHA')).toBe(true);
+            });
 
         });
 
