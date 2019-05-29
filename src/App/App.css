@@ -1,7 +1,13 @@
+main {
+    margin-top: 3em;
+}
+
 nav {
     background-color: black;
     height: 3em;
     overflow: auto;
+    position: fixed;
+    top: 0;
     width: 100%;
 }
 
