@@ -40,7 +40,7 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, inde
                     <td className='col-2'><TextareaAutosize name='damage' value={abilities[index].damage} onChange={updateAbility}/></td>
                     <td className='col-1'><TextareaAutosize name='boost' value={abilities[index].boost} onChange={updateAbility}/></td>
                     <td className='col-2'><TextareaAutosize name='saving' value={abilities[index].saving} onChange={updateAbility}/></td>
-                    <td className='col-6'><TextareaAutosize name='effect' value={abilities[index].effect} className='effect' onChange={updateAbility}/></td>
+                    <td className='col-6'><TextareaAutosize name='effect' value={abilities[index].effect} className='text-left' onChange={updateAbility}/></td>
                     <td className='col-1 button-group'>
                         <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={handleCancel}/>
@@ -53,7 +53,7 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, inde
                     <td className='col-2'>{abilities[index].damage}</td>
                     <td className='col-1'>{abilities[index].boost}</td>
                     <td className='col-2'>{abilities[index].saving}</td>
-                    <td className='col-6 effect'>{abilities[index].effect}</td>
+                    <td className='col-6 text-left'>{abilities[index].effect}</td>
                     <td className='col-1 button-group'>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={handleEdit}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={handleDelete}/>

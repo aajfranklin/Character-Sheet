@@ -24,10 +24,10 @@ describe('App', () => {
 
         it('generates nav bar items from passed in pages prop', () => {
 
-            expect(wrapper.find('Link').length).toBe(state.app.pages.length);
+            expect(wrapper.find('NavLink').length).toBe(state.app.pages.length);
 
             for (let i = 0; i < state.app.pages.length; i++) {
-                expect(wrapper.find('Link').at(i).key()).toBe(state.app.pages[i]);
+                expect(wrapper.find('NavLink').at(i).key()).toBe(state.app.pages[i]);
             }
         });
 

@@ -66,8 +66,10 @@ describe('Ki', () => {
             expect(wrapper.find('Button').at(1).dive().text()).toBe(' ADD ABILITY');
         });
 
-        it('should not render ability form', () => {
-            expect(wrapper.exists('AbilityForm')).toBe(false);
+        it('should not render add ability form', () => {
+            expect(wrapper.find('CSSTransition').at(0).prop('mountOnEnter')).toBe(true);
+            expect(wrapper.find('CSSTransition').at(0).prop('unmountOnExit')).toBe(true);
+            expect(wrapper.find('CSSTransition').at(0).prop('in')).toBe(false);
         });
 
         describe('when add ability button is clicked', () => {
@@ -88,7 +90,9 @@ describe('Ki', () => {
         });
 
         it('should render ability form', () => {
-            expect(wrapper.exists('AbilityForm')).toBe(true);
+            expect(wrapper.find('CSSTransition').at(0).prop('mountOnEnter')).toBe(true);
+            expect(wrapper.find('CSSTransition').at(0).prop('unmountOnExit')).toBe(true);
+            expect(wrapper.find('CSSTransition').at(0).prop('in')).toBe(true);
         });
 
         it('should disable the add ability button', () => {

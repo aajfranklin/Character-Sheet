@@ -1,5 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 import { loadAbilities, toggleAddAbilityForm } from './actions/actionCreators'
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
@@ -30,7 +31,9 @@ export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm
                     <Button clickHandler={toggleAbilityForm} label='ADD ABILITY' icon='fas fa-plus-circle' disabled={showAbilityForm}/>
                 </div>
             </div>
-            {showAbilityForm ? <AbilityForm/> : null}
+            <CSSTransition in={showAbilityForm} mountOnEnter={true} unmountOnExit={true} classNames='slide-down' timeout={200}>
+                <AbilityForm/>
+            </CSSTransition>
             <table rules='none'>
                 <tbody>
                     <tr className='labels'>

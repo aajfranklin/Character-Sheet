@@ -25,33 +25,84 @@ h1 {
 /* Add Ability form properties */
 
 form {
-    margin: 0.5em auto 2em;
+    margin: auto;
     width: 50vw;
+    overflow: hidden;
+}
+
+form p {
+    margin: 0;
+    padding-left: 2.5%;
 }
 
 form textarea {
+    margin: 0.5em 0.2em;
     text-align: left;
-    width: 100%;
+}
+
+.half-form-entry {
+    float: left;
+    padding-left: 2.5%;
+    width: 46.25%;
+}
+
+.slide-down-enter {
+    height: 0;
+}
+.slide-down-enter-active {
+    height: 430px;
+    transition: height 200ms ease;
+}
+.slide-down-enter-done {
+    height: 430px;
+}
+.slide-down-exit {
+    height: 430px;
+}
+.slide-down-exit-active {
+    height: 0;
+    transition: height 200ms ease;
+}
+.slide-down-exit-done {
+    height: 0;
 }
 
 textarea {
-    display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-family: Helvetica;
     font-size: 16px;
     height: 2em;
-    padding: 0.5em;
+    padding: 0.3em;
     resize: none;
     text-align: center;
-    width: 90%;
+    width: 95%;
+}
+
+textarea.tall {
+    height: 8em;
 }
 
 /* Ability table properties */
 
+
+.text-left {
+    text-align: left;
+}
+
+.labels {
+    background: darkslategrey;
+    color: white;
+    font-weight: bold;
+}
+
 table {
     width: 100%;
+}
+
+td {
+    text-align: center;
 }
 
 th {
@@ -68,15 +119,10 @@ tr:nth-child(even) {
     background-color: whitesmoke;
 }
 
-.labels {
-    background: darkslategrey;
-    color: white;
-    font-weight: bold;
-}
+/* General column properties */
 
 [class*='col-'] {
     float: left;
-    text-align: center;
 }
 
 .col-1 {width: 6.66%; }
@@ -94,7 +140,3 @@ tr:nth-child(even) {
 .col-13 {width: 86.66%;}
 .col-14 {width: 93.33%;}
 .col-15 {width: 100%;}
-
-.effect {
-    text-align: left;
-}
