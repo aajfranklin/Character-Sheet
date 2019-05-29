@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Ki from './pages/Ki/Ki';
 import Error from './components/Error/Error';
@@ -11,7 +11,7 @@ export function App({pages, showError}) {
             <Router>
                 <nav>
                     {pages.map((page) => {
-                        return (<Link className='nav-item' key={page} to={'/' + page}>{page}</Link>);
+                        return (<NavLink exact={true} className='nav-item' activeClassName='nav-active' key={page} to={'/' + page}>{page}</NavLink>);
                     })}
                 </nav>
                 <main>
