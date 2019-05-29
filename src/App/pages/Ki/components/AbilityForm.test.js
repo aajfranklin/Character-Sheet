@@ -17,7 +17,7 @@ const mockValidateAbility = jest.fn();
 
 function setUp() {
     wrapper = shallow(<AbilityForm newAbility={state.ki.newAbility}
-                                   isValid={state.ki.newAbilityIsValid}
+                                   isValid={state.ki.abilityFormValidation}
                                    toggleAbilityForm={mockToggleAbilityForm}
                                    handleFormChange={mockHandleFormChange}
                                    submitNewAbility={mockSubmitNewAbility}

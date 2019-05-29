@@ -121,14 +121,28 @@ describe('Ki reducer', () => {
     });
 
     it('should handle TOGGLE_ADD_ABILITY_FORM', () => {
-        state.newAbilityIsValid = {name: false, cost: false, damage: true, boost: true, saving: true, effect: true};
+        state.abilityFormValidation = {name: false, cost: false, damage: true, boost: true, saving: true, effect: true};
 
         const newState = reducer(state,
             {type: types.TOGGLE_ADD_ABILITY_FORM}
         );
         expect(newState.showAbilityForm).toBe(true);
         expect(newState.newAbility).toStrictEqual({name: '', cost: '', boost: '', damage: '', saving: '', effect: '' });
-        expect(newState.newAbilityIsValid).toStrictEqual({name: true, cost: true, damage: true, boost: true, saving: true, effect: true});
+        expect(newState.abilityFormValidation).toStrictEqual({name: true, cost: true, damage: true, boost: true, saving: true, effect: true});
+    });
+
+    it('should handle TOGGLE_EDIT_ABILITY', () => {
+        state.abilities[0].editing = true;
+        state.abilities[0].editValidation = {name: false};
+
+        const newState = reducer(state,
+            {
+                type: types.TOGGLE_EDIT_ABILITY,
+                uuid: '0'
+            }
+        );
+        expect(newState.abilities[0].editing).toBe(false);
+        expect(newState.abilities[0].editValidation).toStrictEqual({});
     });
 
     it('should handle UPDATE_ABILITY', () => {
@@ -143,14 +157,28 @@ describe('Ki reducer', () => {
         expect(newState.abilities[0].effect).toBe('editedText');
     });
 
-    it('should handle VALIDATE_ABILITY', () => {
+    it('should handle VALIDATE_EDIT', () => {
         const newState = reducer(state,
             {
-                types: types.VALIDATE_ABILITY,
+                type: types.VALIDATE_EDIT,
                 target: 'name',
+                uuid: '0',
                 valid: false,
-            });
-        expect(newState.newAbilityIsValid.name).toBe(false);
+            }
+        );
+        expect(newState.abilities[0].editValidation.name).toBe(false);
+    });
+
+    it('should handle VALIDATE_NEW_ABILITY', () => {
+        state.abilityFormValidation = {name: true, cost: true, damage: true, boost: true, saving: true, effect: true};
+        const newState = reducer(state,
+            {
+                type: types.VALIDATE_NEW_ABILITY,
+                target: 'name',
+                valid: false
+            }
+        );
+        expect(newState.abilityFormValidation.name).toBe(false);
     });
 
 });

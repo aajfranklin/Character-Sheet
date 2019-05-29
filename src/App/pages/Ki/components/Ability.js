@@ -9,54 +9,75 @@ import {
     saveAbility,
     sortAbilities,
     toggleEditAbility,
-    updateAbility
+    updateAbility,
+    validateEdit
 } from '../actions/actionCreators';
 import Button from '../../../components/Button/Button';
 
-export function Ability({abilities, cancelEdit, deleteAbility, editAbility, index, saveAbility, updateAbility}) {
-
-    function handleCancel() {
-        cancelEdit(abilities[index].uuid);
-    }
-
-    function handleDelete() {
-        deleteAbility(abilities[index], index);
-    }
-
-    function handleEdit() {
-        editAbility(abilities[index].uuid);
-    }
+export function Ability({ability, cancelEdit, deleteAbility, editAbility, index, saveAbility, updateAbility, uuid, validate}) {
 
     function handleSave() {
-        saveAbility(abilities[index]);
+        saveAbility(ability);
+    }
+
+    function invalid(attribute) {
+        return ability.editValidation.hasOwnProperty(attribute) && !ability.editValidation[attribute];
+    }
+
+    function disabled() {
+        return Object.values(ability.editValidation).indexOf(false) >= 0 || Object.values(ability.editValidation).length === 0;
     }
 
     return(
         <tr className='entry'>
-            { abilities[index].editing ?
+            { ability.editing ?
                 <React.Fragment>
-                    <td className='col-2'><TextareaAutosize name='name' value={abilities[index].name} onChange={updateAbility}/></td>
-                    <td className='col-1'><TextareaAutosize name='cost' value={abilities[index].cost} onChange={updateAbility}/></td>
-                    <td className='col-2'><TextareaAutosize name='damage' value={abilities[index].damage} onChange={updateAbility}/></td>
-                    <td className='col-1'><TextareaAutosize name='boost' value={abilities[index].boost} onChange={updateAbility}/></td>
-                    <td className='col-2'><TextareaAutosize name='saving' value={abilities[index].saving} onChange={updateAbility}/></td>
-                    <td className='col-6'><TextareaAutosize name='effect' value={abilities[index].effect} className='text-left' onChange={updateAbility}/></td>
+                    <td className='col-2'>
+                        <TextareaAutosize
+                            name='name' value={ability.name}
+                            className={invalid('name') ? 'invalid' : ''}
+                            onChange={updateAbility} onBlur={validate}/></td>
+                    <td className='col-1'>
+                        <TextareaAutosize
+                            name='cost' value={ability.cost}
+                            className={invalid('cost') ? 'invalid' : ''}
+                            onChange={updateAbility} onBlur={validate}/></td>
+                    <td className='col-2'>
+                        <TextareaAutosize
+                            name='damage' value={ability.damage}
+                            className={invalid('damage') ? 'invalid' : ''}
+                            onChange={updateAbility} onBlur={validate}/></td>
+                    <td className='col-1'>
+                        <TextareaAutosize
+                            name='boost' value={ability.boost}
+                            className={invalid('boost') ? 'invalid' : ''}
+                            onChange={updateAbility} onBlur={validate}/></td>
+                    <td className='col-2'>
+                        <TextareaAutosize
+                            name='saving' value={ability.saving}
+                            className={invalid('saving') ? 'invalid' : ''}
+                            onChange={updateAbility} onBlur={validate}/></td>
+                    <td className='col-6'>
+                        <TextareaAutosize
+                            name='effect' value={ability.effect}
+                            className={'text-left' + (invalid('effect') ? 'invalid' : '')}
+                            onChange={updateAbility} onBlur={validate}/></td>
                     <td className='col-1 button-group'>
-                        <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave}/>
-                        <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={handleCancel}/>
+                        <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave} disabled={disabled()}/>
+                        <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={cancelEdit}/>
                     </td>
                 </React.Fragment>
                 :
                 <React.Fragment>
-                    <td className='col-2'>{abilities[index].name}</td>
-                    <td className='col-1'>{abilities[index].cost}</td>
-                    <td className='col-2'>{abilities[index].damage}</td>
-                    <td className='col-1'>{abilities[index].boost}</td>
-                    <td className='col-2'>{abilities[index].saving}</td>
-                    <td className='col-6 text-left'>{abilities[index].effect}</td>
+                    <td className='col-2'>{ability.name}</td>
+                    <td className='col-1'>{ability.cost}</td>
+                    <td className='col-2'>{ability.damage}</td>
+                    <td className='col-1'>{ability.boost}</td>
+                    <td className='col-2'>{ability.saving}</td>
+                    <td className='col-6 text-left'>{ability.effect}</td>
                     <td className='col-1 button-group'>
-                        <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={handleEdit}/>
-                        <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={handleDelete}/>
+                        <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
+                        <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
                     </td>
                 </React.Fragment>
             }
@@ -64,31 +85,34 @@ export function Ability({abilities, cancelEdit, deleteAbility, editAbility, inde
     );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        abilities: state.ki.abilities,
+        ability: state.ki.abilities[ownProps.index],
     }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        cancelEdit: (uuid) => {
-            dispatch(revertAbility(uuid));
-            dispatch(clearAbilityCache(uuid));
+        cancelEdit: () => {
+            dispatch(revertAbility(ownProps.uuid));
+            dispatch(clearAbilityCache(ownProps.uuid));
             dispatch(sortAbilities());
         },
-        deleteAbility: (ability, index) => {
-            dispatch(deleteAbility(ability, index));
+        deleteAbility: () => {
+            dispatch(deleteAbility(ownProps.uuid, ownProps.index));
         },
-        editAbility: (uuid) => {
-            dispatch(cacheAbility(uuid));
-            dispatch(toggleEditAbility(uuid));
+        editAbility: () => {
+            dispatch(cacheAbility(ownProps.uuid));
+            dispatch(toggleEditAbility(ownProps.uuid));
         },
         saveAbility: (ability) => {
             dispatch(saveAbility(ability));
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.index));
+        },
+        validate: (e) => {
+            dispatch(validateEdit(e.target.name, e.target.value, ownProps.uuid));
         }
     }
 }

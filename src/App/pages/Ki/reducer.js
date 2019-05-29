@@ -77,7 +77,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             return update(state, {
                 showAbilityForm: {$set: !state.showAbilityForm},
                 newAbility: {$set: {name: '', cost: '', damage: '', boost: '', saving: '', effect: ''}},
-                newAbilityIsValid: {$set: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true}}
+                abilityFormValidation: {$set: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true}}
             });
         }
 
@@ -87,7 +87,8 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             return update(state, {
                 abilities: {
                     [abilityIndex]: {
-                        editing: {$set: !state.abilities[abilityIndex].editing}
+                        editing: {$set: !state.abilities[abilityIndex].editing},
+                        editValidation: {$set: {}}
                     }
                 }
             });
@@ -99,9 +100,17 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
-        case types.VALIDATE_ABILITY: {
+        case types.VALIDATE_EDIT: {
+            const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
+
+            return update(state,
+                {abilities: {[abilityIndex]: {editValidation: {[action.target]: {$set: action.valid}}}}
+            });
+        }
+
+        case types.VALIDATE_NEW_ABILITY: {
             return update(state, {
-                newAbilityIsValid: { [action.target]: {$set: action.valid}}
+                abilityFormValidation: { [action.target]: {$set: action.valid}}
             });
         }
 

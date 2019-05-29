@@ -9,6 +9,7 @@ export const testKiAbilities = [
         saving: '1',
         effect: 'effect',
         editing: false,
+        editValidation: {},
         uuid: '0'
     },
     {
@@ -19,6 +20,7 @@ export const testKiAbilities = [
         saving: '1',
         effect: 'effect',
         editing: false,
+        editValidation: {},
         uuid: '1'
     },
     {
@@ -29,6 +31,7 @@ export const testKiAbilities = [
         saving: '1',
         effect: 'effect',
         editing: false,
+        editValidation: {},
         uuid: '2'
     }
 ];
@@ -52,7 +55,7 @@ export const testState = {
         abilities: testKiAbilities,
         abilityEditCache: [],
         newAbility: {...testNewAbility},
-        newAbilityIsValid: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
+        abilityFormValidation: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
         showAbilityForm: false,
         mockGetAbilitiesNetworkResult : null
     }

@@ -101,9 +101,9 @@ describe('Ki action creator', () => {
             expect(actionCreators.updateAbility(event, '1')).toStrictEqual(expectedAction);
         });
 
-        it('should create an action to validate an ability', () => {
+        it('should create an action to validate a new ability', () => {
             const expectedAction = {
-                type: types.VALIDATE_ABILITY,
+                type: types.VALIDATE_NEW_ABILITY,
                 target: 'test',
                 valid: false
             };
@@ -111,123 +111,67 @@ describe('Ki action creator', () => {
             expect(actionCreators.validateNewAbility('test')).toStrictEqual(expectedAction);
         });
 
-        describe('when validating an ability', () => {
+        it('should create an action to validate an edit', () => {
+           const expectedAction = {
+               type: types.VALIDATE_EDIT,
+               target: 'test',
+               uuid: 'test',
+               valid: false
+           };
+
+            expect(actionCreators.validateEdit('test', 'test', 'test')).toStrictEqual(expectedAction);
+        });
+
+        describe('when validating a field', () => {
 
             it('should accept an exclusively numeric cost field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'cost',
-                    valid: true
-                };
-
-                expect(actionCreators.validateNewAbility('cost', '123')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('cost', '123')).toBe(true);
             });
 
             it('should reject a non-numeric cost field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'cost',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('cost', 'testValue')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('cost', 'testValue')).toBe(false);
             });
 
             it('should reject a mixed cost field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'cost',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('cost', '1test')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('cost', '1test')).toBe(false);
             });
 
             it('should accept a dice-roll formatted damage field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: true
-                };
-
-                expect(actionCreators.validateNewAbility('damage', '1D6')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', '1D6')).toBe(true);
             });
 
             it('should accept a dice-roll formatted damage field with modifiers', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: true
-                };
-
-                expect(actionCreators.validateNewAbility('damage', '1D6+1')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6-1')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6x1')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6+WIS')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', '1D6+1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1D6-1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1D6x1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1D6+WIS')).toBe(true);
             });
 
             it('should accept an exclusively numeric damage field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: true
-                };
-
-                expect(actionCreators.validateNewAbility('damage', '123')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', '123')).toBe(true);
             });
 
             it('should reject a damage field without dice number', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('damage', 'D6')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', 'D6')).toBe(false);
             });
 
             it('should reject a damage field without dice value', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('damage', '1D')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', '1D')).toBe(false);
             });
 
             it('should reject a damage field with partial or arbitrary modifier', () => {
-
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('damage', '1D6+')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6-')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6x')).toStrictEqual(expectedAction);
-                expect(actionCreators.validateNewAbility('damage', '1D6+WISDOMTOOTH')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', '1D6+')).toBe(false);
+                expect(actionCreators.validateField('damage', '1D6-')).toBe(false);
+                expect(actionCreators.validateField('damage', '1D6x')).toBe(false);
+                expect(actionCreators.validateField('damage', '1D6+WISDOMTOOTH')).toBe(false);
             });
 
             it('should reject an arbitrary damage field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'damage',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('damage', 'test')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('damage', 'test')).toBe(false);
             });
 
             it('should reject an empty name field', () => {
-                const expectedAction = {
-                    type: types.VALIDATE_ABILITY,
-                    target: 'name',
-                    valid: false
-                };
-
-                expect(actionCreators.validateNewAbility('name', '')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateField('name', '')).toBe(false);
             })
 
         });
@@ -264,12 +208,11 @@ describe('Ki action creator', () => {
 
                 it('should create action to show an error', () => {
                     const store = mockStore();
-                    const ability = {uuid: 'deleteNetworkFailure'};
                     const expectedActions = [
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.deleteAbility('deleteNetworkFailure')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });
@@ -280,12 +223,11 @@ describe('Ki action creator', () => {
 
                 it('should create action to show an error', () => {
                     const store = mockStore();
-                    const ability = {};
                     const expectedActions = [
                         {type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED}
                     ];
 
-                    return store.dispatch(actionCreators.deleteAbility(ability)).then(() => {
+                    return store.dispatch(actionCreators.deleteAbility('')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });

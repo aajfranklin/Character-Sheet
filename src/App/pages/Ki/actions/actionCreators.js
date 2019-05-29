@@ -32,10 +32,10 @@ export const clearAbilityCache = (uuid) => {
     });
 };
 
-export const deleteAbility = (ability, index) => {
+export const deleteAbility = (uuid, index) => {
     return dispatch => {
         return(
-            apiGatewayDeleteAbility(ability.uuid)
+            apiGatewayDeleteAbility(uuid)
                 .then(response => {
                     if (response.data.ability.uuid === '') {
                         dispatch(deleteAbilityFailed());
@@ -89,7 +89,11 @@ export const loadAbilities = () => {
 };
 
 const loadAbilitiesSuccess = (abilities) => {
-    abilities.map(ability => ability.editing = false);
+    abilities.map(ability => {
+        ability.editing = false;
+        ability.editValidation = {};
+        return ability;
+    });
 
     return({
        type: types.LOAD_ABILITIES_SUCCESS,
@@ -226,7 +230,24 @@ export const updateAbility = (event, index) => {
     });
 };
 
+export const validateEdit = (target, value, uuid) => {
+    return {
+        type: types.VALIDATE_EDIT,
+        target: target,
+        uuid,
+        valid: validateField(target, value)
+    }
+};
+
 export const validateNewAbility = (target, value) => {
+    return {
+        type: types.VALIDATE_NEW_ABILITY,
+        target: target,
+        valid: validateField(target, value)
+    };
+};
+
+export const validateField = (target, value) => {
     let valid;
 
     switch(target) {
@@ -250,9 +271,5 @@ export const validateNewAbility = (target, value) => {
         }
     }
 
-    return {
-        type: types.VALIDATE_ABILITY,
-        target: target,
-        valid
-    };
+    return valid;
 };

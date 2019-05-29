@@ -16,31 +16,37 @@ export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityFo
         <form>
             <p className={isValid.name ? '' : 'invalid'}>
                 {'Name: ' + (isValid.name ? '' : invalidMessages.textField)}
-                <textarea className='wide' name='name' value={newAbility.name} onChange={handleFormChange} onBlur={validate}/>
+                <textarea className='wide' name='name' value={newAbility.name} placeholder={'What it\'s called...'}
+                          onChange={handleFormChange} onBlur={validate}/>
             </p>
             <div>
                 <p className={'half-form-entry' + (isValid.cost ? '' : ' invalid')}>
                     {'Cost: ' + (isValid.cost ? '' : invalidMessages.numericField)}
-                    <textarea name='cost' value={newAbility.cost} onChange={handleFormChange} onBlur={validate}/>
+                    <textarea name='cost' value={newAbility.cost}  placeholder='0'
+                              onChange={handleFormChange} onBlur={validate}/>
                 </p>
                 <p className={'half-form-entry' + (isValid.damage ? '' : ' invalid')}>
                     {'Damage: ' + (isValid.damage ? '' : invalidMessages.diceField)}
-                    <textarea name='damage' value={newAbility.damage} onChange={handleFormChange} onBlur={validate}/>
+                    <textarea name='damage' value={newAbility.damage}  placeholder='1D6'
+                              onChange={handleFormChange} onBlur={validate}/>
                 </p>
             </div>
             <div>
                 <p className={'half-form-entry' + (isValid.boost ? '' : ' invalid')}>
                     {'Boost: ' + (isValid.boost ? '' : invalidMessages.diceField)}
-                    <textarea name='boost' value={newAbility.boost} onChange={handleFormChange} onBlur={validate}/>
+                    <textarea name='boost' value={newAbility.boost}  placeholder='1D6'
+                              onChange={handleFormChange} onBlur={validate}/>
                 </p>
                 <p className={'half-form-entry' + (isValid.saving ? '' : ' invalid')}>
                     {'Saving throw: ' + (isValid.saving ? '' : invalidMessages.diceField)}
-                    <textarea name='saving' value={newAbility.saving} onChange={handleFormChange} onBlur={validate}/>
+                    <textarea name='saving' value={newAbility.saving}  placeholder='1D6'
+                              onChange={handleFormChange} onBlur={validate}/>
                 </p>
             </div>
             <p className={isValid.effect ? '' : 'invalid'}>
                 {'Effect: ' + (isValid.effect ? '' : invalidMessages.textField)}
-                <textarea className='tall' name='effect' value={newAbility.effect} onChange={handleFormChange} onBlur={validate}/>
+                <textarea className='tall' name='effect' value={newAbility.effect} placeholder='What it does...'
+                          onChange={handleFormChange} onBlur={validate}/>
             </p>
             <div className='button-group'>
                 <Button clickHandler={handleSubmit} label='SUBMIT' icon='fas fa-check-circle' buttonStyle='confirm'
@@ -60,7 +66,7 @@ const invalidMessages = {
 function mapStateToProps(state) {
     return {
         newAbility: state.ki.newAbility,
-        isValid: state.ki.newAbilityIsValid
+        isValid: state.ki.abilityFormValidation
     };
 }
 

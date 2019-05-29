@@ -109,3 +109,12 @@ button:disabled:active {
 .flat {
     box-shadow: none;
 }
+
+.flat:disabled {
+    background: none;
+    box-shadow: none;
+}
+
+.flat:disabled:hover {
+    color: darkgrey
+}

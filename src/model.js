@@ -18,15 +18,15 @@ const newAbility = {
 
 export const initialState = {
     app: {
+        errorMessage: '',
         pages: pages,
         showError: false,
-        errorMessage: '',
     },
     ki: {
         abilities: null,
         abilityEditCache: [],
+        abilityFormValidation: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
         newAbility: {...newAbility},
-        newAbilityIsValid: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
         showAbilityForm: false,
     }
 };

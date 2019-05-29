@@ -15,14 +15,16 @@ const mockDeleteAbility = jest.fn();
 const mockEditAbility = jest.fn();
 const mockSaveAbility = jest.fn();
 const mockUpdateAbility = jest.fn();
+const mockValidateEdit = jest.fn();
 
 function setUp() {
-    wrapper = shallow(<Ability abilities={state.ki.abilities} index={0}
+    wrapper = shallow(<Ability ability={state.ki.abilities[0]} index={0}
                                cancelEdit={mockCancelEdit}
                                deleteAbility={mockDeleteAbility}
                                editAbility={mockEditAbility}
                                saveAbility={mockSaveAbility}
                                updateAbility={mockUpdateAbility}
+                               validate={mockValidateEdit}
     />)
 }
 
@@ -81,11 +83,48 @@ describe('Ability', () => {
             expect(wrapper.find('TextareaAutosize').length).toBe(6);
         });
 
+        it('should disable the save button', () => {
+            expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
+        });
+
         describe('when input text changes', () => {
 
             it('should call update ability', () => {
                 wrapper.find('TextareaAutosize').at(0).simulate('change');
                 expect(mockUpdateAbility.mock.calls.length).toBe(1);
+            });
+
+        });
+
+        describe('when the user exits an ability field', () => {
+
+            it('should call validate', () => {
+                wrapper.findWhere(node => node.prop('name') === 'name').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'cost').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'damage').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'boost').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'saving').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'effect').at(0).simulate('blur');
+                expect(mockValidateEdit.mock.calls.length).toBe(6);
+            });
+
+        });
+
+        describe('when some attributes are invalid', () => {
+
+            beforeAll(() => {
+                state.ki.abilities[0].editing = true;
+                state.ki.abilities[0].editValidation.name = false;
+                state.ki.abilities[0].editValidation.cost = false;
+                setUp();
+            });
+
+            it('should contain one invalid className for each invalid attribute', () => {
+                expect(wrapper.find('.invalid').length).toBe(2);
+            });
+
+            it('should disable the save button', () => {
+                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
             });
 
         });
@@ -96,16 +135,31 @@ describe('Ability', () => {
             expect(wrapper.find('Button').at(1).prop('icon')).toBe('fas fa-times-circle');
         });
 
-        describe('when the save button is clicked', () => {
+        describe('when no attributes are invalid and at least one has changed and is valid', () => {
 
-            it('should call save ability', () => {
-                wrapper.find('Button').at(0).dive().simulate('click');
-                expect(mockSaveAbility.mock.calls.length).toBe(1);
+            beforeAll(() => {
+                state.ki.abilities[0].editing = true;
+                state.ki.abilities[0].editValidation.name = true;
+                state.ki.abilities[0].editValidation.cost = true;
+                setUp();
+            });
+
+            it('should enable the save button', () => {
+                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(false);
+            });
+
+            describe('when the save button is clicked', () => {
+
+                it('should call save ability', () => {
+                    wrapper.find('Button').at(0).dive().simulate('click');
+                    expect(mockSaveAbility.mock.calls.length).toBe(1);
+                });
+
             });
 
         });
 
-        describe('when delete cancel is clicked', () => {
+        describe('when the cancel button is clicked', () => {
 
             it('should call cancel edit', () => {
                 wrapper.find('Button').at(1).dive().simulate('click');
