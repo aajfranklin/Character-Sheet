@@ -101,6 +101,137 @@ describe('Ki action creator', () => {
             expect(actionCreators.updateAbility(event, '1')).toStrictEqual(expectedAction);
         });
 
+        it('should create an action to validate an ability', () => {
+            const expectedAction = {
+                type: types.VALIDATE_ABILITY,
+                target: 'test',
+                valid: false
+            };
+
+            expect(actionCreators.validateNewAbility('test')).toStrictEqual(expectedAction);
+        });
+
+        describe('when validating an ability', () => {
+
+            it('should accept an exclusively numeric cost field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'cost',
+                    valid: true
+                };
+
+                expect(actionCreators.validateNewAbility('cost', '123')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject a non-numeric cost field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'cost',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('cost', 'testValue')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject a mixed cost field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'cost',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('cost', '1test')).toStrictEqual(expectedAction);
+            });
+
+            it('should accept a dice-roll formatted damage field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: true
+                };
+
+                expect(actionCreators.validateNewAbility('damage', '1D6')).toStrictEqual(expectedAction);
+            });
+
+            it('should accept a dice-roll formatted damage field with modifiers', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: true
+                };
+
+                expect(actionCreators.validateNewAbility('damage', '1D6+1')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6-1')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6x1')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6+WIS')).toStrictEqual(expectedAction);
+            });
+
+            it('should accept an exclusively numeric damage field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: true
+                };
+
+                expect(actionCreators.validateNewAbility('damage', '123')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject a damage field without dice number', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('damage', 'D6')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject a damage field without dice value', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('damage', '1D')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject a damage field with partial or arbitrary modifier', () => {
+
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('damage', '1D6+')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6-')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6x')).toStrictEqual(expectedAction);
+                expect(actionCreators.validateNewAbility('damage', '1D6+WISDOMTOOTH')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject an arbitrary damage field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'damage',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('damage', 'test')).toStrictEqual(expectedAction);
+            });
+
+            it('should reject an empty name field', () => {
+                const expectedAction = {
+                    type: types.VALIDATE_ABILITY,
+                    target: 'name',
+                    valid: false
+                };
+
+                expect(actionCreators.validateNewAbility('name', '')).toStrictEqual(expectedAction);
+            })
+
+        });
+
     });
 
     describe('asynchronous actions', () => {

@@ -225,3 +225,34 @@ export const updateAbility = (event, index) => {
         index
     });
 };
+
+export const validateNewAbility = (target, value) => {
+    let valid;
+
+    switch(target) {
+        case 'name': case'effect': {
+            valid = value !== '';
+            break;
+        }
+        case 'cost': {
+            const costRegExp = /^\d+$/;
+            valid = costRegExp.test(value);
+            break
+        }
+        case 'damage': case 'boost': case 'saving': {
+            const diceRegExp = /^\d+((D\d+)([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?)?$/;
+            valid = diceRegExp.test(value);
+            break;
+        }
+        default: {
+            valid = false;
+            break;
+        }
+    }
+
+    return {
+        type: types.VALIDATE_ABILITY,
+        target: target,
+        valid
+    };
+};

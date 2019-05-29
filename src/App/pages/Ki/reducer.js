@@ -76,7 +76,8 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         case types.TOGGLE_ADD_ABILITY_FORM: {
             return update(state, {
                 showAbilityForm: {$set: !state.showAbilityForm},
-                newAbility: {$set: {name: '', cost: '', damage: '', boost: '', saving: '', effect: ''}}
+                newAbility: {$set: {name: '', cost: '', damage: '', boost: '', saving: '', effect: ''}},
+                newAbilityIsValid: {$set: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true}}
             });
         }
 
@@ -95,6 +96,12 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         case types.UPDATE_ABILITY: {
             return update(state, {
                 abilities: { [action.index]: { [action.target]: { $set: action.value } } }
+            });
+        }
+
+        case types.VALIDATE_ABILITY: {
+            return update(state, {
+                newAbilityIsValid: { [action.target]: {$set: action.valid}}
             });
         }
 

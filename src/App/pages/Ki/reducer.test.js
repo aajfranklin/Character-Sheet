@@ -121,12 +121,14 @@ describe('Ki reducer', () => {
     });
 
     it('should handle TOGGLE_ADD_ABILITY_FORM', () => {
+        state.newAbilityIsValid = {name: false, cost: false, damage: true, boost: true, saving: true, effect: true};
+
         const newState = reducer(state,
             {type: types.TOGGLE_ADD_ABILITY_FORM}
         );
         expect(newState.showAbilityForm).toBe(true);
         expect(newState.newAbility).toStrictEqual({name: '', cost: '', boost: '', damage: '', saving: '', effect: '' });
-
+        expect(newState.newAbilityIsValid).toStrictEqual({name: true, cost: true, damage: true, boost: true, saving: true, effect: true});
     });
 
     it('should handle UPDATE_ABILITY', () => {
@@ -139,6 +141,16 @@ describe('Ki reducer', () => {
             }
         );
         expect(newState.abilities[0].effect).toBe('editedText');
+    });
+
+    it('should handle VALIDATE_ABILITY', () => {
+        const newState = reducer(state,
+            {
+                types: types.VALIDATE_ABILITY,
+                target: 'name',
+                valid: false,
+            });
+        expect(newState.newAbilityIsValid.name).toBe(false);
     });
 
 });

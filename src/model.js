@@ -26,6 +26,7 @@ export const initialState = {
         abilities: null,
         abilityEditCache: [],
         newAbility: {...newAbility},
+        newAbilityIsValid: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
         showAbilityForm: false,
     }
 };

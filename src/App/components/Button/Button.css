@@ -89,13 +89,21 @@ button:disabled:active {
     box-shadow: 0 0.2em 0 darkgreen;
 }
 
+.confirm:active {
+    background: seagreen;
+    box-shadow: 0 0.1em 0 darkgreen;
+}
+
+.confirm:disabled:active {
+    transform: none
+}
+
 .confirm:hover {
     background: seagreen;
 }
 
-.confirm:active {
-    background: seagreen;
-    box-shadow: 0 0.1em 0 darkgreen;
+.confirm:disabled:hover{
+    background: lightgrey;
 }
 
 .flat {

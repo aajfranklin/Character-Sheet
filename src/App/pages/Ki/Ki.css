@@ -46,6 +46,10 @@ form textarea {
     width: 46.25%;
 }
 
+.invalid {
+    color: indianred;
+}
+
 .slide-down-enter {
     height: 0;
 }

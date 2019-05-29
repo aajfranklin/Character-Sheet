@@ -13,12 +13,15 @@ const state = deepCopy(testState);
 const mockToggleAbilityForm = jest.fn();
 const mockHandleFormChange = jest.fn();
 const mockSubmitNewAbility = jest.fn();
+const mockValidateAbility = jest.fn();
 
 function setUp() {
     wrapper = shallow(<AbilityForm newAbility={state.ki.newAbility}
+                                   isValid={state.ki.newAbilityIsValid}
                                    toggleAbilityForm={mockToggleAbilityForm}
                                    handleFormChange={mockHandleFormChange}
                                    submitNewAbility={mockSubmitNewAbility}
+                                   validate={mockValidateAbility}
     />)
 }
 
@@ -39,6 +42,69 @@ describe('AbilityForm', () => {
             it('should call handle form change ability', () => {
                 wrapper.find('textarea').at(0).simulate('change');
                 expect(mockHandleFormChange.mock.calls.length).toBe(1);
+            });
+
+        });
+
+        describe('when the user exits an ability field', () => {
+
+            it('should call validate', () => {
+                wrapper.findWhere(node => node.prop('name') === 'name').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'cost').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'damage').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'boost').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'saving').at(0).simulate('blur');
+                wrapper.findWhere(node => node.prop('name') === 'effect').at(0).simulate('blur');
+                expect(mockValidateAbility.mock.calls.length).toBe(6);
+            });
+
+        });
+
+        it('should contain no invalid field warnings', () => {
+            expect(wrapper.find('.invalid').length).toBe(0);
+        });
+
+        it('should disable the submit button,', () => {
+            expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
+        });
+
+        describe('when one or more ability fields are invalid', () => {
+
+            beforeAll(() => {
+                const isValid = {name: false, cost: false, damage: true, boost: true, saving: true, effect: true};
+
+                wrapper = shallow(<AbilityForm newAbility={state.ki.newAbility}
+                                               isValid={isValid}
+                                               toggleAbilityForm={mockToggleAbilityForm}
+                                               handleFormChange={mockHandleFormChange}
+                                               submitNewAbility={mockSubmitNewAbility}
+                                               validate={mockValidateAbility}
+                />)
+            });
+
+            it('should contain one invalid className for every invalid ability field', () => {
+                expect(wrapper.find('.invalid').length).toBe(2);
+            });
+
+        });
+
+        describe('when all ability fields are valid and contain soe text', () => {
+
+            beforeAll(() => {
+                const isValid = {name: true, cost: true, damage: true, boost: true, saving: true, effect: true};
+                const newAbility = {name: 'test', cost: 'test', damage: 'test', boost: 'test', saving: 'test', effect: 'test'};
+
+                wrapper = shallow(<AbilityForm newAbility={newAbility}
+                                               isValid={isValid}
+                                               toggleAbilityForm={mockToggleAbilityForm}
+                                               handleFormChange={mockHandleFormChange}
+                                               submitNewAbility={mockSubmitNewAbility}
+                                               validate={mockValidateAbility}
+                />)
+            });
+
+            it('should enable the submit button', () => {
+                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(false);
             });
 
         });
