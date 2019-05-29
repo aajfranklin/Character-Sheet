@@ -55,7 +55,7 @@ export const testState = {
         abilities: testKiAbilities,
         abilityEditCache: [],
         newAbility: {...testNewAbility},
-        abilityFormValidation: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
+        abilityFormValidation: {},
         showAbilityForm: false,
         mockGetAbilitiesNetworkResult : null
     }

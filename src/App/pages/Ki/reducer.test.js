@@ -128,7 +128,7 @@ describe('Ki reducer', () => {
         );
         expect(newState.showAbilityForm).toBe(true);
         expect(newState.newAbility).toStrictEqual({name: '', cost: '', boost: '', damage: '', saving: '', effect: '' });
-        expect(newState.abilityFormValidation).toStrictEqual({name: true, cost: true, damage: true, boost: true, saving: true, effect: true});
+        expect(newState.abilityFormValidation).toStrictEqual({});
     });
 
     it('should handle TOGGLE_EDIT_ABILITY', () => {

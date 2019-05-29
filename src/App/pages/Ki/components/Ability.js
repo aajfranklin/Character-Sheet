@@ -21,11 +21,13 @@ export function Ability({ability, cancelEdit, deleteAbility, editAbility, index,
     }
 
     function invalid(attribute) {
-        return ability.editValidation.hasOwnProperty(attribute) && !ability.editValidation[attribute];
+        return ability.editValidation.hasOwnProperty(attribute)
+            && !ability.editValidation[attribute];
     }
 
     function disabled() {
-        return Object.values(ability.editValidation).indexOf(false) >= 0 || Object.values(ability.editValidation).length === 0;
+        return Object.values(ability.editValidation).indexOf(false) >= 0
+            || Object.values(ability.editValidation).length === 0;
     }
 
     return(

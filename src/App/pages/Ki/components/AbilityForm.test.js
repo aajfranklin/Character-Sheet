@@ -71,7 +71,7 @@ describe('AbilityForm', () => {
         describe('when one or more ability fields are invalid', () => {
 
             beforeAll(() => {
-                const isValid = {name: false, cost: false, damage: true, boost: true, saving: true, effect: true};
+                const isValid = {name: false, cost: false};
 
                 wrapper = shallow(<AbilityForm newAbility={state.ki.newAbility}
                                                isValid={isValid}
@@ -88,13 +88,12 @@ describe('AbilityForm', () => {
 
         });
 
-        describe('when all ability fields are valid and contain soe text', () => {
+        describe('when all ability fields are valid and contain some text', () => {
 
             beforeAll(() => {
                 const isValid = {name: true, cost: true, damage: true, boost: true, saving: true, effect: true};
-                const newAbility = {name: 'test', cost: 'test', damage: 'test', boost: 'test', saving: 'test', effect: 'test'};
 
-                wrapper = shallow(<AbilityForm newAbility={newAbility}
+                wrapper = shallow(<AbilityForm newAbility={state.ki.newAbility}
                                                isValid={isValid}
                                                toggleAbilityForm={mockToggleAbilityForm}
                                                handleFormChange={mockHandleFormChange}

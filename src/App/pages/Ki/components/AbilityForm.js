@@ -12,45 +12,61 @@ export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityFo
         submitNewAbility(ability);
     }
 
+    function invalid(attribute) {
+        return isValid.hasOwnProperty(attribute)
+            && !isValid[attribute];
+    }
+
+    function disabled() {
+        return Object.values(isValid).indexOf(false) >= 0
+            || Object.values(isValid).length !== 6;
+    }
+
     return(
         <form>
-            <p className={isValid.name ? '' : 'invalid'}>
-                {'Name: ' + (isValid.name ? '' : invalidMessages.textField)}
-                <textarea className='wide' name='name' value={newAbility.name} placeholder={'What it\'s called...'}
-                          onChange={handleFormChange} onBlur={validate}/>
+            <p className={invalid('name') ? 'invalid' : ''}>
+                {'Name: ' + (invalid('name') ? invalidMessages.textField : '')}
+                <textarea
+                    name='name' value={newAbility.name} placeholder={'What it\'s called...'} className='wide'
+                    onChange={handleFormChange} onBlur={validate}/>
             </p>
             <div>
-                <p className={'half-form-entry' + (isValid.cost ? '' : ' invalid')}>
-                    {'Cost: ' + (isValid.cost ? '' : invalidMessages.numericField)}
-                    <textarea name='cost' value={newAbility.cost}  placeholder='0'
-                              onChange={handleFormChange} onBlur={validate}/>
+                <p className={'half-form-entry' + (invalid('cost') ? ' invalid' : '')}>
+                    {'Cost: ' + (invalid('cost') ? invalidMessages.numericField : '')}
+                    <textarea
+                        name='cost' value={newAbility.cost}  placeholder='0'
+                        onChange={handleFormChange} onBlur={validate}/>
                 </p>
-                <p className={'half-form-entry' + (isValid.damage ? '' : ' invalid')}>
-                    {'Damage: ' + (isValid.damage ? '' : invalidMessages.diceField)}
-                    <textarea name='damage' value={newAbility.damage}  placeholder='1D6'
-                              onChange={handleFormChange} onBlur={validate}/>
+                <p className={'half-form-entry' + (invalid('damage') ? ' invalid' : '')}>
+                    {'Damage: ' + (invalid('damage') ? invalidMessages.diceField : '')}
+                    <textarea
+                        name='damage' value={newAbility.damage}  placeholder='1D6'
+                        onChange={handleFormChange} onBlur={validate}/>
                 </p>
             </div>
             <div>
-                <p className={'half-form-entry' + (isValid.boost ? '' : ' invalid')}>
-                    {'Boost: ' + (isValid.boost ? '' : invalidMessages.diceField)}
-                    <textarea name='boost' value={newAbility.boost}  placeholder='1D6'
-                              onChange={handleFormChange} onBlur={validate}/>
+                <p className={'half-form-entry' + (invalid('boost') ? ' invalid' : '')}>
+                    {'Boost: ' + (invalid('boost') ? invalidMessages.diceField : '')}
+                    <textarea
+                        name='boost' value={newAbility.boost}  placeholder='1D6'
+                        onChange={handleFormChange} onBlur={validate}/>
                 </p>
-                <p className={'half-form-entry' + (isValid.saving ? '' : ' invalid')}>
-                    {'Saving throw: ' + (isValid.saving ? '' : invalidMessages.diceField)}
-                    <textarea name='saving' value={newAbility.saving}  placeholder='1D6'
-                              onChange={handleFormChange} onBlur={validate}/>
+                <p className={'half-form-entry' + (invalid('saving') ? ' invalid' : '')}>
+                    {'Saving throw: ' + (invalid('saving') ? invalidMessages.diceField : '')}
+                    <textarea
+                        name='saving' value={newAbility.saving}  placeholder='1D6'
+                        onChange={handleFormChange} onBlur={validate}/>
                 </p>
             </div>
-            <p className={isValid.effect ? '' : 'invalid'}>
-                {'Effect: ' + (isValid.effect ? '' : invalidMessages.textField)}
-                <textarea className='tall' name='effect' value={newAbility.effect} placeholder='What it does...'
-                          onChange={handleFormChange} onBlur={validate}/>
+            <p className={invalid('effect') ? 'invalid' : ''}>
+                {'Effect: ' + (invalid('effect') ? invalidMessages.textField : '')}
+                <textarea
+                    className='tall' name='effect' value={newAbility.effect} placeholder='What it does...'
+                    onChange={handleFormChange} onBlur={validate}/>
             </p>
             <div className='button-group'>
                 <Button clickHandler={handleSubmit} label='SUBMIT' icon='fas fa-check-circle' buttonStyle='confirm'
-                        disabled={Object.values(isValid).indexOf(false) >= 0 || Object.values(newAbility).indexOf('') >= 0}/>
+                        disabled={disabled()}/>
                 <Button clickHandler={toggleAbilityForm} label='CANCEL' icon='fas fa-times-circle' buttonStyle='cancel'/>
             </div>
         </form>

@@ -25,7 +25,7 @@ export const initialState = {
     ki: {
         abilities: null,
         abilityEditCache: [],
-        abilityFormValidation: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true},
+        abilityFormValidation: {},
         newAbility: {...newAbility},
         showAbilityForm: false,
     }

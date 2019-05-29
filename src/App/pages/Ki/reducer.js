@@ -77,7 +77,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             return update(state, {
                 showAbilityForm: {$set: !state.showAbilityForm},
                 newAbility: {$set: {name: '', cost: '', damage: '', boost: '', saving: '', effect: ''}},
-                abilityFormValidation: {$set: {name: true, cost: true, damage: true, boost: true, saving: true, effect: true}}
+                abilityFormValidation: {$set: {}}
             });
         }
 
