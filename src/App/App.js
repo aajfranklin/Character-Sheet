@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
+import { loadStats } from './actions/actionCreators';
 import Stats from './pages/Stats/Stats';
 import Weapons from './pages/Weapons/Weapons';
 import Ki from './pages/Ki/Ki';
@@ -11,7 +13,12 @@ import NotFound from './pages/NotFound/NotFound'
 import Error from './components/Error/Error';
 import './App.css';
 
-export function App({pages, showError}) {
+export function App({loadStats, pages, showError, stats}) {
+
+    if (isEmpty(stats)) {
+        loadStats();
+    }
+
     return (
         <div className='App'>
             <Router>
@@ -40,8 +47,15 @@ export function App({pages, showError}) {
 function mapStateToProps(state) {
     return {
         pages: state.app.pages,
-        showError: state.app.showError
+        showError: state.app.showError,
+        stats: state.app.stats
     }
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+    return {
+        loadStats: () => dispatch(loadStats())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

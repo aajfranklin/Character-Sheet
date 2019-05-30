@@ -21,14 +21,13 @@ export const initialState = {
         errorMessage: '',
         pages: pages,
         showError: false,
+        stats: {}
     },
     ki: {
         abilities: null,
         abilityEditCache: [],
         abilityFormValidation: {},
-        available: 3,
         newAbility: {...newAbility},
         showAbilityForm: false,
-        total: 3
     }
 };

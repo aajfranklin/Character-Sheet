@@ -1,7 +1,8 @@
 import React  from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { loadAbilities, toggleAddAbilityForm, restoreKi } from './actions/actionCreators'
+import { loadAbilities, toggleAddAbilityForm } from './actions/actionCreators';
+import { restoreKi } from '../../actions/actionCreators';
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
@@ -54,9 +55,9 @@ export function Ki({abilities, available, loadAbilities, restoreKi, showAbilityF
 function mapStateToProps(state) {
     return {
         abilities: state.ki.abilities,
-        available: state.ki.available,
+        available: state.app.stats.kiAvailable,
         showAbilityForm: state.ki.showAbilityForm,
-        total: state.ki.total
+        total: state.app.stats.kiTotal
     }
 }
 

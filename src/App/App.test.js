@@ -17,13 +17,27 @@ Enzyme.configure({adapter: new Adapter()});
 let wrapper;
 
 const state = deepCopy(testState);
+const mockLoadStats = jest.fn();
+
+function setUp(stats) {
+    wrapper = shallow(<App loadStats={mockLoadStats} pages={state.app.pages} stats={stats}/>)
+}
 
 describe('App', () => {
 
     describe('On loading the home page', () => {
 
+        describe('if stats have not been loaded', () => {
+
+            it('should load stats', () => {
+                setUp({});
+                expect(mockLoadStats.mock.calls.length).toBe(1);
+            });
+
+        });
+
         beforeAll(() => {
-            wrapper = shallow(<App pages={testState.app.pages}/>);
+            setUp(state.app.stats);
         });
 
         it('renders the nav bar', () => {
@@ -44,7 +58,7 @@ describe('App', () => {
             let pathMap = {};
 
             beforeAll(() => {
-                wrapper = shallow(<App pages={testState.app.pages}/>);
+                setUp(state.app.stats);
                 pathMap = wrapper.find(Route).reduce((pathMap, route) => {
                     const routeProps = route.props();
                     pathMap[routeProps.path] = routeProps.component;

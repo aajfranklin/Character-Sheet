@@ -48,14 +48,6 @@ describe('Ki action creator', () => {
             expect(actionCreators.clearAbilityCache('1')).toStrictEqual(expectedAction);
         });
 
-        it('should create an action to restore Ki', () => {
-            const expectedAction = {
-                type: types.RESTORE_KI
-            };
-
-            expect(actionCreators.restoreKi()).toStrictEqual(expectedAction);
-        });
-
         it('should create an action to revert an ability', () => {
             const expectedAction = {
                 type: types.REVERT_ABILITY,
@@ -88,15 +80,6 @@ describe('Ki action creator', () => {
             };
 
             expect(actionCreators.toggleEditAbility('1')).toStrictEqual(expectedAction);
-        });
-
-        it('should create an action to use an ability', () => {
-            const expectedAction = {
-                type: types.USE_ABILITY,
-                uuid: '1'
-            };
-
-            expect(actionCreators._useAbility('1')).toStrictEqual(expectedAction);
         });
 
         it('should create an action to update an ability', () => {
@@ -277,7 +260,7 @@ describe('Ki action creator', () => {
 
             describe('when the GET and Scan succeed', () => {
 
-                describe('when there abilities in the DB', () => {
+                describe('when there are abilities in the DB', () => {
 
                     it('should create an action to return fetched abilities', () => {
                         const store = mockStore();
@@ -296,7 +279,7 @@ describe('Ki action creator', () => {
                 describe('when no abilities are returned', () => {
 
                     it('should create an actions to return empty fetched abilities and show an error', () => {
-                        testState.ki.mockGetAbilitiesNetworkResult = 'noAbilitiesFound';
+                        testState.app.mockGetAllNetworkResult = 'noneFound';
                         const store = mockStore();
                         const expectedActions = [
                             {type: types.LOAD_ABILITIES_SUCCESS, abilities: []},
@@ -315,7 +298,7 @@ describe('Ki action creator', () => {
             describe('when the GET call to API gateway fails', () => {
 
                 it('should create an action to show an error', () => {
-                    testState.ki.mockGetAbilitiesNetworkResult = 'getAllNetworkFailure';
+                    testState.app.mockGetAllNetworkResult = 'getAllNetworkFailure';
                     const store = mockStore();
                     const expectedActions = [{
                         type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED
@@ -331,7 +314,7 @@ describe('Ki action creator', () => {
             describe('when the Scan call to DynamoDB fails', () => {
 
                 it('should create an action to show an error', () => {
-                    testState.ki.mockGetAbilitiesNetworkResult = 'getAllDynamoFailure';
+                    testState.app.mockGetAllNetworkResult = 'getAllDynamoFailure';
                     const store = mockStore();
                     const expectedActions = [{
                         type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED

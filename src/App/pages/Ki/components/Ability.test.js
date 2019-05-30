@@ -24,7 +24,7 @@ function setUp() {
                                deleteAbility={mockDeleteAbility}
                                editAbility={mockEditAbility}
                                saveAbility={mockSaveAbility}
-                               useAbility={mockUseAbility}
+                               _useAbility={mockUseAbility}
                                updateAbility={mockUpdateAbility}
                                validate={mockValidateEdit}
     />)

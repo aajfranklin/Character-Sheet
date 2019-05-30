@@ -8,9 +8,7 @@ const state = deepCopy(testState.ki);
 describe('Ki reducer', () => {
 
     it('should return the initial state', () => {
-
         expect(reducer(state, {})).toStrictEqual(state);
-
     });
 
     it('should handle CACHE_ABILITY', () => {
@@ -66,21 +64,6 @@ describe('Ki reducer', () => {
         );
         expect(newState.abilities.length).toBe(1);
         expect(newState.abilities[0].name).toBe('testAbility');
-    });
-
-    it('should handle RESTORE_KI', () => {
-        const abilityUsedState = reducer(state, {
-            type: types.USE_ABILITY,
-            uuid: '1'
-        });
-        expect(abilityUsedState.available).toBe(1);
-
-        const newState = reducer(abilityUsedState,
-            {
-                type: types.RESTORE_KI
-            }
-        );
-        expect(newState.available).toBe(3);
     });
 
     it('should handle REVERT_ABILITY', () => {
@@ -158,16 +141,6 @@ describe('Ki reducer', () => {
         );
         expect(newState.abilities[0].editing).toBe(false);
         expect(newState.abilities[0].editValidation).toStrictEqual({});
-    });
-
-    it('should handle USE_ABILITY', () => {
-        const newState = reducer(state,
-            {
-                type: types.USE_ABILITY,
-                uuid: '1'
-            }
-        );
-        expect(newState.available).toBe(1);
     });
 
     it('should handle UPDATE_ABILITY', () => {

@@ -18,14 +18,14 @@ export const apiGatewayGetAbilities = () => {
         }
     };
 
-    const result = deepCopy(testState.ki.mockGetAbilitiesNetworkResult);
-    testState.ki.mockGetAbilitiesNetworkResult = '';
+    const result = deepCopy(testState.app.mockGetAllNetworkResult);
+    testState.app.mockGetAllNetworkResult = '';
 
     if (result === 'getAllNetworkFailure') {
         return Promise.reject('testGetAllReject');
     } else if (result === 'getAllDynamoFailure') {
         return Promise.resolve({data: {abilities: getAbilitiesResult.data.abilities, count: ''}});
-    } else if (result === 'noAbilitiesFound') {
+    } else if (result === 'noneFound') {
         return Promise.resolve({data: {abilities: [], count: '0'}});
     } else {
         return Promise.resolve(getAbilitiesResult);

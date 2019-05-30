@@ -107,12 +107,6 @@ const loadAbilitiesFailed = () => {
     }
 };
 
-export const restoreKi = () => {
-    return({
-        type: types.RESTORE_KI
-    });
-};
-
 export const revertAbility = (uuid) => {
   return({
       type: types.REVERT_ABILITY,
@@ -224,13 +218,6 @@ export const toggleEditAbility = (uuid) => {
         type: types.TOGGLE_EDIT_ABILITY,
         uuid
     })
-};
-
-export const _useAbility = (uuid) => {
-    return({
-        type: types.USE_ABILITY,
-        uuid
-    });
 };
 
 export const updateAbility = (event, index) => {

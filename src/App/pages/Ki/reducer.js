@@ -45,12 +45,6 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
-        case types.RESTORE_KI: {
-            return update(state, {
-                available: {$set: state.total}
-            });
-        }
-
         case types.REVERT_ABILITY: {
             const ability = {...state.abilityEditCache.find(ability => ability.uuid === action.uuid)};
             const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
@@ -104,14 +98,6 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
                     }
                 }
             });
-        }
-
-        case types.USE_ABILITY: {
-            const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
-
-            return update(state, {
-                available: {$set: state.available - state.abilities[abilityIndex].cost}
-            })
         }
 
         case types.UPDATE_ABILITY: {

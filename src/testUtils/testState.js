@@ -50,16 +50,18 @@ export const testState = {
         pages: testPages,
         showError: false,
         errorMessage: '',
+        stats: {
+            kiAvailable: 3,
+            kiTotal: 3
+        },
+        mockGetAllNetworkResult : null
     },
     ki: {
         abilities: testKiAbilities,
         abilityEditCache: [],
-        available: 3,
         newAbility: {...testNewAbility},
         abilityFormValidation: {},
         showAbilityForm: false,
-        total: 3,
-        mockGetAbilitiesNetworkResult : null
     }
 };
 
