@@ -106,8 +106,15 @@ table {
 }
 
 td {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     text-align: center;
     white-space: pre-line;
+}
+
+td.button-group {
+    flex-direction: row;
 }
 
 th {
