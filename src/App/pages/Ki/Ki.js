@@ -46,7 +46,7 @@ export function Ki({abilities, available, loadAbilities, showAbilityForm, toggle
                     </tr>
                     {
                         abilities.map((attributes, index) => {
-                            return(<Ability key={index} index={index} uuid={abilities[index].uuid}/>);
+                            return(<Ability key={index} index={index} uuid={abilities[index].uuid} available={available}/>);
                         })
                     }
                 </tbody>

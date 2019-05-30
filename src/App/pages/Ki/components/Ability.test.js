@@ -55,12 +55,6 @@ describe('Ability', () => {
             expect(wrapper.find('Button').at(2).prop('icon')).toBe('fas fa-trash');
         });
 
-        it('should enable all 3 buttons', () => {
-            expect(wrapper.find('Button').at(0).prop('disabled')).toBe(undefined);
-            expect(wrapper.find('Button').at(1).prop('disabled')).toBe(undefined);
-            expect(wrapper.find('Button').at(2).prop('disabled')).toBe(undefined);
-        });
-
         describe('when the roll button is clicked', () => {
 
             it('should call use ability', () => {
@@ -84,6 +78,27 @@ describe('Ability', () => {
             it('should call delete ability', () => {
                 wrapper.find('Button').at(2).dive().simulate('click');
                 expect(mockDeleteAbility.mock.calls.length).toBe(1);
+            });
+
+        });
+
+        describe('when the ability costs more than the currently available Ki', () => {
+
+            beforeAll(() => {
+                wrapper = shallow(<Ability ability={state.ki.abilities[0]} index={0}
+                                           available={0}
+                                           cancelEdit={mockCancelEdit}
+                                           deleteAbility={mockDeleteAbility}
+                                           editAbility={mockEditAbility}
+                                           saveAbility={mockSaveAbility}
+                                           useAbility={mockUseAbility}
+                                           updateAbility={mockUpdateAbility}
+                                           validate={mockValidateEdit}
+                />)
+            });
+
+            it('should disable the roll button', () => {
+                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
             });
 
         });
