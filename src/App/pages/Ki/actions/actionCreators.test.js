@@ -191,8 +191,16 @@ describe('Ki action creator', () => {
                 expect(actionCreators.validateField('name', '')).toBe(false);
             });
 
-            it('should accept a saving throw field with proficiency and a base stat', () => {
-               expect(actionCreators.validateField('saving', '1d6+PROF+CHA')).toBe(true);
+            it('should accept an attack/saving field with proficiency and a base stat', () => {
+               expect(actionCreators.validateField('saving', 'S: 1d6+PROF+CHA')).toBe(true);
+            });
+
+            it('should reject an attack/saving field that does not indicate its type with its prefix', () => {
+                expect(actionCreators.validateField('saving', '1d6+PROF+CHA')).toBe(false);
+            });
+
+            it('should accept an attack/saving field of 0', () => {
+                expect(actionCreators.validateField('saving', '0')).toBe(true);
             });
 
         });

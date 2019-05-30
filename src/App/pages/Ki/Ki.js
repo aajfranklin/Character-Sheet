@@ -37,7 +37,7 @@ export function Ki({abilities, available, loadAbilities, restoreKi, showAbilityF
                         <th className='col-1'>Cost</th>
                         <th className='col-1'>Damage</th>
                         <th className='col-1'>Boost</th>
-                        <th className='col-2'>Saving Throw</th>
+                        <th className='col-2'>Attack/Saving</th>
                         <th className='col-6'>Effect</th>
                     </tr>
                     {
