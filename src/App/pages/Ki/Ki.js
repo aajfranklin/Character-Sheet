@@ -39,7 +39,7 @@ export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm
                     <tr className='labels'>
                         <th className='col-2'>Name</th>
                         <th className='col-1'>Cost</th>
-                        <th className='col-2'>Damage</th>
+                        <th className='col-1'>Damage</th>
                         <th className='col-1'>Boost</th>
                         <th className='col-2'>Saving Throw</th>
                         <th className='col-6'>Effect</th>

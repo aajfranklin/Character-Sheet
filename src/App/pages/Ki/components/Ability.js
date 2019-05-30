@@ -44,7 +44,7 @@ export function Ability({ability, cancelEdit, deleteAbility, editAbility, index,
                             name='cost' value={ability.cost}
                             className={invalid('cost') ? 'invalid' : ''}
                             onChange={updateAbility} onBlur={validate}/></td>
-                    <td className='col-2'>
+                    <td className='col-1'>
                         <TextareaAutosize
                             name='damage' value={ability.damage}
                             className={invalid('damage') ? 'invalid' : ''}
@@ -64,7 +64,8 @@ export function Ability({ability, cancelEdit, deleteAbility, editAbility, index,
                             name='effect' value={ability.effect}
                             className={'text-left' + (invalid('effect') ? 'invalid' : '')}
                             onChange={updateAbility} onBlur={validate}/></td>
-                    <td className='col-1 button-group'>
+                    <td className='col-2 button-group'>
+                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={()=>{}} disabled={true}/>
                         <Button icon='fas fa-save' buttonStyle='clear flat' clickHandler={handleSave} disabled={disabled()}/>
                         <Button icon='fas fa-times-circle' buttonStyle='clear flat delete' clickHandler={cancelEdit}/>
                     </td>
@@ -73,11 +74,12 @@ export function Ability({ability, cancelEdit, deleteAbility, editAbility, index,
                 <React.Fragment>
                     <td className='col-2'>{ability.name}</td>
                     <td className='col-1'>{ability.cost}</td>
-                    <td className='col-2'>{ability.damage}</td>
+                    <td className='col-1'>{ability.damage}</td>
                     <td className='col-1'>{ability.boost}</td>
                     <td className='col-2'>{ability.saving}</td>
                     <td className='col-6 text-left'>{ability.effect}</td>
-                    <td className='col-1 button-group'>
+                    <td className='col-2 button-group'>
+                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={()=>{}}/>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
                     </td>

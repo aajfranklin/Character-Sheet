@@ -47,15 +47,22 @@ describe('Ability', () => {
         });
 
         it('should display the edit and delete buttons', () => {
-            expect(wrapper.find('Button').length).toBe(2);
-            expect(wrapper.find('Button').at(0).prop('icon')).toBe('fas fa-edit');
-            expect(wrapper.find('Button').at(1).prop('icon')).toBe('fas fa-trash');
+            expect(wrapper.find('Button').length).toBe(3);
+            expect(wrapper.find('Button').at(0).prop('icon')).toBe('fas fa-dice-d20');
+            expect(wrapper.find('Button').at(1).prop('icon')).toBe('fas fa-edit');
+            expect(wrapper.find('Button').at(2).prop('icon')).toBe('fas fa-trash');
+        });
+
+        it('should enable all 3 buttons', () => {
+            expect(wrapper.find('Button').at(0).prop('disabled')).toBe(undefined);
+            expect(wrapper.find('Button').at(1).prop('disabled')).toBe(undefined);
+            expect(wrapper.find('Button').at(2).prop('disabled')).toBe(undefined);
         });
 
         describe('when the edit button is clicked', () => {
 
             it('should call edit ability', () => {
-                wrapper.find('Button').at(0).dive().simulate('click');
+                wrapper.find('Button').at(1).dive().simulate('click');
                 expect(mockEditAbility.mock.calls.length).toBe(1);
             });
 
@@ -64,7 +71,7 @@ describe('Ability', () => {
         describe('when delete button is clicked', () => {
 
             it('should call delete ability', () => {
-                wrapper.find('Button').at(1).dive().simulate('click');
+                wrapper.find('Button').at(2).dive().simulate('click');
                 expect(mockDeleteAbility.mock.calls.length).toBe(1);
             });
 
@@ -83,8 +90,19 @@ describe('Ability', () => {
             expect(wrapper.find('TextareaAutosize').length).toBe(6);
         });
 
-        it('should disable the save button', () => {
+        it('should display the roll, save, and cancel buttons', () => {
+            expect(wrapper.find('Button').length).toBe(3);
+            expect(wrapper.find('Button').at(0).prop('icon')).toBe('fas fa-dice-d20');
+            expect(wrapper.find('Button').at(1).prop('icon')).toBe('fas fa-save');
+            expect(wrapper.find('Button').at(2).prop('icon')).toBe('fas fa-times-circle');
+        });
+
+        it('should disable the roll button', () => {
             expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
+        });
+
+        it('should disable the save button', () => {
+            expect(wrapper.find('Button').at(1).prop('disabled')).toBe(true);
         });
 
         describe('when input text changes', () => {
@@ -124,15 +142,9 @@ describe('Ability', () => {
             });
 
             it('should disable the save button', () => {
-                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(true);
+                expect(wrapper.find('Button').at(1).prop('disabled')).toBe(true);
             });
 
-        });
-
-        it('should display the save and cancel buttons', () => {
-            expect(wrapper.find('Button').length).toBe(2);
-            expect(wrapper.find('Button').at(0).prop('icon')).toBe('fas fa-save');
-            expect(wrapper.find('Button').at(1).prop('icon')).toBe('fas fa-times-circle');
         });
 
         describe('when no attributes are invalid and at least one has changed and is valid', () => {
@@ -145,13 +157,13 @@ describe('Ability', () => {
             });
 
             it('should enable the save button', () => {
-                expect(wrapper.find('Button').at(0).prop('disabled')).toBe(false);
+                expect(wrapper.find('Button').at(1).prop('disabled')).toBe(false);
             });
 
             describe('when the save button is clicked', () => {
 
                 it('should call save ability', () => {
-                    wrapper.find('Button').at(0).dive().simulate('click');
+                    wrapper.find('Button').at(1).dive().simulate('click');
                     expect(mockSaveAbility.mock.calls.length).toBe(1);
                 });
 
@@ -162,7 +174,7 @@ describe('Ability', () => {
         describe('when the cancel button is clicked', () => {
 
             it('should call cancel edit', () => {
-                wrapper.find('Button').at(1).dive().simulate('click');
+                wrapper.find('Button').at(2).dive().simulate('click');
                 expect(mockCancelEdit.mock.calls.length).toBe(1);
             });
 
