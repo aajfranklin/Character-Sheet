@@ -25,6 +25,10 @@ export const loadStats = () => {
 };
 
 const loadStatsSuccess = (stats) => {
+    Object.keys(stats).forEach((stat) => {
+        stats[stat] = parseInt(stats[stat]);
+    });
+
     return({
         type: types.LOAD_STATS_SUCCESS,
         stats
