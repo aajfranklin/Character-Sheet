@@ -1,27 +1,3 @@
-/* Title area properties */
-
-h1 {
-    min-width: 5vw;
-    padding: 0 0.5em;
-    text-align: center;
-}
-
-.title-area {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-}
-
-[class*='title-half-'] {
-    align-items: center;
-    display: grid;
-    grid-template-columns: max-content max-content;
-}
-
-.title-half-right {
-    justify-content: end;
-}
-
 /* Add Ability form properties */
 
 form {
