@@ -66,7 +66,13 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
                 if (state.abilities[i].editing) return state;
             }
 
-            const sortedAbilities = deepCopy(state.abilities).sort((a, b) => parseInt(a.cost) - parseInt(b.cost));
+            const sortedAbilities = deepCopy(state.abilities)
+                .sort((a, b) => {
+                    return a.name > b.name ?  1
+                        : a.name < b.name ? -1
+                        : 0;
+                })
+                .sort((a, b) => parseInt(a.cost) - parseInt(b.cost));
 
             return update(state, {
                 abilities: {$set: sortedAbilities}
