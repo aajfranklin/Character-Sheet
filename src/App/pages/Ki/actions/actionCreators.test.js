@@ -137,14 +137,14 @@ describe('Ki action creator', () => {
             });
 
             it('should accept a dice-roll formatted damage field', () => {
-                expect(actionCreators.validateField('damage', '1D6')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6')).toBe(true);
             });
 
             it('should accept a dice-roll formatted damage field with modifiers', () => {
-                expect(actionCreators.validateField('damage', '1D6+1')).toBe(true);
-                expect(actionCreators.validateField('damage', '1D6-1')).toBe(true);
-                expect(actionCreators.validateField('damage', '1D6x1')).toBe(true);
-                expect(actionCreators.validateField('damage', '1D6+WIS')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6-1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6x1')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+WIS')).toBe(true);
             });
 
             it('should accept an exclusively numeric damage field', () => {
@@ -156,14 +156,14 @@ describe('Ki action creator', () => {
             });
 
             it('should reject a damage field without dice value', () => {
-                expect(actionCreators.validateField('damage', '1D')).toBe(false);
+                expect(actionCreators.validateField('damage', '1d')).toBe(false);
             });
 
             it('should reject a damage field with partial or arbitrary modifier', () => {
-                expect(actionCreators.validateField('damage', '1D6+')).toBe(false);
-                expect(actionCreators.validateField('damage', '1D6-')).toBe(false);
-                expect(actionCreators.validateField('damage', '1D6x')).toBe(false);
-                expect(actionCreators.validateField('damage', '1D6+WISDOMTOOTH')).toBe(false);
+                expect(actionCreators.validateField('damage', '1d6+')).toBe(false);
+                expect(actionCreators.validateField('damage', '1d6-')).toBe(false);
+                expect(actionCreators.validateField('damage', '1d6x')).toBe(false);
+                expect(actionCreators.validateField('damage', '1d6+WISDOMTOOTH')).toBe(false);
             });
 
             it('should reject an arbitrary damage field', () => {
@@ -175,7 +175,7 @@ describe('Ki action creator', () => {
             });
 
             it('should accept a saving throw field with proficiency and a base stat', () => {
-               expect(actionCreators.validateField('saving', '1D6+PROF+CHA')).toBe(true);
+               expect(actionCreators.validateField('saving', '1d6+PROF+CHA')).toBe(true);
             });
 
         });

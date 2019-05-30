@@ -107,6 +107,7 @@ table {
 
 td {
     text-align: center;
+    white-space: pre-line;
 }
 
 th {

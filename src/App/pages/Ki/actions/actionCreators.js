@@ -261,12 +261,12 @@ export const validateField = (target, value) => {
             break
         }
         case 'damage': case 'boost': {
-            const diceRegExp = /^\d+((D\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?)?$/;
+            const diceRegExp = /^\d+((d\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?)?$/;
             valid = diceRegExp.test(value);
             break;
         }
         case 'saving': {
-            const saveRegExp = /^\d+((D\d+)?(\+PROF)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?)?$/;
+            const saveRegExp = /^\d+((d\d+)?(\+PROF)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?)?$/;
             valid = saveRegExp.test(value);
             break;
         }
