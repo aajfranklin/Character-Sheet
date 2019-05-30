@@ -52,7 +52,7 @@ export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityFo
                         onChange={handleFormChange} onBlur={validate}/>
                 </p>
                 <p className={'half-form-entry' + (invalid('saving') ? ' invalid' : '')}>
-                    {'Saving throw: ' + (invalid('saving') ? invalidMessages.diceField : '')}
+                    {'Attack/Saving: ' + (invalid('saving') ? invalidMessages.diceField : '')}
                     <textarea
                         name='saving' value={newAbility.saving}  placeholder='1D6'
                         onChange={handleFormChange} onBlur={validate}/>
