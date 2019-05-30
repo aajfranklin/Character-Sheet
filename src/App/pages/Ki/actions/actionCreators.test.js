@@ -190,6 +190,11 @@ describe('Ki action creator', () => {
                 expect(actionCreators.validateField('saving', '1d6+PROF+CHA')).toBe(false);
             });
 
+            it('should reject an arbitrary attack/saving field', () => {
+                expect(actionCreators.validateField('saving', 'arbitrary')).toBe(false);
+                expect(actionCreators.validateField('saving', '0asfd')).toBe(false);
+            });
+
             it('should accept an attack/saving field of 0', () => {
                 expect(actionCreators.validateField('saving', '0')).toBe(true);
             });

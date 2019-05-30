@@ -266,7 +266,7 @@ export const validateField = (target, value) => {
             break;
         }
         case 'saving': {
-            const saveRegExp = new RegExp(/^0|([AS]: \d+((d\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?(\+PROF)?(\+LEV)?))$/, 'i');
+            const saveRegExp = new RegExp(/(^0$)|(^[AS]: \d+((d\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?(\+PROF)?(\+LEV)?)$)/, 'i');
             valid = saveRegExp.test(value);
             break;
         }
