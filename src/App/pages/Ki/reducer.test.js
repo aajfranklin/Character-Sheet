@@ -68,6 +68,21 @@ describe('Ki reducer', () => {
         expect(newState.abilities[0].name).toBe('testAbility');
     });
 
+    it('should handle RESTORE_KI', () => {
+        const abilityUsedState = reducer(state, {
+            type: types.USE_ABILITY,
+            uuid: '1'
+        });
+        expect(abilityUsedState.available).toBe(1);
+
+        const newState = reducer(abilityUsedState,
+            {
+                type: types.RESTORE_KI
+            }
+        );
+        expect(newState.available).toBe(3);
+    });
+
     it('should handle REVERT_ABILITY', () => {
         state.abilityEditCache[0] = {name: 'testCachedAbility', uuid: '2'};
         const newState = reducer(state,

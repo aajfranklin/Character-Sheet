@@ -48,6 +48,14 @@ describe('Ki action creator', () => {
             expect(actionCreators.clearAbilityCache('1')).toStrictEqual(expectedAction);
         });
 
+        it('should create an action to restore Ki', () => {
+            const expectedAction = {
+                type: types.RESTORE_KI
+            };
+
+            expect(actionCreators.restoreKi()).toStrictEqual(expectedAction);
+        });
+
         it('should create an action to revert an ability', () => {
             const expectedAction = {
                 type: types.REVERT_ABILITY,

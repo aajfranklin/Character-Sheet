@@ -107,6 +107,12 @@ const loadAbilitiesFailed = () => {
     }
 };
 
+export const restoreKi = () => {
+    return({
+        type: types.RESTORE_KI
+    });
+};
+
 export const revertAbility = (uuid) => {
   return({
       type: types.REVERT_ABILITY,
