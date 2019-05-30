@@ -5,7 +5,7 @@ import * as types from './actions/actionTypes';
 
 const state = deepCopy(testState.app);
 
-describe('Ki reducer', () => {
+describe('App reducer', () => {
 
     it('should return the initial state', () => {
         expect(reducer(state, {})).toStrictEqual(state);
@@ -21,21 +21,6 @@ describe('Ki reducer', () => {
         expect(newState.stats).toStrictEqual({testStat: 'test'});
     });
 
-    it('should handle RESTORE_KI', () => {
-        const abilityUsedState = reducer(state, {
-            type: types.USE_ABILITY,
-            cost: '1'
-        });
-        expect(abilityUsedState.stats.kiAvailable).toBe(2);
-
-        const newState = reducer(abilityUsedState,
-            {
-                type: types.RESTORE_KI
-            }
-        );
-        expect(newState.stats.kiAvailable).toBe(3);
-    });
-
     it('should handle TOGGLE_SHOW_ERROR', () => {
         const newState = reducer(state,
             {
@@ -47,11 +32,12 @@ describe('Ki reducer', () => {
         expect(newState.errorMessage).toBe('testError');
     });
 
-    it('should handle USE_ABILITY', () => {
+    it('should handle UPDATE_STAT', () => {
         const newState = reducer(state,
             {
-                type: types.USE_ABILITY,
-                cost: '1'
+                type: types.UPDATE_STAT,
+                stat: 'kiAvailable',
+                value: 2
             }
         );
         expect(newState.stats.kiAvailable).toBe(2);

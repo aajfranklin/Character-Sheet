@@ -476,7 +476,7 @@ describe('Ki action creator', () => {
 
             });
 
-        })
+        });
 
     });
 

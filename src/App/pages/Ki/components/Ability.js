@@ -12,17 +12,17 @@ import {
     updateAbility,
     validateEdit
 } from '../actions/actionCreators';
-import { _useAbility } from '../../../actions/actionCreators';
+import { updateStat } from '../../../actions/actionCreators';
 import Button from '../../../components/Button/Button';
 
-export function Ability({ability, available, cancelEdit, deleteAbility, editAbility, index, saveAbility, _useAbility, updateAbility, uuid, validate}) {
+export function Ability({ability, available, cancelEdit, deleteAbility, editAbility, index, saveAbility, updateAbility, updateStat, uuid, validate}) {
 
     function handleSave() {
         saveAbility(ability);
     }
 
-    function handleUse() {
-        _useAbility(ability.cost);
+    function handleUseAbility() {
+        if (ability.cost > 0) updateStat('kiAvailable', available - ability.cost);
     }
 
     function invalid(attribute) {
@@ -84,7 +84,7 @@ export function Ability({ability, available, cancelEdit, deleteAbility, editAbil
                     <td className='col-2'>{ability.saving}</td>
                     <td className='col-6 text-left'>{ability.effect}</td>
                     <td className='col-2 button-group'>
-                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={handleUse} disabled={ability.cost > available}/>
+                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={handleUseAbility} disabled={ability.cost > available}/>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
                     </td>
@@ -117,8 +117,8 @@ function mapDispatchToProps(dispatch, ownProps) {
         saveAbility: (ability) => {
             dispatch(saveAbility(ability));
         },
-        _useAbility: (cost) => {
-            dispatch(_useAbility(cost));
+        updateStat: (stat, value) => {
+            dispatch(updateStat(stat, value));
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.index));

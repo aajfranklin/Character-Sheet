@@ -2,18 +2,22 @@ import React  from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { loadAbilities, toggleAddAbilityForm } from './actions/actionCreators';
-import { restoreKi } from '../../actions/actionCreators';
+import { updateStat } from '../../actions/actionCreators';
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
-export function Ki({abilities, available, loadAbilities, restoreKi, showAbilityForm, toggleAbilityForm, total}) {
+export function Ki({abilities, available, loadAbilities, showAbilityForm, toggleAbilityForm, total, updateStat}) {
 
     if (!abilities) {
         loadAbilities();
         return null;
+    }
+
+    function handleMeditate() {
+        updateStat('kiAvailable', total);
     }
 
     return(
@@ -24,7 +28,7 @@ export function Ki({abilities, available, loadAbilities, restoreKi, showAbilityF
                     <span>{available} of {total} points available</span>
                 </div>
                 <div className='title-half-right'>
-                    <Button clickHandler={restoreKi} label='MEDITATE' icon='fas fa-praying-hands'/>
+                    <Button clickHandler={handleMeditate} label='MEDITATE' icon='fas fa-praying-hands'/>
                     <Button clickHandler={toggleAbilityForm} label='ADD ABILITY' icon='fas fa-plus-circle' disabled={showAbilityForm}/>
                 </div>
             </div>
@@ -65,7 +69,7 @@ function mapDispatchToProps(dispatch) {
     return {
         loadAbilities: () => dispatch(loadAbilities()),
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm()),
-        restoreKi: () => dispatch(restoreKi())
+        updateStat: (stat, value) => dispatch(updateStat(stat, value))
     }
 }
 

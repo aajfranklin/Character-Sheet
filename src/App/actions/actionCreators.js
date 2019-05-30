@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as errors from "../components/Error/ErrorTypes";
-import { apiGatewayGetStats } from './apiGatewayPromises';
+import { apiGatewayGetStats, apiGatewayPutStat } from './apiGatewayPromises';
+import {isEmpty} from "lodash";
 
 export const loadStats = () => {
     return dispatch => {
@@ -41,12 +42,6 @@ const loadStatsFailed = () => {
     }
 };
 
-export const restoreKi = () => {
-    return({
-        type: types.RESTORE_KI
-    });
-};
-
 export const toggleShowError = (errorMessage) => {
     return({
         type: types.TOGGLE_SHOW_ERROR,
@@ -54,9 +49,36 @@ export const toggleShowError = (errorMessage) => {
     });
 };
 
-export const _useAbility = (cost) => {
+export const updateStat = (stat, value) => {
+    return dispatch => {
+        return(
+            apiGatewayPutStat(stat, value)
+                .then(response => {
+                    if (isEmpty(response.data)) {
+                        dispatch(updateStatSuccess(stat, value));
+                    } else {
+                        dispatch(updateStatFailed('Error: ' + stat + errors.UPDATE_STAT_FAILED));
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    dispatch(updateStatFailed('Error: ' + stat + errors.UPDATE_STAT_FAILED));
+                })
+        )
+    }
+};
+
+const updateStatSuccess = (stat, value) => {
     return({
-        type: types.USE_ABILITY,
-        cost
-    });
+        type: types.UPDATE_STAT,
+        stat,
+        value
+    })
+};
+
+export const updateStatFailed = (errorMessage) => {
+    return({
+        type: types.TOGGLE_SHOW_ERROR,
+        errorMessage
+    })
 };

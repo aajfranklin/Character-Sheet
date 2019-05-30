@@ -21,23 +21,6 @@ describe('App action creator', () => {
             expect(actionCreators.toggleShowError('testError')).toStrictEqual(expectedAction);
         });
 
-        it('should create an action to restore Ki', () => {
-            const expectedAction = {
-                type: types.RESTORE_KI
-            };
-
-            expect(actionCreators.restoreKi()).toStrictEqual(expectedAction);
-        });
-
-        it('should create an action to use an ability', () => {
-            const expectedAction = {
-                type: types.USE_ABILITY,
-                cost: '1'
-            };
-
-            expect(actionCreators._useAbility('1')).toStrictEqual(expectedAction);
-        });
-
     });
 
     describe('asynchronous actions', () => {
@@ -105,6 +88,56 @@ describe('App action creator', () => {
                     }];
 
                     return store.dispatch(actionCreators.loadStats()).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+        });
+
+        describe('when updating a stat', () => {
+
+            describe('when the PUT and PutItem calls succeed', () => {
+
+                it('should create actions to update a stat', () => {
+                    const store = mockStore();
+                    const expectedActions = [
+                        {type: types.UPDATE_STAT, stat: 'kiAvailable', value: 2},
+                    ];
+
+                    return store.dispatch(actionCreators.updateStat('kiAvailable', 2)).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+
+                });
+
+            });
+
+            describe('when the PUT call to API gateway fails', () => {
+
+                it('should create an action to show an error', () => {
+                    const store = mockStore();
+                    const expectedActions = [
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: 'Error: kiAvailable' + errors.UPDATE_STAT_FAILED}
+                    ];
+
+                    return store.dispatch(actionCreators.updateStat('kiAvailable', 'putNetworkFailure')).then(() => {
+                        expect(store.getActions()).toEqual(expectedActions);
+                    });
+                });
+
+            });
+
+            describe('when the PutItem call to DynamoDB fails', () => {
+
+                it('should create an action to show an error', () => {
+                    const store = mockStore();
+                    const expectedActions = [
+                        {type: TOGGLE_SHOW_ERROR, errorMessage: 'Error: kiAvailable' + errors.UPDATE_STAT_FAILED}
+                    ];
+
+                    return store.dispatch(actionCreators.updateStat('kiAvailable', '')).then(() => {
                         expect(store.getActions()).toEqual(expectedActions);
                     });
                 });

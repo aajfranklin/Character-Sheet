@@ -1,4 +1,4 @@
 export const LOAD_STATS_SUCCESS = 'LOAD_STATS_SUCCESS';
 export const RESTORE_KI = 'RESTORE_KI';
 export const TOGGLE_SHOW_ERROR = 'TOGGLE_SHOW_ERROR';
-export const USE_ABILITY = 'USE_ABILITY';
+export const UPDATE_STAT = 'UPDATE_STAT';

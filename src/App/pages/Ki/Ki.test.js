@@ -14,11 +14,11 @@ jest.mock('./components/Ability');
 jest.mock('./components/AbilityForm');
 const mockLoadAbilities = jest.fn();
 const mockToggleAbilityForm = jest.fn();
-const mockRestoreKi = jest.fn();
+const mockUpdateStat = jest.fn();
 
 function setUp(abilities, showAbilityForm) {
     wrapper = shallow(<Ki loadAbilities={mockLoadAbilities}
-                        restoreKi={mockRestoreKi}
+                        updateStat={mockUpdateStat}
                         toggleAbilityForm={mockToggleAbilityForm}
                         showAbilityForm={showAbilityForm}
                         abilities={abilities}
@@ -89,9 +89,9 @@ describe('Ki', () => {
                 setUp(state.ki.abilities, false);
             });
 
-            it('should call restore ki', () => {
+            it('should call action creator to update ki available', () => {
                 wrapper.find('Button').at(0).dive().simulate('click');
-                expect(mockRestoreKi.mock.calls.length).toBe(1);
+                expect(mockUpdateStat.mock.calls.length).toBe(1);
             });
 
         })

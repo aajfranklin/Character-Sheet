@@ -6,12 +6,8 @@ export const apiGatewayGetStats = () => {
     return getStatsClient.invokeApi({}, '', 'GET');
 };
 
-// export const apiGatewayGetAbility = (uuid) => {
-//     const getAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + uuid);
-//     return getAbilityClient.invokeApi({}, '', 'GET');
-// };
-//
-// export const apiGatewayPutAbility = (ability) => {
-//     const putAbilityClient = getApiGatewayClient(config.apiGateway.endpoints.kiAbilities + "/" + ability.uuid);
-//     return putAbilityClient.invokeApi({}, '', 'PUT', {}, ability);
-// };
+
+export const apiGatewayPutStat = (stat, value) => {
+    const putStatClient = getApiGatewayClient(config.apiGateway.endpoints.stats + "/" + stat);
+    return putStatClient.invokeApi({}, '', 'PUT', {}, {value});
+};

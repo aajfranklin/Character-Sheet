@@ -15,7 +15,7 @@ const mockDeleteAbility = jest.fn();
 const mockEditAbility = jest.fn();
 const mockSaveAbility = jest.fn();
 const mockUpdateAbility = jest.fn();
-const mockUseAbility = jest.fn();
+const mockUpdateStat = jest.fn();
 const mockValidateEdit = jest.fn();
 
 function setUp() {
@@ -24,9 +24,10 @@ function setUp() {
                                deleteAbility={mockDeleteAbility}
                                editAbility={mockEditAbility}
                                saveAbility={mockSaveAbility}
-                               _useAbility={mockUseAbility}
                                updateAbility={mockUpdateAbility}
+                               updateStat={mockUpdateStat}
                                validate={mockValidateEdit}
+                               available={state.app.stats.kiAvailable}
     />)
 }
 
@@ -57,9 +58,10 @@ describe('Ability', () => {
 
         describe('when the roll button is clicked', () => {
 
-            it('should call use ability', () => {
+            it('should call action creator to update ki available', () => {
                 wrapper.find('Button').at(0).dive().simulate('click');
-                expect(mockUseAbility.mock.calls.length).toBe(1);
+                expect(mockUpdateStat.mock.calls.length).toBe(1);
+                expect(mockUpdateStat.mock.calls[0]).toMatchObject(['kiAvailable', 2]);
             });
 
         });
@@ -91,8 +93,8 @@ describe('Ability', () => {
                                            deleteAbility={mockDeleteAbility}
                                            editAbility={mockEditAbility}
                                            saveAbility={mockSaveAbility}
-                                           useAbility={mockUseAbility}
                                            updateAbility={mockUpdateAbility}
+                                           updateStat={mockUpdateStat}
                                            validate={mockValidateEdit}
                 />)
             });

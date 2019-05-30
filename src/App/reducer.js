@@ -11,12 +11,6 @@ export default function appReducer(state = { ...initialState.app }, action) {
             });
         }
 
-        case types.RESTORE_KI: {
-            return update(state, {
-                stats: {kiAvailable: {$set: state.stats.kiTotal}}
-            });
-        }
-
         case types.TOGGLE_SHOW_ERROR: {
             return update(state, {
                 showError: {$set: !state.showError},
@@ -24,9 +18,9 @@ export default function appReducer(state = { ...initialState.app }, action) {
             });
         }
 
-        case types.USE_ABILITY: {
+        case types.UPDATE_STAT: {
             return update(state, {
-                stats: { kiAvailable: {$set: state.stats.kiAvailable - action.cost}}
+                stats: { [action.stat]: {$set: action.value}}
             })
         }
 
