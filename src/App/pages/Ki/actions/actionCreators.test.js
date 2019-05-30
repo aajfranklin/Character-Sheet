@@ -162,6 +162,10 @@ describe('Ki action creator', () => {
                 expect(actionCreators.validateField('damage', '1d6-1')).toBe(true);
                 expect(actionCreators.validateField('damage', '1d6x1')).toBe(true);
                 expect(actionCreators.validateField('damage', '1d6+WIS')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+WIS+PROF')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+PROF')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+PROF+LEV')).toBe(true);
+                expect(actionCreators.validateField('damage', '1d6+LEV')).toBe(true);
             });
 
             it('should accept an exclusively numeric damage field', () => {
@@ -191,8 +195,12 @@ describe('Ki action creator', () => {
                 expect(actionCreators.validateField('name', '')).toBe(false);
             });
 
-            it('should accept an attack/saving field with proficiency and a base stat', () => {
-               expect(actionCreators.validateField('saving', 'S: 1d6+PROF+CHA')).toBe(true);
+            it('should accept an attack/saving field with proficiency, base stat, level', () => {
+                expect(actionCreators.validateField('saving', 'S: 1d6+CHA+PROF')).toBe(true);
+                expect(actionCreators.validateField('saving', 'S: 1d6+PROF')).toBe(true);
+                expect(actionCreators.validateField('saving', 'S: 1d6+LEV')).toBe(true);
+                expect(actionCreators.validateField('saving', 'S: 1d6+PROF+LEV')).toBe(true);
+                expect(actionCreators.validateField('saving', 'S: 1d6+WIS+LEV')).toBe(true);
             });
 
             it('should reject an attack/saving field that does not indicate its type with its prefix', () => {
