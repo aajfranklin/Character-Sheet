@@ -50,7 +50,6 @@ describe('App', () => {
                     pathMap[routeProps.path] = routeProps.component;
                     return pathMap;
                 }, {});
-                console.log(pathMap)
             });
 
             it('should show Stats page for /Stats route', () => {

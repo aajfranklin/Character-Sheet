@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
-export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm}) {
+export function Ki({abilities, available, loadAbilities, showAbilityForm, toggleAbilityForm, total}) {
 
     if (!abilities) {
         loadAbilities();
@@ -24,7 +24,7 @@ export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm
             <div className='title-area'>
                 <div className='title-half-left'>
                     <h1>Ki</h1>
-                    <span>3 of 3 points available</span>
+                    <span>{available} of {total} points available</span>
                 </div>
                 <div className='title-half-right'>
                     <Button clickHandler={meditate} label='MEDITATE' icon='fas fa-praying-hands'/>
@@ -58,7 +58,9 @@ export function Ki({abilities, loadAbilities, showAbilityForm, toggleAbilityForm
 function mapStateToProps(state) {
     return {
         abilities: state.ki.abilities,
-        showAbilityForm: state.ki.showAbilityForm
+        available: state.ki.available,
+        showAbilityForm: state.ki.showAbilityForm,
+        total: state.ki.total
     }
 }
 

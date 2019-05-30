@@ -220,6 +220,13 @@ export const toggleEditAbility = (uuid) => {
     })
 };
 
+export const _useAbility = (uuid) => {
+    return({
+        type: types.USE_ABILITY,
+        uuid
+    });
+};
+
 export const updateAbility = (event, index) => {
     event.persist();
     return({

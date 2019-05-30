@@ -9,12 +9,13 @@ import {
     saveAbility,
     sortAbilities,
     toggleEditAbility,
+    _useAbility,
     updateAbility,
     validateEdit
 } from '../actions/actionCreators';
 import Button from '../../../components/Button/Button';
 
-export function Ability({ability, cancelEdit, deleteAbility, editAbility, index, saveAbility, updateAbility, uuid, validate}) {
+export function Ability({ability, cancelEdit, deleteAbility, editAbility, index, saveAbility, useAbility, updateAbility, uuid, validate}) {
 
     function handleSave() {
         saveAbility(ability);
@@ -79,7 +80,7 @@ export function Ability({ability, cancelEdit, deleteAbility, editAbility, index,
                     <td className='col-2'>{ability.saving}</td>
                     <td className='col-6 text-left'>{ability.effect}</td>
                     <td className='col-2 button-group'>
-                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={()=>{}}/>
+                        <Button icon='fas fa-dice-d20' buttonStyle='clear flat' clickHandler={useAbility}/>
                         <Button icon='fas fa-edit' buttonStyle='clear flat' clickHandler={editAbility}/>
                         <Button icon='fas fa-trash' buttonStyle='clear flat delete' clickHandler={deleteAbility}/>
                     </td>
@@ -111,6 +112,9 @@ function mapDispatchToProps(dispatch, ownProps) {
         },
         saveAbility: (ability) => {
             dispatch(saveAbility(ability));
+        },
+        useAbility: () => {
+            dispatch(_useAbility(ownProps.uuid));
         },
         updateAbility: (e) => {
             dispatch(updateAbility(e, ownProps.index));

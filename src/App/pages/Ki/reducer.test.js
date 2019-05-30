@@ -145,6 +145,16 @@ describe('Ki reducer', () => {
         expect(newState.abilities[0].editValidation).toStrictEqual({});
     });
 
+    it('should handle USE_ABILITY', () => {
+        const newState = reducer(state,
+            {
+                type: types.USE_ABILITY,
+                uuid: '1'
+            }
+        );
+        expect(newState.available).toBe(1);
+    });
+
     it('should handle UPDATE_ABILITY', () => {
         const newState = reducer(state,
             {

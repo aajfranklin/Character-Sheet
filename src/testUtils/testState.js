@@ -54,9 +54,11 @@ export const testState = {
     ki: {
         abilities: testKiAbilities,
         abilityEditCache: [],
+        available: 3,
         newAbility: {...testNewAbility},
         abilityFormValidation: {},
         showAbilityForm: false,
+        total: 3,
         mockGetAbilitiesNetworkResult : null
     }
 };

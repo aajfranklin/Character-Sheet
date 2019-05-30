@@ -82,6 +82,15 @@ describe('Ki action creator', () => {
             expect(actionCreators.toggleEditAbility('1')).toStrictEqual(expectedAction);
         });
 
+        it('should create an action to use an ability', () => {
+            const expectedAction = {
+                type: types.USE_ABILITY,
+                uuid: '1'
+            };
+
+            expect(actionCreators._useAbility('1')).toStrictEqual(expectedAction);
+        });
+
         it('should create an action to update an ability', () => {
             const event = {
                 target: {

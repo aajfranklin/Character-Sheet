@@ -26,7 +26,9 @@ export const initialState = {
         abilities: null,
         abilityEditCache: [],
         abilityFormValidation: {},
+        available: 3,
         newAbility: {...newAbility},
         showAbilityForm: false,
+        total: 3
     }
 };

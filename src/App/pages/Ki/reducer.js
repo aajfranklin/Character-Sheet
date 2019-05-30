@@ -94,6 +94,14 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
             });
         }
 
+        case types.USE_ABILITY: {
+            const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
+
+            return update(state, {
+                available: {$set: state.available - state.abilities[abilityIndex].cost}
+            })
+        }
+
         case types.UPDATE_ABILITY: {
             return update(state, {
                 abilities: { [action.index]: { [action.target]: { $set: action.value } } }

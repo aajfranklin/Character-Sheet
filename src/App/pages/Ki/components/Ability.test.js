@@ -15,6 +15,7 @@ const mockDeleteAbility = jest.fn();
 const mockEditAbility = jest.fn();
 const mockSaveAbility = jest.fn();
 const mockUpdateAbility = jest.fn();
+const mockUseAbility = jest.fn();
 const mockValidateEdit = jest.fn();
 
 function setUp() {
@@ -23,6 +24,7 @@ function setUp() {
                                deleteAbility={mockDeleteAbility}
                                editAbility={mockEditAbility}
                                saveAbility={mockSaveAbility}
+                               useAbility={mockUseAbility}
                                updateAbility={mockUpdateAbility}
                                validate={mockValidateEdit}
     />)
@@ -57,6 +59,15 @@ describe('Ability', () => {
             expect(wrapper.find('Button').at(0).prop('disabled')).toBe(undefined);
             expect(wrapper.find('Button').at(1).prop('disabled')).toBe(undefined);
             expect(wrapper.find('Button').at(2).prop('disabled')).toBe(undefined);
+        });
+
+        describe('when the roll button is clicked', () => {
+
+            it('should call use ability', () => {
+                wrapper.find('Button').at(0).dive().simulate('click');
+                expect(mockUseAbility.mock.calls.length).toBe(1);
+            });
+
         });
 
         describe('when the edit button is clicked', () => {
