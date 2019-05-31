@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { deepCopy } from '../../../testUtils/testHelpers';
 import testState from '../../../testUtils/testState';
@@ -16,7 +16,7 @@ const mockUpdateStat = jest.fn();
 const mockUpdateStatLocally = jest.fn();
 
 function setUp(beingEdited, cachedValue) {
-    wrapper = shallow(<Stat
+    wrapper = mount(<Stat
         beingEdited={beingEdited}
         cacheStat={mockCacheStat}
         cachedValue={cachedValue}
@@ -56,6 +56,15 @@ describe('Stat', () => {
 
             });
 
+            describe('when the enter key is pressed', () => {
+
+                it('should call cache stat', () => {
+                    wrapper.find('span').at(0).simulate('keydown', {key: 'Enter'});
+                    expect(mockCacheStat.mock.calls.length).toBe(2);
+                });
+
+            });
+
         });
 
         describe('when the current stat is being edited', () => {
@@ -64,12 +73,13 @@ describe('Stat', () => {
                 setUp('kiTotal');
             });
 
-            it('should contain a text area', () => {
+            it('should contain a focused text area', () => {
                 expect(wrapper.find('textarea').length).toBe(1);
+                expect(wrapper.find('textarea').at(0).is(':focus')).toBe(true);
             });
 
-            it('should display the current stat value', () => {
-                expect(wrapper.find('textarea').prop('value')).toBe(3);
+            it('should display the current stat value as a string', () => {
+                expect(wrapper.find('textarea').prop('value')).toBe('3');
             });
 
             describe('when it changes', () => {
@@ -77,6 +87,16 @@ describe('Stat', () => {
                 it('should call update stat locally', () => {
                     wrapper.find('textarea').at(0).simulate('change');
                     expect(mockUpdateStatLocally.mock.calls.length).toBe(1);
+                });
+
+            });
+
+            describe('when the enter key is pressed', () => {
+
+                it('should lose focus', () => {
+                    expect(wrapper.find('textarea').at(0).is(':focus')).toBe(true);
+                    wrapper.find('textarea').at(0).simulate('keydown', {key: 'Enter'});
+                    expect(wrapper.find('textarea').at(0).is(':focus')).toBe(false);
                 });
 
             });

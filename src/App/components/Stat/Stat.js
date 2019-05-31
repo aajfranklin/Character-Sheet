@@ -17,14 +17,18 @@ export function Stat({beingEdited, cacheStat, cachedValue, revertWithError, reve
         }
     };
 
-    const handleKeyDown = (e) => {
+    const handleSpanKeyDown = (e) => {
+        if (e.key === 'Enter') cacheStat();
+    };
+
+    const handleTextAreaKeyDown = (e) => {
         if (e.key === 'Enter') document.activeElement.blur();
     };
 
     return (
         stat === beingEdited ?
-            <textarea className='stat' value={stats[stat]} onChange={updateStatLocally} onBlur={handleBlur} onKeyDown={handleKeyDown}/>
-            : <span className='stat' onClick={cacheStat}>{stats[stat]}</span>
+            <textarea autoFocus={true} className='stat' value={stats[stat].toString().trim()} onChange={updateStatLocally} onBlur={handleBlur} onKeyDown={handleTextAreaKeyDown}/>
+            : <span tabIndex="0" className='stat' onClick={cacheStat} onKeyDown={handleSpanKeyDown}>{stats[stat]}</span>
     )
 }
 

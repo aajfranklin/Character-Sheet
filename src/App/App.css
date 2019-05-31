@@ -1,3 +1,8 @@
+*:focus {
+    outline: none;
+    box-shadow: 0 0 3pt 2pt lightskyblue;
+}
+
 main {
     margin-top: 3em;
 }
@@ -24,6 +29,10 @@ nav {
     text-align: center;
     vertical-align: middle;
     width: 5vw;
+}
+
+.nav-item:focus {
+    box-shadow: 0 0 3pt 2pt white;
 }
 
 .nav-item:hover {
