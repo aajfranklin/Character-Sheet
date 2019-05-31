@@ -1,8 +1,9 @@
 const pages = [
     'Stats',
+    'Inventory',
     'Weapons',
     'Ki',
-    'Abilities',
+    'Features',
     'Lore',
     'Map'
 ];

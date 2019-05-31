@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { loadStats } from './actions/actionCreators';
 import Stats from './pages/Stats/Stats';
+import Inventory from './pages/Inventory/Inventory';
 import Weapons from './pages/Weapons/Weapons';
 import Ki from './pages/Ki/Ki';
-import Abilities from './pages/Abilities/Abilities';
+import Features from './pages/Features/Features';
 import Lore from './pages/Lore/Lore';
 import Map from './pages/Map/Map';
 import NotFound from './pages/NotFound/NotFound'
@@ -31,9 +32,10 @@ export function App({loadStats, pages, showError, stats}) {
                     {showError ? <Error/> : null}
                     <Switch>
                         <Route exact path='/Stats' component={Stats}/>
+                        <Route exact path='/Inventory' component={Inventory}/>
                         <Route exact path='/Weapons' component={Weapons}/>
                         <Route exact path='/Ki' component={Ki}/>
-                        <Route exact path='/Abilities' component={Abilities}/>
+                        <Route exact path='/Features' component={Features}/>
                         <Route exact path='/Lore' component={Lore}/>
                         <Route exact path='/Map' component={Map}/>
                         <Route exact component={NotFound}/>

@@ -1,11 +1,11 @@
 import React  from 'react';
 
-function Abilities() {
+function Features() {
     return(
         <div>
             <div className='title-area'>
                 <div className='title-half-left'>
-                    <h1>Abilities</h1>
+                    <h1>Features</h1>
                     <span>Page under development...</span>
                 </div>
             </div>
@@ -13,4 +13,4 @@ function Abilities() {
     );
 }
 
-export default Abilities;
+export default Features;

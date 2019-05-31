@@ -6,9 +6,10 @@ import { deepCopy } from '../testUtils/testHelpers';
 import testState from '../testUtils/testState';
 import { App } from './App';
 import Stats from './pages/Stats/Stats';
+import Inventory from './pages/Inventory/Inventory'
 import Weapons from './pages/Weapons/Weapons';
 import Ki from './pages/Ki/Ki';
-import Abilities from './pages/Abilities/Abilities';
+import Features from './pages/Features/Features';
 import Lore from './pages/Lore/Lore';
 import Map from './pages/Map/Map';
 import NotFound from './pages/NotFound/NotFound'
@@ -70,6 +71,10 @@ describe('App', () => {
                 expect(pathMap['/Stats']).toBe(Stats);
             });
 
+            it('shoud show Inventory page for /Inventory route', () => {
+                expect(pathMap['/Inventory']).toBe(Inventory);
+            });
+
             it('should show Weapons page for /Weapons route', () => {
                 expect(pathMap['/Weapons']).toBe(Weapons);
             });
@@ -78,8 +83,8 @@ describe('App', () => {
                 expect(pathMap['/Ki']).toBe(Ki);
             });
 
-            it('should show Abilities page for /Abilities route', () => {
-                expect(pathMap['/Abilities']).toBe(Abilities);
+            it('should show Features page for /Features route', () => {
+                expect(pathMap['/Features']).toBe(Features);
             });
 
             it('should show Map page for /Map route', () => {
