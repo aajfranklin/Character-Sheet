@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import * as errors from "../components/Error/ErrorTypes";
-import { apiGatewayGetStats, apiGatewayPutStat } from './apiGatewayPromises';
+import { apiGatewayGetAll, apiGatewayPut } from '../../apiGatewayClient';
 import {isEmpty} from "lodash";
 
 export const cacheStat = (stat) => {
@@ -13,7 +13,7 @@ export const cacheStat = (stat) => {
 export const loadStats = () => {
     return dispatch => {
         return(
-            apiGatewayGetStats()
+            apiGatewayGetAll('stats')
                 .then(response => {
                     if (response.data.count === '') {
                         dispatch(loadStatsFailed());
@@ -66,7 +66,7 @@ export const toggleShowError = (errorMessage) => {
 export const updateStat = (stat, value) => {
     return dispatch => {
         return(
-            apiGatewayPutStat(stat, value)
+            apiGatewayPut('stats', stat, {value})
                 .then(response => {
                     if (isEmpty(response.data)) {
                         dispatch(updateStatSuccess(stat, value));

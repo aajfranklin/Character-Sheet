@@ -6,7 +6,7 @@ import testState from "../../testUtils/testState";
 import {TOGGLE_SHOW_ERROR} from "./actionTypes";
 import * as errors from "../components/Error/ErrorTypes";
 
-jest.mock('./apiGatewayPromises');
+jest.mock('../../apiGatewayClient');
 
 describe('App action creator', () => {
 
@@ -74,10 +74,10 @@ describe('App action creator', () => {
                 describe('when no abilities are returned', () => {
 
                     it('should create an actions to return empty fetched stats and show an error', () => {
-                        testState.app.mockGetAllNetworkResult = 'noneFound';
+                        testState.app.apiGatewayMockOutcome = 'noneFound';
                         const store = mockStore();
                         const expectedActions = [
-                            {type: types.LOAD_STATS_SUCCESS, stats: {}},
+                            {type: types.LOAD_STATS_SUCCESS, stats: []},
                             {type: TOGGLE_SHOW_ERROR, errorMessage: errors.NO_STATS_FOUND}
                         ];
 
@@ -93,7 +93,7 @@ describe('App action creator', () => {
             describe('when the GET call to API gateway fails', () => {
 
                 it('should create an action to show an error', () => {
-                    testState.app.mockGetAllNetworkResult = 'getAllNetworkFailure';
+                    testState.app.apiGatewayMockOutcome = 'apiGatewayError';
                     const store = mockStore();
                     const expectedActions = [{
                         type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_STATS_FAILED
@@ -109,7 +109,7 @@ describe('App action creator', () => {
             describe('when the Scan call to DynamoDB fails', () => {
 
                 it('should create an action to show an error', () => {
-                    testState.app.mockGetAllNetworkResult = 'getAllDynamoFailure';
+                    testState.app.apiGatewayMockOutcome = 'dynamoDbError';
                     const store = mockStore();
                     const expectedActions = [{
                         type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_STATS_FAILED
@@ -145,6 +145,7 @@ describe('App action creator', () => {
             describe('when the PUT call to API gateway fails', () => {
 
                 it('should create an action to show an error', () => {
+                    testState.app.apiGatewayMockOutcome = 'apiGatewayError';
                     const store = mockStore();
                     const expectedActions = [
                         {type: TOGGLE_SHOW_ERROR, errorMessage: 'Error: kiAvailable' + errors.UPDATE_STAT_FAILED}
@@ -160,6 +161,7 @@ describe('App action creator', () => {
             describe('when the PutItem call to DynamoDB fails', () => {
 
                 it('should create an action to show an error', () => {
+                    testState.app.apiGatewayMockOutcome = 'dynamoDbError';
                     const store = mockStore();
                     const expectedActions = [
                         {type: TOGGLE_SHOW_ERROR, errorMessage: 'Error: kiAvailable' + errors.UPDATE_STAT_FAILED}

@@ -49,7 +49,7 @@ export const testState = {
             stat: undefined,
             value: undefined
         },
-        mockGetAllNetworkResult : null
+        apiGatewayMockOutcome: ''
     },
     ki: {
         abilities: testKiAbilities,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { changeFormText, submitNewAbility, toggleAddAbilityForm, validateNewAbility } from "../actions/actionCreators";
+import { changeFormText, saveAbility, toggleAddAbilityForm, validateNewAbility } from "../actions/actionCreators";
 import Button from '../../../components/Button/Button';
 
 export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityForm, newAbility, isValid, validate}) {
@@ -9,6 +9,7 @@ export function AbilityForm({handleFormChange, submitNewAbility, toggleAbilityFo
     function handleSubmit() {
         const ability = {...newAbility};
         ability.uuid = uuid();
+        ability.isNew = true;
         submitNewAbility(ability);
     }
 
@@ -92,7 +93,7 @@ function mapDispatchToProps(dispatch) {
             dispatch(changeFormText(e));
             dispatch(validateNewAbility(e.target.name, e.target.value));
         },
-        submitNewAbility: (ability) => dispatch(submitNewAbility(ability)),
+        submitNewAbility: (ability) => dispatch(saveAbility(ability)),
         toggleAbilityForm: () => dispatch(toggleAddAbilityForm()),
         validate: (e) => dispatch(validateNewAbility(e.target.name, e.target.value))
     }

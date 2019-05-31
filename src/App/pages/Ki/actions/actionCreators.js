@@ -1,11 +1,6 @@
 import { isEmpty } from 'lodash';
 import * as types from './actionTypes';
-import {
-    apiGatewayDeleteAbility,
-    apiGatewayGetAbilities,
-    apiGatewayGetAbility,
-    apiGatewayPutAbility
-} from './apiGatewayPromises';
+import { apiGatewayDelete, apiGatewayGetAll, apiGatewayPut } from '../../../../apiGatewayClient';
 import { toggleShowError } from "../../../actions/actionCreators";
 import * as errors  from "../../../components/Error/ErrorTypes";
 
@@ -35,7 +30,7 @@ export const clearAbilityCache = (uuid) => {
 export const deleteAbility = (uuid, index) => {
     return dispatch => {
         return(
-            apiGatewayDeleteAbility(uuid)
+            apiGatewayDelete('kiAbilities', uuid)
                 .then(response => {
                     if (response.data.ability.uuid === '') {
                         dispatch(deleteAbilityFailed());
@@ -52,12 +47,6 @@ export const deleteAbility = (uuid, index) => {
     }
 };
 
-const deleteAbilityFailed = () => {
-    return dispatch => {
-        dispatch(toggleShowError(errors.DELETE_ABILITY_FAILED));
-    }
-};
-
 export const deleteAbilitySuccess = (index) => {
     return({
         type: types.DELETE_ABILITY,
@@ -65,10 +54,16 @@ export const deleteAbilitySuccess = (index) => {
     });
 };
 
+const deleteAbilityFailed = () => {
+    return dispatch => {
+        dispatch(toggleShowError(errors.DELETE_ABILITY_FAILED));
+    }
+};
+
 export const loadAbilities = () => {
     return dispatch => {
         return(
-            apiGatewayGetAbilities()
+            apiGatewayGetAll('kiAbilities')
                 .then(response => {
                     if (response.data.count === '') {
                         dispatch(loadAbilitiesFailed());
@@ -117,11 +112,17 @@ export const revertAbility = (uuid) => {
 export const saveAbility = (ability) => {
     return dispatch => {
         return(
-            apiGatewayPutAbility(ability)
+            apiGatewayPut('kiAbilities', ability.uuid, ability)
                 .then(response => {
                     if (isEmpty(response.data)) {
-                        dispatch(clearAbilityCache(ability.uuid));
-                        dispatch(toggleEditAbility(ability.uuid));
+                        if (ability.isNew) {
+                            delete ability.isNew;
+                            dispatch(submitNewAbilitySuccess(ability));
+                            dispatch(toggleAddAbilityForm());
+                        } else {
+                            dispatch(clearAbilityCache(ability.uuid));
+                            dispatch(toggleEditAbility(ability.uuid));
+                        }
                         dispatch(sortAbilities());
                     } else {
                         dispatch(saveAbilityFailed(ability.uuid));
@@ -133,6 +134,13 @@ export const saveAbility = (ability) => {
                 })
         )
     }
+};
+
+const submitNewAbilitySuccess = (ability) => {
+    return({
+        type: types.SUBMIT_NEW_ABILITY_SUCCESS,
+        ability
+    })
 };
 
 const saveAbilityFailed = (uuid) => {
@@ -147,64 +155,6 @@ export const sortAbilities = () => {
   return {
       type: types.SORT_ABILITIES
   }
-};
-
-export const submitNewAbility = (ability) => {
-    let apiGatewayPutCallSucceeded = false;
-
-    return dispatch => {
-        return (
-            apiGatewayPutAbility(ability)
-                .then(response => {
-                    if (isEmpty(response.data)) {
-                        apiGatewayPutCallSucceeded = true;
-                        return apiGatewayGetAbility(ability.uuid);
-                    } else {
-                        throw response;
-                    }
-                })
-                .then((response) => {
-                    if(response.data.ability.uuid === '') {
-                        dispatch(submitNewAbilityFailedGet());
-                    } else {
-                        const submittedAbility = response.data.ability;
-                        submittedAbility.editing = false;
-                        dispatch(submitNewAbilitySuccess(submittedAbility));
-                        dispatch(sortAbilities());
-                        dispatch(toggleAddAbilityForm());
-                    }
-                })
-                .catch(err => {
-                    if (apiGatewayPutCallSucceeded) {
-                        dispatch(submitNewAbilityFailedGet());
-                    } else {
-                        dispatch(submitNewAbilityFailedPut());
-                    }
-                    console.error(err);
-                })
-        )
-    }
-};
-
-const submitNewAbilitySuccess = (ability) => {
-    return({
-        type: types.SUBMIT_NEW_ABILITY_SUCCESS,
-        ability
-    })
-};
-
-const submitNewAbilityFailedPut = () => {
-    return dispatch => {
-        dispatch(toggleAddAbilityForm());
-        dispatch(toggleShowError(errors.SUBMIT_ABILITY_FAILED_PUT));
-    }
-};
-
-const submitNewAbilityFailedGet = () => {
-    return dispatch => {
-        dispatch(toggleAddAbilityForm());
-        dispatch(toggleShowError(errors.SUBMIT_ABILITY_FAILED_GET));
-    }
 };
 
 export const toggleAddAbilityForm = () => {
