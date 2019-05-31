@@ -44,12 +44,15 @@ h1 {
     width: 100%;
 }
 
-[class*='title-half-'] {
+.title-half-left {
     align-items: center;
-    display: grid;
-    grid-template-columns: max-content max-content;
+    display: flex;
+    justify-content: left;
 }
 
 .title-half-right {
+    align-items: center;
+    display: grid;
+    grid-template-columns: max-content max-content;
     justify-content: end;
 }

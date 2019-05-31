@@ -26,7 +26,7 @@ export function Ki({abilities, available, loadAbilities, showAbilityForm, toggle
             <div className='title-area'>
                 <div className='title-half-left'>
                     <h1>Ki</h1>
-                    <span>{available} of <Stat stat={'kiTotal'} value={total}/> points available</span>
+                    <span className='stat-container'>{available} of <Stat stat={'kiTotal'} value={total}/> points available</span>
                 </div>
                 <div className='title-half-right'>
                     <Button clickHandler={handleMeditate} label='MEDITATE' icon='fas fa-praying-hands'/>

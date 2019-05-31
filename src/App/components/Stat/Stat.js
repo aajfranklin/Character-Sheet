@@ -2,6 +2,7 @@ import React  from 'react';
 import {cacheStat, revertStat, toggleShowError, updateStat, updateStatSuccess} from '../../actions/actionCreators';
 import { INVALID_STAT } from '../Error/ErrorTypes';
 import { connect } from 'react-redux';
+import './Stat.css';
 
 export function Stat({beingEdited, cacheStat, cachedValue, revertWithError, revertWithoutError, stat, stats, updateStat, updateStatLocally}) {
 
@@ -9,7 +10,7 @@ export function Stat({beingEdited, cacheStat, cachedValue, revertWithError, reve
         const value = e.target.value;
         if (isNaN(value) || value === '') {
             revertWithError();
-        } else if (value === cachedValue) {
+        } else if (parseInt(value) === cachedValue) {
             revertWithoutError();
         } else {
             updateStat(stat, parseInt(value));
@@ -22,8 +23,8 @@ export function Stat({beingEdited, cacheStat, cachedValue, revertWithError, reve
 
     return (
         stat === beingEdited ?
-            <textarea value={stats[stat]} onChange={updateStatLocally} onBlur={handleBlur} onKeyDown={handleKeyDown}/>
-            : <span onClick={cacheStat}>{stats[stat]}</span>
+            <textarea className='stat' value={stats[stat]} onChange={updateStatLocally} onBlur={handleBlur} onKeyDown={handleKeyDown}/>
+            : <span className='stat' onClick={cacheStat}>{stats[stat]}</span>
     )
 }
 

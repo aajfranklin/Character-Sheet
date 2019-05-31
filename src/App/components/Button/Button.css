@@ -13,6 +13,7 @@ button {
 
 button:hover {
     background: cadetblue;
+    cursor: pointer;
 }
 
 button:active {
