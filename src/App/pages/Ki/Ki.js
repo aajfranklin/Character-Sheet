@@ -6,6 +6,7 @@ import { updateStat } from '../../actions/actionCreators';
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
+import Stat from '../../components/Stat/Stat';
 import './Ki.css';
 import '../../components/Button/Button.css';
 
@@ -25,7 +26,7 @@ export function Ki({abilities, available, loadAbilities, showAbilityForm, toggle
             <div className='title-area'>
                 <div className='title-half-left'>
                     <h1>Ki</h1>
-                    <span>{available} of {total} points available</span>
+                    <span>{available} of <Stat stat={'kiTotal'} value={total}/> points available</span>
                 </div>
                 <div className='title-half-right'>
                     <Button clickHandler={handleMeditate} label='MEDITATE' icon='fas fa-praying-hands'/>

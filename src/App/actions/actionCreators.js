@@ -3,6 +3,13 @@ import * as errors from "../components/Error/ErrorTypes";
 import { apiGatewayGetStats, apiGatewayPutStat } from './apiGatewayPromises';
 import {isEmpty} from "lodash";
 
+export const cacheStat = (stat) => {
+    return({
+        type: types.CACHE_STAT,
+        stat
+    })
+};
+
 export const loadStats = () => {
     return dispatch => {
         return(
@@ -42,6 +49,13 @@ const loadStatsFailed = () => {
     }
 };
 
+export const revertStat = (stat) => {
+    return({
+        type: types.REVERT_STAT,
+        stat
+    });
+};
+
 export const toggleShowError = (errorMessage) => {
     return({
         type: types.TOGGLE_SHOW_ERROR,
@@ -68,15 +82,15 @@ export const updateStat = (stat, value) => {
     }
 };
 
-const updateStatSuccess = (stat, value) => {
+export const updateStatSuccess = (stat, value) => {
     return({
-        type: types.UPDATE_STAT,
+        type: types.UPDATE_STAT_SUCCESS,
         stat,
         value
     })
 };
 
-export const updateStatFailed = (errorMessage) => {
+const updateStatFailed = (errorMessage) => {
     return({
         type: types.TOGGLE_SHOW_ERROR,
         errorMessage

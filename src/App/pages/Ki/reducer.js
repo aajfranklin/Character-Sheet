@@ -9,8 +9,8 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         case types.CACHE_ABILITY: {
             const ability = {...state.abilities.find(ability => ability.uuid === action.uuid)};
             return update(state, {
-                abilityEditCache: {
-                    $set: state.abilityEditCache.concat(ability)
+                abilityCache: {
+                    $set: state.abilityCache.concat(ability)
                 }
             });
         }
@@ -22,10 +22,10 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.CLEAR_ABILITY_CACHE: {
-            const abilityCacheIndex = state.abilityEditCache.findIndex(ability => ability.uuid === action.uuid);
+            const abilityCacheIndex = state.abilityCache.findIndex(ability => ability.uuid === action.uuid);
 
             return update(state, {
-                abilityEditCache: {
+                abilityCache: {
                     $splice: [[abilityCacheIndex, 1]]
                 }
             });
@@ -46,7 +46,7 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
         }
 
         case types.REVERT_ABILITY: {
-            const ability = {...state.abilityEditCache.find(ability => ability.uuid === action.uuid)};
+            const ability = {...state.abilityCache.find(ability => ability.uuid === action.uuid)};
             const abilityIndex = state.abilities.findIndex(ability => ability.uuid === action.uuid);
             ability.editing = false;
 

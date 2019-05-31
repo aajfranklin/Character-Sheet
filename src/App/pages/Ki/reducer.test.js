@@ -18,7 +18,7 @@ describe('Ki reducer', () => {
                uuid: '2'
            }
        );
-       expect(newState.abilityEditCache[0]).toStrictEqual({...newState.abilities[2]});
+       expect(newState.abilityCache[0]).toStrictEqual({...newState.abilities[2]});
     });
 
     it('should handle CHANGE_FORM_TEXT', () => {
@@ -33,15 +33,15 @@ describe('Ki reducer', () => {
     });
 
     it('should handle CLEAR_ABILITY_CACHE', () => {
-        state.abilityEditCache[0] = {name: 'testCachedAbility'};
-        state.abilityEditCache[1] = {name: 'testCachedAbility'};
+        state.abilityCache[0] = {name: 'testCachedAbility'};
+        state.abilityCache[1] = {name: 'testCachedAbility'};
         const newState = reducer(state,
             {
                 type: types.CLEAR_ABILITY_CACHE,
                 id: '1'
             }
         );
-        expect(newState.abilityEditCache.length).toBe(1);
+        expect(newState.abilityCache.length).toBe(1);
     });
 
     it('should handle DELETE_ABILITY', () => {
@@ -67,7 +67,7 @@ describe('Ki reducer', () => {
     });
 
     it('should handle REVERT_ABILITY', () => {
-        state.abilityEditCache[0] = {name: 'testCachedAbility', uuid: '2'};
+        state.abilityCache[0] = {name: 'testCachedAbility', uuid: '2'};
         const newState = reducer(state,
             {
                 type: types.REVERT_ABILITY,

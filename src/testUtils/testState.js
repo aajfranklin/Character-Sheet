@@ -36,30 +36,25 @@ export const testKiAbilities = [
     }
 ];
 
-export const testNewAbility = {
-    name: '',
-    cost: '',
-    damage: '',
-    boost: '',
-    saving: '',
-    effect: '',
-};
-
 export const testState = {
     app: {
         pages: testPages,
         showError: false,
-        errorMessage: '',
+        errorMessage: undefined,
         stats: {
             kiAvailable: 3,
             kiTotal: 3
+        },
+        statCache: {
+            stat: undefined,
+            value: undefined
         },
         mockGetAllNetworkResult : null
     },
     ki: {
         abilities: testKiAbilities,
-        abilityEditCache: [],
-        newAbility: {...testNewAbility},
+        abilityCache: [],
+        newAbility: {},
         abilityFormValidation: {},
         showAbilityForm: false,
     }

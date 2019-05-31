@@ -12,6 +12,24 @@ describe('App action creator', () => {
 
     describe('synchronous actions', () => {
 
+        it('should create an action to cache a stat', () => {
+            const expectedAction = {
+                type: types.CACHE_STAT,
+                stat: 'kiTotal'
+            };
+
+            expect(actionCreators.cacheStat('kiTotal')).toStrictEqual(expectedAction);
+        });
+
+        it('should create an action to revert a stat', () => {
+            const expectedAction = {
+                type: types.REVERT_STAT,
+                stat: 'kiTotal'
+            };
+
+            expect(actionCreators.revertStat('kiTotal')).toStrictEqual(expectedAction);
+        });
+
         it('should create an action to toggle whether an error is being shown', () => {
             const expectedAction = {
                 type: types.TOGGLE_SHOW_ERROR,
@@ -19,6 +37,16 @@ describe('App action creator', () => {
             };
 
             expect(actionCreators.toggleShowError('testError')).toStrictEqual(expectedAction);
+        });
+
+        it('should create an action to update a stat directly', () => {
+            const expectedAction = {
+                type: types.UPDATE_STAT_SUCCESS,
+                stat: 'kiTotal',
+                value: 2
+            };
+
+            expect(actionCreators.updateStatSuccess('kiTotal', 2)).toStrictEqual(expectedAction);
         });
 
     });
@@ -103,7 +131,7 @@ describe('App action creator', () => {
                 it('should create actions to update a stat', () => {
                     const store = mockStore();
                     const expectedActions = [
-                        {type: types.UPDATE_STAT, stat: 'kiAvailable', value: 2},
+                        {type: types.UPDATE_STAT_SUCCESS, stat: 'kiAvailable', value: 2},
                     ];
 
                     return store.dispatch(actionCreators.updateStat('kiAvailable', 2)).then(() => {

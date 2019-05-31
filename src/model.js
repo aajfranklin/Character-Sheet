@@ -7,27 +7,22 @@ const pages = [
     'Map'
 ];
 
-const newAbility = {
-    name: '',
-    cost: '',
-    damage: '',
-    boost: '',
-    saving: '',
-    effect: ''
-};
-
 export const initialState = {
     app: {
-        errorMessage: '',
+        errorMessage: undefined,
         pages: pages,
         showError: false,
-        stats: {}
+        stats: {},
+        statCache: {
+            stat: undefined,
+            value: undefined
+        }
     },
     ki: {
         abilities: null,
-        abilityEditCache: [],
+        abilityCache: [],
         abilityFormValidation: {},
-        newAbility: {...newAbility},
+        newAbility: {},
         showAbilityForm: false,
     }
 };

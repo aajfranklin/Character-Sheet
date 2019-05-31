@@ -1,5 +1,6 @@
 const tryAgain = ' Please check the logs for details and try again.';
 export const DELETE_ABILITY_FAILED = 'Error: the ability failed to delete.' + tryAgain;
+export const INVALID_STAT = 'Error: not a valid stat value. Please enter a numeric value.';
 export const LOAD_ABILITIES_FAILED = 'Error: abilities failed to load.' + tryAgain;
 export const LOAD_STATS_FAILED = 'Error: stats failed to load.' + tryAgain;
 export const NO_ABILITIES_FOUND = 'You don\'t have any abilities yet - try adding some!';

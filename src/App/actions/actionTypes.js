@@ -1,4 +1,5 @@
+export const CACHE_STAT = 'CACHE_STAT';
 export const LOAD_STATS_SUCCESS = 'LOAD_STATS_SUCCESS';
-export const RESTORE_KI = 'RESTORE_KI';
+export const REVERT_STAT = 'REVERT_STAT';
 export const TOGGLE_SHOW_ERROR = 'TOGGLE_SHOW_ERROR';
-export const UPDATE_STAT = 'UPDATE_STAT';
+export const UPDATE_STAT_SUCCESS = 'UPDATE_STAT_SUCCESS';
