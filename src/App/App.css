@@ -1,11 +1,11 @@
+/* General properties */
+
 *:focus {
     outline: none;
     box-shadow: 0 0 3pt 2pt lightskyblue;
 }
 
-main {
-    margin-top: 3em;
-}
+/* Nav bar properties */
 
 nav {
     background-color: black;
@@ -37,6 +37,12 @@ nav {
 
 .nav-item:hover {
     background-color: cadetblue;
+}
+
+/* Page content properties */
+
+main {
+    margin-top: 3em;
 }
 
 /* Title area properties */
