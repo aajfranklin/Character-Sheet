@@ -4,35 +4,29 @@ import Adapter from 'enzyme-adapter-react-16';
 import Button from './Button';
 
 describe('Button', () => {
+  describe('On rendering a button', () => {
+    let wrapper;
 
-    describe('On rendering a button', () => {
+    const mockFunction = jest.fn();
 
-        let wrapper;
-
-        const mockFunction = jest.fn();
-
-        beforeAll(() => {
-            Enzyme.configure({ adapter: new Adapter() });
-            wrapper = mount(<Button clickHandler={mockFunction} label='testButton' icon='fas fa-check' isLeftToRight={true}/>);
-        });
-
-        it('has the correct label', () => {
-            expect(wrapper.find('button').text()).toBe(' testButton');
-        });
-
-        it('has the correct icon', () => {
-            expect(wrapper.find('i').hasClass('fas fa-check')).toBe(true);
-        });
-
-        describe('when the button is clicked', () => {
-
-            it('calls the passed in clickHandler function', () => {
-                wrapper.find('button').at(0).simulate('click');
-                expect(mockFunction).toHaveBeenCalledTimes(1);
-            });
-
-        });
-
+    beforeAll(() => {
+      Enzyme.configure({ adapter: new Adapter() });
+      wrapper = mount(<Button clickHandler={mockFunction} label="testButton" icon="fas fa-check" isLeftToRight />);
     });
 
+    it('has the correct label', () => {
+      expect(wrapper.find('button').text()).toBe(' testButton');
+    });
+
+    it('has the correct icon', () => {
+      expect(wrapper.find('i').hasClass('fas fa-check')).toBe(true);
+    });
+
+    describe('when the button is clicked', () => {
+      it('calls the passed in clickHandler function', () => {
+        wrapper.find('button').at(0).simulate('click');
+        expect(mockFunction).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
 });

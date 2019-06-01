@@ -7,17 +7,18 @@ import combineReducers from './reducer';
 import App from './App/App';
 import './index.css';
 
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
 
 
-let store = Redux.createStore(
-    combineReducers,
-    composeEnhancer(Redux.applyMiddleware(thunk)),
+const store = Redux.createStore(
+  combineReducers,
+  composeEnhancer(Redux.applyMiddleware(thunk)),
 );
 
 ReactDOM.render(
-    <ReactRedux.Provider store={store}>
-        <App/>
-    </ReactRedux.Provider>,
-    document.getElementById('root')
+  <ReactRedux.Provider store={store}>
+    <App />
+  </ReactRedux.Provider>,
+  document.getElementById('root'),
 );

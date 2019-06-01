@@ -1,0 +1,20 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".test.js", ".jsx"] }]
+  },
+  "overrides": [
+    {
+      "files": ["*actionCreators.js"],
+      "rules": {
+        "no-use-before-define": "off"
+      }
+    },
+    {
+      "files": ["*.jsx"],
+      "rules": {
+        "import/no-named-as-default": "off"
+      }
+    }
+  ]
+}

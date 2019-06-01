@@ -3,6 +3,6 @@ import appReducer from './App/reducer';
 import kiReducer from './App/pages/Ki/reducer';
 
 export default combineReducers({
-    app: appReducer,
-    ki: kiReducer
+  app: appReducer,
+  ki: kiReducer,
 });
