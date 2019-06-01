@@ -32,7 +32,7 @@ nav {
 }
 
 .nav-item:focus {
-  box-shadow: 0 0 3pt 2pt white;
+  box-shadow: 0 0 0 1pt lightskyblue;
 }
 
 .nav-item:hover {
