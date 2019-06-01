@@ -1,121 +1,121 @@
 button {
-    background: lightslategrey;
-    border: none;
-    border-radius: 0.5em;
-    box-shadow: 0 0.2em 0 darkslategrey;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 0.5em 0;
-    padding: 0.7em 1em 0.6em;
-    user-select: none;
+  background: lightslategrey;
+  border: none;
+  border-radius: 0.5em;
+  box-shadow: 0 0.2em 0 darkslategrey;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0.5em 0;
+  padding: 0.7em 1em 0.6em;
+  user-select: none;
 }
 
 button:hover {
-    background: cadetblue;
-    cursor: pointer;
+  background: cadetblue;
+  cursor: pointer;
 }
 
 button:active {
-    background: cadetblue;
-    box-shadow: 0 0.1em 0 darkslategrey;
-    transform: translate(0, 0.1em);
+  background: cadetblue;
+  box-shadow: 0 0.1em 0 darkslategrey;
+  transform: translate(0, 0.1em);
 }
 
 button:disabled {
-    background: lightgrey;
-    box-shadow: 0 0.2em 0 lightslategrey;
-    color: darkgrey;
+  background: lightgrey;
+  box-shadow: 0 0.2em 0 lightslategrey;
+  color: darkgrey;
 }
 
 button:disabled:active {
-    transform: none
+  transform: none;
 }
 
 .button-group {
-    display: flex;
-    justify-content: center;
-    margin: auto;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 .button-group > * {
-    display: inline-block;
+  display: inline-block;
 }
 
 .cancel {
-    background: indianred;
-    box-shadow: 0 0.2em 0 maroon;
+  background: indianred;
+  box-shadow: 0 0.2em 0 maroon;
 }
 
 .cancel:hover {
-    background: crimson;
+  background: crimson;
 }
 
 .cancel:active {
-    background: crimson;
-    box-shadow: 0 0.1em 0 maroon;
+  background: crimson;
+  box-shadow: 0 0.1em 0 maroon;
 }
 
 .clear {
-    background: none;
-    box-shadow: none;
-    color: lightslategrey;
-    font-size: 18px;
-    padding: 0.4em;
+  background: none;
+  box-shadow: none;
+  color: lightslategrey;
+  font-size: 18px;
+  padding: 0.4em;
 }
 
 .clear:hover {
-    color: cadetblue;
-    background: none;
-    box-shadow: none;
+  color: cadetblue;
+  background: none;
+  box-shadow: none;
 }
 
 .clear.delete:hover {
-    color: indianred;
+  color: indianred;
 }
 
 .clear:active {
-    color: darkslategrey;
-    background: none;
-    box-shadow: none;
-    transform: none;
+  color: darkslategrey;
+  background: none;
+  box-shadow: none;
+  transform: none;
 }
 
 .clear.delete:active {
-    color: crimson;
+  color: crimson;
 }
 
 .confirm {
-    background: darkseagreen;
-    box-shadow: 0 0.2em 0 darkgreen;
+  background: darkseagreen;
+  box-shadow: 0 0.2em 0 darkgreen;
 }
 
 .confirm:active {
-    background: seagreen;
-    box-shadow: 0 0.1em 0 darkgreen;
-}
-
-.confirm:disabled:active {
-    transform: none
+  background: seagreen;
+  box-shadow: 0 0.1em 0 darkgreen;
 }
 
 .confirm:hover {
-    background: seagreen;
+  background: seagreen;
 }
 
-.confirm:disabled:hover{
-    background: lightgrey;
+.confirm:disabled:active {
+  transform: none;
+}
+
+.confirm:disabled:hover {
+  background: lightgrey;
 }
 
 .flat {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .flat:disabled {
-    background: none;
-    box-shadow: none;
+  background: none;
+  box-shadow: none;
 }
 
 .flat:disabled:hover {
-    color: darkgrey
+  color: darkgrey;
 }

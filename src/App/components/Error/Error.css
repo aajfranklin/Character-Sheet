@@ -1,21 +1,21 @@
 .error {
-    background: white;
-    border-color: lightslategrey;
-    border-radius: 1em;
-    border-style: solid;
-    left: 35vw;
-    position: absolute;
-    top: 20vw;
-    text-align: center;
-    width: 30vw;
-    z-index: 10;
+  background: white;
+  border-color: lightslategrey;
+  border-radius: 1em;
+  border-style: solid;
+  left: 35vw;
+  position: absolute;
+  top: 20vw;
+  text-align: center;
+  width: 30vw;
+  z-index: 10;
 }
 
 .error > p {
-    display: inline-block;
+  display: inline-block;
 }
 
 .error > div {
-    display: inline-block;
-    padding-bottom: 1em;
+  display: inline-block;
+  padding-bottom: 1em;
 }

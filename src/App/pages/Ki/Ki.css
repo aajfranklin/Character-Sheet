@@ -1,130 +1,134 @@
 /* Add Ability form properties */
 
 form {
-    margin: auto;
-    width: 50vw;
-    overflow: hidden;
+  margin: auto;
+  width: 50vw;
+  overflow: hidden;
 }
 
 form p {
-    margin: 0;
-    padding-left: 2.5%;
-}
-
-form textarea {
-    margin: 0.5em 0.2em;
-    text-align: left;
+  margin: 0;
+  padding-left: 2.5%;
 }
 
 .half-form-entry {
-    float: left;
-    padding-left: 2.5%;
-    width: 46.25%;
+  float: left;
+  padding-left: 2.5%;
+  width: 46.25%;
 }
 
 .invalid {
-    color: indianred;
+  color: indianred;
 }
 
 .slide-down-enter {
-    height: 0;
+  height: 0;
 }
+
 .slide-down-enter-active {
-    height: 430px;
-    transition: height 200ms ease;
+  height: 430px;
+  transition: height 200ms ease;
 }
+
 .slide-down-enter-done {
-    height: 430px;
+  height: 430px;
 }
+
 .slide-down-exit {
-    height: 430px;
+  height: 430px;
 }
+
 .slide-down-exit-active {
-    height: 0;
-    transition: height 200ms ease;
+  height: 0;
+  transition: height 200ms ease;
 }
+
 .slide-down-exit-done {
-    height: 0;
+  height: 0;
 }
 
 textarea {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-family: Helvetica;
-    font-size: 16px;
-    height: 2em;
-    padding: 0.3em;
-    resize: none;
-    text-align: center;
-    width: 95%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  height: 2em;
+  padding: 0.3em;
+  resize: none;
+  text-align: center;
+  width: 95%;
 }
 
 textarea.tall {
-    height: 8em;
+  height: 8em;
+}
+
+form textarea {
+  margin: 0.5em 0.2em;
+  text-align: left;
 }
 
 /* Ability table properties */
 
-
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 
 .labels {
-    background: darkslategrey;
-    color: white;
-    font-weight: bold;
+  background: darkslategrey;
+  color: white;
+  font-weight: bold;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 td {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  white-space: pre-line;
 }
 
 td.button-group {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 th {
-    padding: 0.6em 0 0.6em;
+  padding: 0.6em 0 0.6em;
 }
 
 tr {
-    background: white;
-    display: flex;
-    padding: 0.5em 0 0.5em;
+  background: white;
+  display: flex;
+  padding: 0.5em 0 0.5em;
 }
 
 tr:nth-child(even) {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 /* General column properties */
 
 [class*='col-'] {
-    float: left;
+  float: left;
 }
 
-.col-1 {width: 6.66%; }
-.col-2 {width: 13.33%;}
-.col-3 {width: 20%;}
-.col-4 {width: 26.66%;}
-.col-5 {width: 33.33%;}
-.col-6 {width: 40%;}
-.col-7 {width: 46.66%;}
-.col-8 {width: 53.33%;}
-.col-9 {width: 60%;}
-.col-10 {width: 66.66%;}
-.col-11 {width: 73.33%;}
-.col-12 {width: 80%;}
-.col-13 {width: 86.66%;}
-.col-14 {width: 93.33%;}
-.col-15 {width: 100%;}
+.col-1 { width: 6.66%; }
+.col-2 { width: 13.33%; }
+.col-3 { width: 20%; }
+.col-4 { width: 26.66%; }
+.col-5 { width: 33.33%; }
+.col-6 { width: 40%; }
+.col-7 { width: 46.66%; }
+.col-8 { width: 53.33%; }
+.col-9 { width: 60%; }
+.col-10 { width: 66.66%; }
+.col-11 { width: 73.33%; }
+.col-12 { width: 80%; }
+.col-13 { width: 86.66%; }
+.col-14 { width: 93.33%; }
+.col-15 { width: 100%; }
