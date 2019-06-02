@@ -19,7 +19,7 @@ import Loading from './components/Loading/Loading';
 import './App.css';
 
 export function App({
-  loadOnStart, pages, showError, stats,
+  loadOnStart, pages, errors, stats,
 }) {
   useEffect(() => {
     if (isEmpty(stats)) loadOnStart();
@@ -32,7 +32,7 @@ export function App({
           {pages.map(page => (<NavLink exact className="nav-item" activeClassName="nav-active" key={page} to={`/${page}`}>{page}</NavLink>))}
         </nav>
         <main>
-          {showError ? <Error /> : null}
+          {errors.length > 0 ? <Error /> : null}
           {isEmpty(stats) ? <Loading />
             : (
               <Switch>
@@ -56,14 +56,14 @@ export function App({
 App.propTypes = {
   loadOnStart: PropTypes.func.isRequired,
   pages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  showError: PropTypes.bool.isRequired,
+  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   stats: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     pages: state.app.pages,
-    showError: state.app.showError,
+    errors: state.app.errorQueue,
     stats: state.app.stats,
   };
 }

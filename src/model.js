@@ -10,9 +10,8 @@ const pages = [
 
 const initialState = {
   app: {
-    errorMessage: undefined,
     pages,
-    showError: false,
+    errorQueue: [],
     stats: {},
     statCache: {
       stat: undefined,

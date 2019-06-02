@@ -1,35 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toggleShowError } from '../../actions/actionCreators';
+import { popError } from '../../actions/actionCreators';
 import Button from '../Button/Button';
 import './Error.css';
 
-function Error({ message, closeError }) {
+export function Error({ errors, removeError }) {
   return (
     <div className="error">
-      <p>{message}</p>
+      <p>{errors[0]}</p>
       <div>
-        <Button clickHandler={closeError} label="OK" />
+        <Button clickHandler={removeError} label="OK" />
       </div>
     </div>
   );
 }
 
 Error.propTypes = {
-  message: PropTypes.string.isRequired,
-  closeError: PropTypes.func.isRequired,
+  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  removeError: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    message: state.app.errorMessage,
+    errors: state.app.errorQueue,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    closeError: () => dispatch(toggleShowError('')),
+    removeError: () => dispatch(popError()),
   };
 }
 

@@ -18,6 +18,23 @@ describe('App action creator', () => {
       expect(actionCreators.cacheStat('kiTotal')).toStrictEqual(expectedAction);
     });
 
+    it('should create an action to pop an error off the error queue', () => {
+      const expectedAction = {
+        type: types.POP_ERROR,
+      };
+
+      expect(actionCreators.popError()).toStrictEqual(expectedAction);
+    });
+
+    it('should create an action to push an error onto the error queue', () => {
+      const expectedAction = {
+        type: types.PUSH_ERROR,
+        errorMessage: 'testError',
+      };
+
+      expect(actionCreators.pushError('testError')).toStrictEqual(expectedAction);
+    });
+
     it('should create an action to revert a stat', () => {
       const expectedAction = {
         type: types.REVERT_STAT,
@@ -25,15 +42,6 @@ describe('App action creator', () => {
       };
 
       expect(actionCreators.revertStat('kiTotal')).toStrictEqual(expectedAction);
-    });
-
-    it('should create an action to toggle whether an error is being shown', () => {
-      const expectedAction = {
-        type: types.TOGGLE_SHOW_ERROR,
-        errorMessage: 'testError',
-      };
-
-      expect(actionCreators.toggleShowError('testError')).toStrictEqual(expectedAction);
     });
 
     it('should create an action to update a stat directly', () => {
@@ -70,7 +78,7 @@ describe('App action creator', () => {
             const store = mockStore();
             const expectedActions = [
               { type: types.LOAD_STATS_SUCCESS, stats: {} },
-              { type: types.TOGGLE_SHOW_ERROR, errorMessage: errors.NO_STATS_FOUND },
+              { type: types.PUSH_ERROR, errorMessage: errors.NO_STATS_FOUND },
             ];
 
             return store.dispatch(actionCreators.loadStats()).then(() => {
@@ -85,7 +93,7 @@ describe('App action creator', () => {
           testState.app.apiGatewayMockOutcome = 'apiGatewayError';
           const store = mockStore();
           const expectedActions = [{
-            type: types.TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_STATS_FAILED,
+            type: types.PUSH_ERROR, errorMessage: errors.LOAD_STATS_FAILED,
           }];
 
           return store.dispatch(actionCreators.loadStats()).then(() => {
@@ -99,7 +107,7 @@ describe('App action creator', () => {
           testState.app.apiGatewayMockOutcome = 'dynamoDbError';
           const store = mockStore();
           const expectedActions = [{
-            type: types.TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_STATS_FAILED,
+            type: types.PUSH_ERROR, errorMessage: errors.LOAD_STATS_FAILED,
           }];
 
           return store.dispatch(actionCreators.loadStats()).then(() => {
@@ -128,7 +136,7 @@ describe('App action creator', () => {
           testState.app.apiGatewayMockOutcome = 'apiGatewayError';
           const store = mockStore();
           const expectedActions = [
-            { type: types.TOGGLE_SHOW_ERROR, errorMessage: `Error: kiAvailable${errors.UPDATE_STAT_FAILED}` },
+            { type: types.PUSH_ERROR, errorMessage: `Error: kiAvailable${errors.UPDATE_STAT_FAILED}` },
           ];
 
           return store.dispatch(actionCreators.updateStat('kiAvailable', 'putNetworkFailure')).then(() => {
@@ -142,7 +150,7 @@ describe('App action creator', () => {
           testState.app.apiGatewayMockOutcome = 'dynamoDbError';
           const store = mockStore();
           const expectedActions = [
-            { type: types.TOGGLE_SHOW_ERROR, errorMessage: `Error: kiAvailable${errors.UPDATE_STAT_FAILED}` },
+            { type: types.PUSH_ERROR, errorMessage: `Error: kiAvailable${errors.UPDATE_STAT_FAILED}` },
           ];
 
           return store.dispatch(actionCreators.updateStat('kiAvailable', '')).then(() => {

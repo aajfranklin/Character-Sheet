@@ -22,17 +22,22 @@ export default function appReducer(state = { ...initialState.app }, action) {
       });
     }
 
+    case types.POP_ERROR: {
+      return update(state, {
+        errorQueue: { $splice: [[0, 1]] },
+      });
+    }
+
+    case types.PUSH_ERROR: {
+      return update(state, {
+        errorQueue: { $push: [action.errorMessage] },
+      });
+    }
+
     case types.REVERT_STAT: {
       return update(state, {
         stats: { [action.stat]: { $set: state.statCache.value } },
         statCache: { $set: { stat: undefined, value: undefined } },
-      });
-    }
-
-    case types.TOGGLE_SHOW_ERROR: {
-      return update(state, {
-        showError: { $set: !state.showError },
-        errorMessage: { $set: action.errorMessage },
       });
     }
 

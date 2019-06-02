@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash';
 import * as types from './actionTypes';
 import { apiGatewayDelete, apiGatewayGetAll, apiGatewayPut } from '../../../../apiGatewayClient';
-import { toggleShowError } from '../../../actions/actionCreators';
+import { pushError } from '../../../actions/actionCreators';
 import * as errors from '../../../components/Error/ErrorTypes';
 
 export const cacheAbility = uuid => ({
@@ -41,7 +41,7 @@ export const deleteAbilitySuccess = index => ({
 });
 
 const deleteAbilityFailed = () => (dispatch) => {
-  dispatch(toggleShowError(errors.DELETE_ABILITY_FAILED));
+  dispatch(pushError(errors.DELETE_ABILITY_FAILED));
 };
 
 export const loadAbilities = () => dispatch => (
@@ -51,7 +51,7 @@ export const loadAbilities = () => dispatch => (
         dispatch(loadAbilitiesFailed());
       } else if (response.data.count === '0') {
         dispatch(loadAbilitiesSuccess(response.data.abilities));
-        dispatch(toggleShowError(errors.NO_ABILITIES_FOUND));
+        dispatch(pushError(errors.NO_ABILITIES_FOUND));
       } else {
         dispatch(loadAbilitiesSuccess(response.data.abilities));
         dispatch(sortAbilities());
@@ -77,7 +77,7 @@ const loadAbilitiesSuccess = (abilities) => {
 };
 
 const loadAbilitiesFailed = () => (dispatch) => {
-  dispatch(toggleShowError(errors.LOAD_ABILITIES_FAILED));
+  dispatch(pushError(errors.LOAD_ABILITIES_FAILED));
 };
 
 export const revertAbility = uuid => ({
@@ -116,7 +116,7 @@ const submitNewAbilitySuccess = ability => ({
 const saveAbilityFailed = uuid => (dispatch) => {
   dispatch(revertAbility(uuid));
   dispatch(clearAbilityCache(uuid));
-  dispatch(toggleShowError(errors.UPDATE_ABILITY_FAILED));
+  dispatch(pushError(errors.SAVE_ABILITY_FAILED));
 };
 
 export const sortAbilities = () => ({

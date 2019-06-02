@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actionCreators from './actionCreators';
 import * as types from './actionTypes';
-import { TOGGLE_SHOW_ERROR } from '../../../actions/actionTypes';
+import { PUSH_ERROR } from '../../../actions/actionTypes';
 import * as errors from '../../../components/Error/ErrorTypes';
 import { testState } from '../../../../testUtils';
 
@@ -225,7 +225,7 @@ describe('Ki action creator', () => {
           testState.app.apiGatewayMockOutcome = 'apiGatewayError';
           const store = mockStore();
           const expectedActions = [
-            { type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED },
+            { type: PUSH_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED },
           ];
 
           return store.dispatch(actionCreators.deleteAbility('deleteNetworkFailure')).then(() => {
@@ -239,7 +239,7 @@ describe('Ki action creator', () => {
           testState.app.apiGatewayMockOutcome = 'dynamoDbError';
           const store = mockStore();
           const expectedActions = [
-            { type: TOGGLE_SHOW_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED },
+            { type: PUSH_ERROR, errorMessage: errors.DELETE_ABILITY_FAILED },
           ];
 
           return store.dispatch(actionCreators.deleteAbility('')).then(() => {
@@ -271,7 +271,7 @@ describe('Ki action creator', () => {
             const store = mockStore();
             const expectedActions = [
               { type: types.LOAD_ABILITIES_SUCCESS, abilities: [] },
-              { type: TOGGLE_SHOW_ERROR, errorMessage: errors.NO_ABILITIES_FOUND },
+              { type: PUSH_ERROR, errorMessage: errors.NO_ABILITIES_FOUND },
             ];
 
             return store.dispatch(actionCreators.loadAbilities()).then(() => {
@@ -286,7 +286,7 @@ describe('Ki action creator', () => {
           testState.app.apiGatewayMockOutcome = 'apiGatewayError';
           const store = mockStore();
           const expectedActions = [{
-            type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED,
+            type: PUSH_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED,
           }];
 
           return store.dispatch(actionCreators.loadAbilities()).then(() => {
@@ -300,7 +300,7 @@ describe('Ki action creator', () => {
           testState.app.apiGatewayMockOutcome = 'dynamoDbError';
           const store = mockStore();
           const expectedActions = [{
-            type: TOGGLE_SHOW_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED,
+            type: PUSH_ERROR, errorMessage: errors.LOAD_ABILITIES_FAILED,
           }];
 
           return store.dispatch(actionCreators.loadAbilities()).then(() => {
@@ -353,7 +353,7 @@ describe('Ki action creator', () => {
           const expectedActions = [
             { type: types.REVERT_ABILITY, uuid: 'putNetworkFailure' },
             { type: types.CLEAR_ABILITY_CACHE, uuid: 'putNetworkFailure' },
-            { type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED },
+            { type: PUSH_ERROR, errorMessage: errors.SAVE_ABILITY_FAILED },
           ];
 
           return store.dispatch(actionCreators.saveAbility(ability)).then(() => {
@@ -370,7 +370,7 @@ describe('Ki action creator', () => {
           const expectedActions = [
             { type: types.REVERT_ABILITY, uuid: undefined },
             { type: types.CLEAR_ABILITY_CACHE, uuid: undefined },
-            { type: TOGGLE_SHOW_ERROR, errorMessage: errors.UPDATE_ABILITY_FAILED },
+            { type: PUSH_ERROR, errorMessage: errors.SAVE_ABILITY_FAILED },
           ];
 
           return store.dispatch(actionCreators.saveAbility(ability)).then(() => {

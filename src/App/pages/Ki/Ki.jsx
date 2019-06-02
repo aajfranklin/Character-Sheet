@@ -16,7 +16,6 @@ export function Ki({
   abilities, available, load, showAbilityForm, toggleForm, total, update,
 }) {
   useEffect(() => {
-    console.log('use effect');
     if (!abilities) load();
   }, [abilities, load]);
 

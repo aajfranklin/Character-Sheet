@@ -15,7 +15,7 @@ export const loadStats = () => dispatch => (
         dispatch(loadStatsFailed());
       } else if (response.data.count === '0') {
         dispatch(loadStatsSuccess(response.data.stats));
-        dispatch(toggleShowError(errors.NO_STATS_FOUND));
+        dispatch(pushError(errors.NO_STATS_FOUND));
       } else {
         dispatch(loadStatsSuccess(response.data.stats));
       }
@@ -38,17 +38,21 @@ const loadStatsSuccess = (stats) => {
 };
 
 const loadStatsFailed = () => (dispatch) => {
-  dispatch(toggleShowError(errors.LOAD_STATS_FAILED));
+  dispatch(pushError(errors.LOAD_STATS_FAILED));
 };
+
+export const popError = () => ({
+  type: types.POP_ERROR,
+});
+
+export const pushError = errorMessage => ({
+  type: types.PUSH_ERROR,
+  errorMessage,
+});
 
 export const revertStat = stat => ({
   type: types.REVERT_STAT,
   stat,
-});
-
-export const toggleShowError = errorMessage => ({
-  type: types.TOGGLE_SHOW_ERROR,
-  errorMessage,
 });
 
 export const updateStat = (stat, value) => dispatch => (
@@ -57,11 +61,11 @@ export const updateStat = (stat, value) => dispatch => (
       if (isEmpty(response.data)) {
         dispatch(updateStatSuccess(stat, value));
       } else {
-        dispatch(updateStatFailed(`Error: ${stat}${errors.UPDATE_STAT_FAILED}`));
+        dispatch(pushError(`Error: ${stat}${errors.UPDATE_STAT_FAILED}`));
       }
     })
     .catch(() => {
-      dispatch(updateStatFailed(`Error: ${stat}${errors.UPDATE_STAT_FAILED}`));
+      dispatch(pushError(`Error: ${stat}${errors.UPDATE_STAT_FAILED}`));
     })
 );
 
@@ -69,9 +73,4 @@ export const updateStatSuccess = (stat, value) => ({
   type: types.UPDATE_STAT_SUCCESS,
   stat,
   value,
-});
-
-const updateStatFailed = errorMessage => ({
-  type: types.TOGGLE_SHOW_ERROR,
-  errorMessage,
 });

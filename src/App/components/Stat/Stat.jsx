@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  cacheStat, revertStat, toggleShowError, updateStat, updateStatSuccess,
+  cacheStat, revertStat, pushError, updateStat, updateStatSuccess,
 } from '../../actions/actionCreators';
 import { INVALID_STAT } from '../Error/ErrorTypes';
 import './Stat.css';
@@ -67,7 +67,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     revertWithError: () => {
       dispatch(revertStat(ownProps.stat));
-      dispatch(toggleShowError(INVALID_STAT));
+      dispatch(pushError(INVALID_STAT));
     },
     revertWithoutError: () => {
       dispatch(revertStat(ownProps.stat));

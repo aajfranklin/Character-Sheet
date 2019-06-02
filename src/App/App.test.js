@@ -17,15 +17,17 @@ Enzyme.configure({ adapter: new Adapter() });
 let wrapper;
 
 const state = deepCopy(testState);
+
+jest.mock('./components/Error/Error');
 const mockLoadStats = jest.fn();
 
-function setUp(stats) {
+function setUp(stats, errors) {
   wrapper = shallow(
     <App
       loadOnStart={mockLoadStats}
       pages={state.app.pages}
       stats={stats}
-      showError={false}
+      errors={errors}
     />,
   );
 }
@@ -40,7 +42,7 @@ describe('App', () => {
             loadOnStart={mockLoadStats}
             pages={state.app.pages}
             stats={{}}
-            showError={false}
+            errors={state.app.errorQueue}
           />,
         );
       });
@@ -54,8 +56,22 @@ describe('App', () => {
       });
     });
 
+    describe('if there are errors', () => {
+      it('should display the error component', () => {
+        wrapper = mount(
+          <App
+            loadOnStart={mockLoadStats}
+            pages={state.app.pages}
+            stats={{}}
+            errors={['testError']}
+          />,
+        );
+        expect(wrapper.find('Error').length).toBe(1);
+      });
+    });
+
     beforeAll(() => {
-      setUp(state.app.stats);
+      setUp(state.app.stats, state.app.errorQueue);
     });
 
     it('renders the nav bar', () => {
@@ -74,7 +90,7 @@ describe('App', () => {
       const pathMap = {};
 
       beforeAll(() => {
-        setUp(state.app.stats);
+        setUp(state.app.stats, state.app.errorQueue);
         wrapper.find(Route).forEach((route) => {
           const routeProps = route.props();
           pathMap[routeProps.path] = routeProps.component;

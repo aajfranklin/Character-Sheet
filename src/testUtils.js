@@ -39,8 +39,7 @@ const testKiAbilities = [
 export const testState = {
   app: {
     pages: testPages,
-    showError: false,
-    errorMessage: undefined,
+    errorQueue: [],
     stats: {
       kiAvailable: 3,
       kiTotal: 3,
