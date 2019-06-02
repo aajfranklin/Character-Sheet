@@ -39,65 +39,31 @@ export function Ability({
             || Object.values(ability.editValidation).length === 0;
   }
 
+  function abilityDataField(attribute, columnWidth, textAlign) {
+    return (
+      <td className={`col-${columnWidth}`}>
+        <TextareaAutosize
+          name={attribute}
+          value={ability[attribute]}
+          className={textAlign + (invalid(attribute) ? 'invalid' : '')}
+          onChange={update}
+          onBlur={validate}
+        />
+      </td>
+    );
+  }
+
   return (
     <tr className="entry">
       { ability.editing
         ? (
           <React.Fragment>
-            <td className="col-2">
-              <TextareaAutosize
-                name="name"
-                value={ability.name}
-                className={invalid('name') ? 'invalid' : ''}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
-            <td className="col-1">
-              <TextareaAutosize
-                name="cost"
-                value={ability.cost}
-                className={invalid('cost') ? 'invalid' : ''}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
-            <td className="col-1">
-              <TextareaAutosize
-                name="damage"
-                value={ability.damage}
-                className={invalid('damage') ? 'invalid' : ''}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
-            <td className="col-1">
-              <TextareaAutosize
-                name="boost"
-                value={ability.boost}
-                className={invalid('boost') ? 'invalid' : ''}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
-            <td className="col-2">
-              <TextareaAutosize
-                name="saving"
-                value={ability.saving}
-                className={invalid('saving') ? 'invalid' : ''}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
-            <td className="col-6">
-              <TextareaAutosize
-                name="effect"
-                value={ability.effect}
-                className={`text-left${invalid('effect') ? 'invalid' : ''}`}
-                onChange={update}
-                onBlur={validate}
-              />
-            </td>
+            {abilityDataField('name', '2', '')}
+            {abilityDataField('cost', '1', '')}
+            {abilityDataField('damage', '1', '')}
+            {abilityDataField('boost', '1', '')}
+            {abilityDataField('saving', '2', '')}
+            {abilityDataField('effect', '6', 'text-left')}
             <td className="col-2 button-group">
               <Button icon="fas fa-dice-d20" buttonStyle="clear flat" clickHandler={() => {}} disabled />
               <Button icon="fas fa-save" buttonStyle="clear flat" clickHandler={handleSave} disabled={disabled()} />
