@@ -35,7 +35,6 @@ function setUp(stats, errors) {
 describe('App', () => {
   describe('On loading the home page', () => {
     describe('if stats have not been loaded', () => {
-
       beforeAll(() => {
         wrapper = mount(
           <App
