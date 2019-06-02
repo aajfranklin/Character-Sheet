@@ -4,7 +4,7 @@ function NotFound() {
   return (
     <div>
       <div className="title-area">
-        <div className="title-half-left">
+        <div className="title-half-left-align">
           <h1>Page Not Found</h1>
           <span>Please navigate using the tabs above</span>
         </div>

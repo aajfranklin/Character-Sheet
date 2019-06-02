@@ -48,24 +48,29 @@ main {
 /* Title area properties */
 
 h1 {
-  min-width: 5vw;
-  padding: 0 0.5em;
+  padding: 0 1em;
   text-align: center;
 }
 
 .title-area {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  display: flex;
+  justify-content: left;
   width: 100%;
 }
 
-.title-half-left {
+.title-area.fixed-halves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.title-half-left-align {
   align-items: center;
   display: flex;
   justify-content: left;
 }
 
-.title-half-right {
+.title-half-right-align {
   align-items: center;
   display: grid;
   grid-template-columns: max-content max-content;

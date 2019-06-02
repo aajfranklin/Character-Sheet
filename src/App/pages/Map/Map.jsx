@@ -4,7 +4,7 @@ function Map() {
   return (
     <div>
       <div className="title-area">
-        <div className="title-half-left">
+        <div className="title-half-left-align">
           <h1>Map</h1>
           <span>Page under development...</span>
         </div>

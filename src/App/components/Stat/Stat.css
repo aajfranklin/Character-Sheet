@@ -6,6 +6,7 @@
 .stat-container {
   align-items: center;
   display: flex;
+  justify-content: center;
 }
 
 span.stat {

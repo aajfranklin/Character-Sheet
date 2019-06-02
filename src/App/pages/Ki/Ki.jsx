@@ -25,8 +25,8 @@ export function Ki({
 
   return !abilities ? <Loading /> : (
     <div>
-      <div className="title-area">
-        <div className="title-half-left">
+      <div className="title-area fixed-halves">
+        <div className="title-half-left-align">
           <h1>Ki</h1>
           <span className="stat-container">
             {available}
@@ -38,7 +38,7 @@ export function Ki({
             points available
           </span>
         </div>
-        <div className="title-half-right">
+        <div className="title-half-right-align">
           <Button clickHandler={handleMeditate} label="MEDITATE" icon="fas fa-praying-hands" />
           <Button clickHandler={toggleForm} label="ADD ABILITY" icon="fas fa-plus-circle" disabled={showAbilityForm} />
         </div>
