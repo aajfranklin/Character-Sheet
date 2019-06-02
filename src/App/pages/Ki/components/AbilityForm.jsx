@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import {
-  changeFormText, saveAbility, toggleAddAbilityForm, validateNewAbility,
+  updateNewAbility, saveAbility, toggleAddAbilityForm, validateNewAbility,
 } from '../actions/actionCreators';
 import Button from '../../../components/Button/Button';
 
@@ -99,7 +99,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     handleFormChange: (e) => {
-      dispatch(changeFormText(e));
+      dispatch(updateNewAbility(e));
       dispatch(validateNewAbility(e.target.name, e.target.value));
     },
     submitNewAbility: ability => dispatch(saveAbility(ability)),

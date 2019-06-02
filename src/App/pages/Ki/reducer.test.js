@@ -18,16 +18,6 @@ describe('Ki reducer', () => {
     expect(newState.abilityCache[0]).toStrictEqual({ ...newState.abilities[2] });
   });
 
-  it('should handle CHANGE_FORM_TEXT', () => {
-    const newState = reducer(state,
-      {
-        type: types.CHANGE_FORM_TEXT,
-        target: 'name',
-        value: 'testValue',
-      });
-    expect(newState.newAbility.name).toBe('testValue');
-  });
-
   it('should handle CLEAR_ABILITY_CACHE', () => {
     state.abilityCache[0] = { name: 'testCachedAbility' };
     state.abilityCache[1] = { name: 'testCachedAbility' };
@@ -141,6 +131,16 @@ describe('Ki reducer', () => {
         value: 'editedText',
       });
     expect(newState.abilities[0].effect).toBe('editedText');
+  });
+
+  it('should handle UPDATE_NEW_ABILITY', () => {
+    const newState = reducer(state,
+      {
+        type: types.UPDATE_NEW_ABILITY,
+        target: 'name',
+        value: 'testValue',
+      });
+    expect(newState.newAbility.name).toBe('testValue');
   });
 
   it('should handle VALIDATE_EDIT', () => {

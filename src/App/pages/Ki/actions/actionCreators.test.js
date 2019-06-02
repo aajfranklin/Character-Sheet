@@ -29,12 +29,12 @@ describe('Ki action creator', () => {
       };
 
       const expectedAction = {
-        type: types.CHANGE_FORM_TEXT,
+        type: types.UPDATE_NEW_ABILITY,
         target: 'testName',
         value: 'testValue',
       };
 
-      expect(actionCreators.changeFormText(event)).toStrictEqual(expectedAction);
+      expect(actionCreators.updateNewAbility(event)).toStrictEqual(expectedAction);
     });
 
     it('should create an action to clear a cached ability', () => {

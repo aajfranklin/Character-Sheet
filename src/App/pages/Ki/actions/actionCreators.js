@@ -9,15 +9,6 @@ export const cacheAbility = uuid => ({
   uuid,
 });
 
-export const changeFormText = (event) => {
-  event.persist();
-  return ({
-    type: types.CHANGE_FORM_TEXT,
-    target: event.target.name,
-    value: event.target.value,
-  });
-};
-
 export const clearAbilityCache = uuid => ({
   type: types.CLEAR_ABILITY_CACHE,
   uuid,
@@ -142,6 +133,15 @@ export const updateAbility = (event, index) => {
   });
 };
 
+export const updateNewAbility = (event) => {
+  event.persist();
+  return ({
+    type: types.UPDATE_NEW_ABILITY,
+    target: event.target.name,
+    value: event.target.value,
+  });
+};
+
 export const validateEdit = (target, value, uuid) => ({
   type: types.VALIDATE_EDIT,
   target,
@@ -156,33 +156,24 @@ export const validateNewAbility = (target, value) => ({
 });
 
 export const validateField = (target, value) => {
-  let valid;
-
   switch (target) {
     case 'name': case 'effect': {
-      valid = value !== '';
-      break;
+      return value !== '';
     }
     case 'cost': {
       const costRegExp = new RegExp(/^\d+$/, 'i');
-      valid = costRegExp.test(value);
-      break;
+      return costRegExp.test(value);
     }
     case 'damage': case 'boost': {
       const diceRegExp = new RegExp(/^\d+((d\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?(\+PROF)?(\+LEV)?)$/, 'i');
-      valid = diceRegExp.test(value);
-      break;
+      return diceRegExp.test(value);
     }
     case 'saving': {
       const saveRegExp = new RegExp(/(^0$)|(^[AS]: \d+((d\d+)?([+\-x](\d+|STR|DEX|CON|INT|WIS|CHA))?(\+PROF)?(\+LEV)?)$)/, 'i');
-      valid = saveRegExp.test(value);
-      break;
+      return saveRegExp.test(value);
     }
     default: {
-      valid = false;
-      break;
+      return false;
     }
   }
-
-  return valid;
 };

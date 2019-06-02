@@ -14,12 +14,6 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
       });
     }
 
-    case types.CHANGE_FORM_TEXT: {
-      return update(state, {
-        newAbility: { [action.target]: { $set: action.value } },
-      });
-    }
-
     case types.CLEAR_ABILITY_CACHE: {
       const abilityCacheIndex = state.abilityCache
         .findIndex(ability => ability.uuid === action.uuid);
@@ -105,6 +99,12 @@ export default function kiReducer(state = { ...initialState.ki }, action) {
     case types.UPDATE_ABILITY: {
       return update(state, {
         abilities: { [action.index]: { [action.target]: { $set: action.value } } },
+      });
+    }
+
+    case types.UPDATE_NEW_ABILITY: {
+      return update(state, {
+        newAbility: { [action.target]: { $set: action.value } },
       });
     }
 

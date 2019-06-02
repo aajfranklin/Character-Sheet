@@ -39,7 +39,7 @@ export function Ability({
             || Object.values(ability.editValidation).length === 0;
   }
 
-  function abilityDataField(attribute, columnWidth, textAlign) {
+  function abilityEditField(attribute, columnWidth, textAlign) {
     return (
       <td className={`col-${columnWidth}`}>
         <TextareaAutosize
@@ -58,12 +58,12 @@ export function Ability({
       { ability.editing
         ? (
           <React.Fragment>
-            {abilityDataField('name', '2', '')}
-            {abilityDataField('cost', '1', '')}
-            {abilityDataField('damage', '1', '')}
-            {abilityDataField('boost', '1', '')}
-            {abilityDataField('saving', '2', '')}
-            {abilityDataField('effect', '6', 'text-left')}
+            {abilityEditField('name', '2', '')}
+            {abilityEditField('cost', '1', '')}
+            {abilityEditField('damage', '1', '')}
+            {abilityEditField('boost', '1', '')}
+            {abilityEditField('saving', '2', '')}
+            {abilityEditField('effect', '6', 'text-left')}
             <td className="col-2 button-group">
               <Button icon="fas fa-dice-d20" buttonStyle="clear flat" clickHandler={() => {}} disabled />
               <Button icon="fas fa-save" buttonStyle="clear flat" clickHandler={handleSave} disabled={disabled()} />

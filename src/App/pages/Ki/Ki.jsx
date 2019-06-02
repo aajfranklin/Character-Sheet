@@ -22,6 +22,7 @@ export function Ki({
   function handleMeditate() {
     update('kiAvailable', total);
   }
+
   return !abilities ? <Loading /> : (
     <div>
       <div className="title-area">
