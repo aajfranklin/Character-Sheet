@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
@@ -7,6 +7,7 @@ import { updateStat } from '../../actions/actionCreators';
 import Ability from './components/Ability';
 import AbilityForm from './components/AbilityForm';
 import Button from '../../components/Button/Button';
+import Loading from '../../components/Loading/Loading';
 import Stat from '../../components/Stat/Stat';
 import './Ki.css';
 import '../../components/Button/Button.css';
@@ -14,16 +15,15 @@ import '../../components/Button/Button.css';
 export function Ki({
   abilities, available, load, showAbilityForm, toggleForm, total, update,
 }) {
-  if (!abilities) {
-    load();
-    return null;
-  }
+  useEffect(() => {
+    console.log('use effect');
+    if (!abilities) load();
+  }, [abilities, load]);
 
   function handleMeditate() {
     update('kiAvailable', total);
   }
-
-  return (
+  return !abilities ? <Loading /> : (
     <div>
       <div className="title-area">
         <div className="title-half-left">

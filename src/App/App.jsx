@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router, NavLink, Route, Switch,
 } from 'react-router-dom';
@@ -15,14 +15,15 @@ import Lore from './pages/Lore/Lore';
 import Map from './pages/Map/Map';
 import NotFound from './pages/NotFound/NotFound';
 import Error from './components/Error/Error';
+import Loading from './components/Loading/Loading';
 import './App.css';
 
 export function App({
   loadOnStart, pages, showError, stats,
 }) {
-  if (isEmpty(stats)) {
-    loadOnStart();
-  }
+  useEffect(() => {
+    if (isEmpty(stats)) loadOnStart();
+  }, [stats, loadOnStart]);
 
   return (
     <div className="App">
@@ -32,16 +33,20 @@ export function App({
         </nav>
         <main>
           {showError ? <Error /> : null}
-          <Switch>
-            <Route exact path="/Stats" component={Stats} />
-            <Route exact path="/Inventory" component={Inventory} />
-            <Route exact path="/Weapons" component={Weapons} />
-            <Route exact path="/Ki" component={Ki} />
-            <Route exact path="/Features" component={Features} />
-            <Route exact path="/Lore" component={Lore} />
-            <Route exact path="/Map" component={Map} />
-            <Route exact component={NotFound} />
-          </Switch>
+          {isEmpty(stats) ? <Loading />
+            : (
+              <Switch>
+                <Route exact path="/Stats" component={Stats} />
+                <Route exact path="/Inventory" component={Inventory} />
+                <Route exact path="/Weapons" component={Weapons} />
+                <Route exact path="/Ki" component={Ki} />
+                <Route exact path="/Features" component={Features} />
+                <Route exact path="/Lore" component={Lore} />
+                <Route exact path="/Map" component={Map} />
+                <Route exact component={NotFound} />
+              </Switch>
+            )
+          }
         </main>
       </Router>
     </div>

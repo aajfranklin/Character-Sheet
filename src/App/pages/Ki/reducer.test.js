@@ -4,7 +4,7 @@ import { testState, deepCopy } from '../../../testUtils';
 
 const state = deepCopy(testState.ki);
 
-describe('ConnectedKi reducer', () => {
+describe('Ki reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(state, {})).toStrictEqual(state);
   });

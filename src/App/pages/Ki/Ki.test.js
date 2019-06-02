@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { testState, deepCopy } from '../../../testUtils';
 import { Ki } from './Ki';
@@ -10,6 +10,7 @@ let wrapper;
 const state = deepCopy(testState);
 
 jest.mock('./components/Ability');
+jest.mock('../../components/Stat/Stat');
 const mockLoadAbilities = jest.fn();
 const mockToggleAbilityForm = jest.fn();
 const mockUpdateStat = jest.fn();
@@ -27,26 +28,34 @@ function setUp(abilities, showAbilityForm) {
 }
 
 describe('Ki', () => {
-  describe('On rendering the ConnectedKi page with no abilities in state', () => {
+  describe('On rendering the Ki page with no abilities in state', () => {
     beforeAll(() => {
-      setUp(null, false);
+      wrapper = mount(<Ki
+        load={mockLoadAbilities}
+        update={mockUpdateStat}
+        toggleForm={mockToggleAbilityForm}
+        showAbilityForm={false}
+        abilities={null}
+        total={state.app.stats.kiTotal}
+        available={state.app.stats.kiAvailable}
+      />);
     });
 
     it('should call loadAbilities', () => {
       expect(mockLoadAbilities.mock.calls.length).toBe(1);
     });
 
-    it('should return null', () => {
-      expect(wrapper.exists('div')).toBe(false);
+    it('should display a loading message', () => {
+      expect(wrapper.find('Loading').length).toBe(1);
     });
   });
 
-  describe('On rendering the ConnectedKi page with any abilities in state and showAbilityForm false', () => {
+  describe('On rendering the Ki page with any abilities in state and showAbilityForm false', () => {
     beforeAll(() => {
       setUp(state.ki.abilities, false);
     });
 
-    it('displays the ConnectedKi heading', () => {
+    it('displays the Ki heading', () => {
       expect(wrapper.find('h1').length).toBe(1);
       expect(wrapper.find('h1').text()).toBe('Ki');
     });
@@ -90,7 +99,7 @@ describe('Ki', () => {
     });
   });
 
-  describe('On rendering the ConnectedKi page with any abilities in state and showAbilityForm true', () => {
+  describe('On rendering the Ki page with any abilities in state and showAbilityForm true', () => {
     beforeAll(() => {
       setUp(state.ki.abilities, true);
     });

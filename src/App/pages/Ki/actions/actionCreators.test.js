@@ -8,7 +8,7 @@ import { testState } from '../../../../testUtils';
 
 jest.mock('../../../../apiGatewayClient');
 
-describe('ConnectedKi action creator', () => {
+describe('Ki action creator', () => {
   describe('synchronous actions', () => {
     it('should create an action to cache an ability', () => {
       const expectedAction = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Route } from 'react-router-dom';
 import { testState, deepCopy } from '../testUtils';
@@ -33,9 +33,24 @@ function setUp(stats) {
 describe('App', () => {
   describe('On loading the home page', () => {
     describe('if stats have not been loaded', () => {
+
+      beforeAll(() => {
+        wrapper = mount(
+          <App
+            loadOnStart={mockLoadStats}
+            pages={state.app.pages}
+            stats={{}}
+            showError={false}
+          />,
+        );
+      });
+
       it('should load stats', () => {
-        setUp({});
         expect(mockLoadStats.mock.calls.length).toBe(1);
+      });
+
+      it('should display a loading message', () => {
+        expect(wrapper.find('Loading').length).toBe(1);
       });
     });
 
@@ -78,7 +93,7 @@ describe('App', () => {
         expect(pathMap['/Weapons']).toBe(Weapons);
       });
 
-      it('should show ConnectedKi page for /ConnectedKi route', () => {
+      it('should show Ki page for /Ki route', () => {
         expect(pathMap['/Ki']).toBe(ConnectedKi);
       });
 

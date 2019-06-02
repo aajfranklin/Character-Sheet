@@ -1,0 +1,29 @@
+.loading-container {
+  align-items: center;
+  display: flex;
+  height: 94vh;
+  justify-content: center;
+}
+
+.loading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 3em;
+}
+
+.loading::after {
+  animation: ellipsis steps(4, end) 900ms infinite;
+  display: inline-block;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  margin-right: 40px;
+  overflow: hidden;
+  vertical-align: bottom;
+  width: 0;
+}
+
+@keyframes ellipsis {
+  to {
+    margin-right: 0;
+    width: 40px;
+  }
+}

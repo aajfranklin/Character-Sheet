@@ -78,7 +78,7 @@ describe('Ability', () => {
       });
     });
 
-    describe('when the ability costs more than the currently available ConnectedKi', () => {
+    describe('when the ability costs more than the currently available ki', () => {
       beforeAll(() => {
         wrapper = shallow(<Ability
           ability={state.ki.abilities[0]}
