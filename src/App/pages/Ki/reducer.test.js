@@ -115,9 +115,7 @@ describe('Ki reducer', () => {
     const newState = reducer(state,
       { type: types.TOGGLE_ADD_ABILITY_FORM });
     expect(newState.showAbilityForm).toBe(true);
-    expect(newState.newAbility).toStrictEqual({
-      name: '', cost: '', boost: '', damage: '', saving: '', effect: '',
-    });
+    expect(newState.newAbility).toStrictEqual({});
     expect(newState.abilityFormValidation).toStrictEqual({});
   });
 

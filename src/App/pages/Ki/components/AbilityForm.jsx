@@ -10,6 +10,11 @@ import Button from '../../../components/Button/Button';
 export function AbilityForm({
   handleFormChange, submitNewAbility, toggleForm, newAbility, isValid, validate,
 }) {
+  function disabled() {
+    return Object.values(isValid).indexOf(false) >= 0
+            || Object.values(isValid).length !== 6;
+  }
+
   function handleSubmit() {
     const ability = { ...newAbility };
     ability.uuid = uuid();
@@ -19,88 +24,43 @@ export function AbilityForm({
 
   function invalid(attribute) {
     return Object.prototype.hasOwnProperty.call(isValid, attribute)
-            && !isValid[attribute];
-  }
-
-  function disabled() {
-    return Object.values(isValid).indexOf(false) >= 0
-            || Object.values(isValid).length !== 6;
+      && !isValid[attribute];
   }
 
   const invalidMessages = {
-    textField: ' must not be left blank',
-    numericField: ' must be numeric',
-    diceField: ' must be a roll e.g. 1D6+WIS',
+    text: ' must not be left blank',
+    numeric: ' must be numeric',
+    dice: ' must be a roll e.g. 1D6+WIS',
   };
+
+  function formField(attribute, displayName, fieldType, pClass, placeholder, textAreaClass) {
+    return (
+      <p className={pClass + (invalid(attribute) ? ' invalid' : '')}>
+        {`${displayName + (invalid(attribute) ? invalidMessages[fieldType] : '')}`}
+        <textarea
+          name={attribute}
+          value={newAbility[attribute]}
+          placeholder={placeholder}
+          className={textAreaClass}
+          onChange={handleFormChange}
+          onBlur={validate}
+        />
+      </p>
+    );
+  }
 
   return (
     <form>
-      <p className={invalid('name') ? 'invalid' : ''}>
-        {`Name: ${invalid('name') ? invalidMessages.textField : ''}`}
-        <textarea
-          name="name"
-          value={newAbility.name}
-          placeholder={'What it\'s called...'}
-          className="wide"
-          onChange={handleFormChange}
-          onBlur={validate}
-        />
-      </p>
+      {formField('name', 'Name:', 'text', '', 'What it\'s called...', 'wide')}
       <div>
-        <p className={`half-form-entry${invalid('cost') ? ' invalid' : ''}`}>
-          {`Cost: ${invalid('cost') ? invalidMessages.numericField : ''}`}
-          <textarea
-            name="cost"
-            value={newAbility.cost}
-            placeholder="0"
-            onChange={handleFormChange}
-            onBlur={validate}
-          />
-        </p>
-        <p className={`half-form-entry${invalid('damage') ? ' invalid' : ''}`}>
-          {`Damage: ${invalid('damage') ? invalidMessages.diceField : ''}`}
-          <textarea
-            name="damage"
-            value={newAbility.damage}
-            placeholder="1D6"
-            onChange={handleFormChange}
-            onBlur={validate}
-          />
-        </p>
+        {formField('cost', 'Cost:', 'numeric', 'half-form-entry', '0', '')}
+        {formField('damage', 'Damage:', 'dice', 'half-form-entry', '1d6', '')}
       </div>
       <div>
-        <p className={`half-form-entry${invalid('boost') ? ' invalid' : ''}`}>
-          {`Boost: ${invalid('boost') ? invalidMessages.diceField : ''}`}
-          <textarea
-            name="boost"
-            value={newAbility.boost}
-            placeholder="1D6"
-            onChange={handleFormChange}
-            onBlur={validate}
-          />
-        </p>
-        <p className={`half-form-entry${invalid('saving') ? ' invalid' : ''}`}>
-          {`Attack/Saving: ${invalid('saving') ? invalidMessages.diceField : ''}`}
-          <textarea
-            name="saving"
-            value={newAbility.saving}
-            placeholder="1D6"
-            onChange={handleFormChange}
-            onBlur={validate}
-          />
-        </p>
+        {formField('boost', 'Boost:', 'dice', 'half-form-entry', '1d6', '')}
+        {formField('saving', 'Attack/Saving:', 'dice', 'half-form-entry', 'A/S: 1d6', '')}
       </div>
-      <p className={invalid('effect') ? 'invalid' : ''}>
-        {`Effect: ${invalid('effect') ? invalidMessages.textField : ''}`}
-        <textarea
-          className="tall"
-          name="effect"
-          value={newAbility.effect}
-          placeholder="What it does..."
-          onChange={handleFormChange}
-          onBlur={validate}
-        />
-      </p>
+      {formField('effect', 'Effect:', 'text', '', 'What it does...', 'tall')}
       <div className="button-group">
         <Button
           clickHandler={handleSubmit}
